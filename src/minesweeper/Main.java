@@ -70,7 +70,6 @@ public class Main {
 			}
 			else if (roundsWithoutAction == 3){
 				System.out.println("guessed");
-//				robot.delay(1000);
 				MouseOperations.clickRandomNonClickedSquare();
 				guessed++;
 				roundsWithoutAction = 0;
