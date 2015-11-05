@@ -15,7 +15,7 @@ public class NumberOnSquares {
 	private static Tuple flagPixel = new Tuple(8, 10);
 	private static Tuple nonClickedPixel = new Tuple(1, 0);
 	private static HashMap<Integer, Tuple> squareCoordinates =
-			ObjectsOutAndIn.getHashMap("squareCoordinates.ser");
+			ObjectsOnDisk.getHashMap("squareCoordinates.ser");
 	
 	
 	

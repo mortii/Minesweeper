@@ -6,12 +6,18 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
-public class ObjectsOutAndIn {
+public class ObjectsOnDisk {
 	
 	public static <E> HashMap<Integer, E> getHashMap(String file){
 		HashMap<Integer, E> map = null;
-		try {map = tryToGetHashMap(file);} 
-		catch (Exception e) {System.out.println("Error when getting hashmap");}
+		
+		try {
+			map = tryToGetHashMap(file);
+		} 
+		catch (Exception e) {
+			System.out.println("Error when getting hashmap");
+		}
+		
 		return map;
 	}
 	
@@ -26,8 +32,12 @@ public class ObjectsOutAndIn {
 		
 	
 	public static <E> void setHashMap(String file, HashMap<Integer, E> map){
-		try {tryToSetHashMap(file, map);}
-		catch (Exception e) {System.out.println("Error setting hashmap");}
+		try {
+			tryToSetHashMap(file, map);
+		}
+		catch (Exception e) {
+			System.out.println("Error setting hashmap");
+		}
 	}
 	
 	

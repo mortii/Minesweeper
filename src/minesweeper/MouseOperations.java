@@ -9,7 +9,7 @@ import java.util.Random;
 public class MouseOperations {
 	private static int milliSecondClickDelay = 55;
 	public static HashMap<Integer, Tuple> centerOfSquares =
-			ObjectsOutAndIn.getHashMap("centerOfSquares.ser");
+			ObjectsOnDisk.getHashMap("centerOfSquares.ser");
 	
 	
 	public static void clickFirstSquare(){
