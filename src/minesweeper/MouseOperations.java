@@ -7,13 +7,13 @@ import java.util.Random;
 
 
 public class MouseOperations {
-	private static int milliSecondClickDelay = 55;
+	private static int milliSecondClickDelay = 5;
 	public static HashMap<Integer, Tuple> centerOfSquares =
 			ObjectsOnDisk.getHashMap("centerOfSquares.ser");
 	
 	
 	public static void clickFirstSquare(){
-		int startSquare = 30;
+		int startSquare = 0;
 		int milliseconds = 200;
 		Main.robot.delay(milliseconds);
 		moveMouse(startSquare);
