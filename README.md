@@ -1,7 +1,7 @@
 
 
-![](http://gfycat.com/HelpfulObeseCorydorascatfish)
-
+[![Demo CountPages alpha](http://gfycat.com/HelpfulObeseCorydorascatfish)
+]
 
 [![Demo CountPages alpha](http://share.gifyoutube.com/KzB6Gb.gif)]
 
