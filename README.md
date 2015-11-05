@@ -3,6 +3,9 @@
 ![](http://gfycat.com/HelpfulObeseCorydorascatfish)
 
 
+[![Demo CountPages alpha](http://share.gifyoutube.com/KzB6Gb.gif)]
+
+
 ### Download the old minesweeper here:
 http://forum.xda-developers.com/showthread.php?t=2096449
 
@@ -19,3 +22,7 @@ consistent results. (The race condition causes the mouse to move before the clic
 ###Dependencies:
 jna.jar and jna-platform.jar which can be downloaded here:
 https://github.com/java-native-access/jna
+
+
+
+
