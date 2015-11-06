@@ -3,7 +3,7 @@
 [![Demo CountPages alpha](http://gfycat.com/HelpfulObeseCorydorascatfish)
 ]
 
-[!(http://share.gifyoutube.com/KzB6Gb.gif)]
+[![deoingwepog](http://gph.is/1HgTEFg)]
 
 
 ### Download the old minesweeper here:
