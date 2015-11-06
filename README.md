@@ -6,6 +6,9 @@
 [![deoingwepog](http://gph.is/1HgTEFg)]
 
 
+![](http://i.imgur.com/OUkLi.gif)
+
+
 ### Download the old minesweeper here:
 http://forum.xda-developers.com/showthread.php?t=2096449
 
