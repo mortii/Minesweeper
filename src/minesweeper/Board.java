@@ -36,7 +36,7 @@ public class Board {
 	public static void updateSquareNumber(int square){
 		int row = ElementConversion.getRow(square);
 		int column = ElementConversion.getColumn(square);
-		int number = NumberOnSquares.getNumber(square);
+		int number = ComputerVision.getNumber(square);
 		
 //		System.out.println("square:"+ square +" number:"+ number);
 		board[row][column] = number;

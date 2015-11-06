@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.HashMap;
 
 
-public class NumberOnSquares {
+public class ComputerVision {
 	private static Tuple onePixel = new Tuple(16, 16);
 	private static Tuple twoPixel = new Tuple(23, 26);
 	private static Tuple threePixel = new Tuple(20, 11);
