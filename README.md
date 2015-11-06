@@ -1,13 +1,6 @@
 
 
-[![Demo CountPages alpha](http://gfycat.com/HelpfulObeseCorydorascatfish)
-]
-
-[![](http://i.giphy.com/3o85xkQybJOjWlv5NS.gif)]
-
-
-![](http://i.imgur.com/OUkLi.gif)
-
+![Minesweeper solver](http://i.giphy.com/3o85xkQybJOjWlv5NS.gif)
 
 ### Download the old minesweeper here:
 http://forum.xda-developers.com/showthread.php?t=2096449
