@@ -3,7 +3,7 @@
 [![Demo CountPages alpha](http://gfycat.com/HelpfulObeseCorydorascatfish)
 ]
 
-[![](http://gph.is/1HgTEFg)]
+[![](http://i.giphy.com/3o85xkQybJOjWlv5NS.gif)]
 
 
 ![](http://i.imgur.com/OUkLi.gif)
