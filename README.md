@@ -11,9 +11,9 @@ http://forum.xda-developers.com/showthread.php?t=2096449
 The minesweeper board must have the same tile grid as the "Advanced" difficulty, i.e. 16x30.
 You also need to untick the "Display animations" and "Allow question marks" boxes to get the optimal results.
 
-The speed of the program is dependent on the milliSecondClickDelay variable in MouseOperations.java, but
+The speed of the program is dependent on the milliSecondClickDelay variable in Mouse.java, but
 due to race conditions in the Robot class it can not be less than 5, but should be at least 25 to produce
-consistent results. (The race condition causes the mouse to move before the click is registered).
+consistent results. (The race condition can causes the mouse to move before the click is registered).
 	
 ###Dependencies:
 jna.jar and jna-platform.jar, download here:
