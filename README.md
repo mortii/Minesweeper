@@ -3,7 +3,7 @@
 [![Demo CountPages alpha](http://gfycat.com/HelpfulObeseCorydorascatfish)
 ]
 
-[![Demo CountPages alpha](http://share.gifyoutube.com/KzB6Gb.gif)]
+[!(http://share.gifyoutube.com/KzB6Gb.gif)]
 
 
 ### Download the old minesweeper here:
@@ -20,7 +20,7 @@ due to race conditions in the Robot class it can not be less than 5, but should 
 consistent results. (The race condition causes the mouse to move before the click is registered).
 	
 ###Dependencies:
-jna.jar and jna-platform.jar which can be downloaded here:
+jna.jar and jna-platform.jar, download here:
 https://github.com/java-native-access/jna
 
 
