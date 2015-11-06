@@ -36,7 +36,7 @@ public class Main {
 	
 	
 	public static void solve(){
-		MouseOperations.clickFirstSquare();
+		Mouse.clickFirstSquare();
 		Board.getNumbersOnAllSquares();
 		fillNonClickedListAndValidNumberList();
 		updateSquareDataForSquaresInValidNumberList();
@@ -70,7 +70,7 @@ public class Main {
 			}
 			else if (roundsWithoutAction == 3){
 				System.out.println("guessed");
-				MouseOperations.clickRandomNonClickedSquare();
+				Mouse.clickRandomNonClickedSquare();
 				guessed++;
 				roundsWithoutAction = 0;
 			}
@@ -162,12 +162,12 @@ public class Main {
 			int nonClicked = squareData.surroundingNonClickedSquares.size();
 			
 			if (number == flags){
-				MouseOperations.clickAllSurroudingNonClicked(squareData);
+				Mouse.clickAllSurroudingNonClicked(squareData);
 				removeFromSquaresThatHaveValidNumbers(square);
 				worked = true;
 			}
 			else if (number == flags + nonClicked){
-				MouseOperations.flagSurroudingSquares(squareData);
+				Mouse.flagSurroudingSquares(squareData);
 				removeFromSquaresThatHaveValidNumbers(square);
 				worked = true;
 			}
@@ -260,7 +260,7 @@ public class Main {
 		SquareData firstSquareSquareData = squareDataMap.get(firstSquare);
 		
 		if (firstSquareSquareData.hasNextNonClicked()){
-			MouseOperations.clickAllNonClickedExceptEdgeAndNonEdge(firstSquareSquareData, advancedData);
+			Mouse.clickAllNonClickedExceptEdgeAndNonEdge(firstSquareSquareData, advancedData);
 		}
 		
 		flagOppositeSide(advancedData);
@@ -269,7 +269,7 @@ public class Main {
 
 	public static void flagOppositeSide(AdvancedData advancedData){
 		int lastNonClicked = advancedData.lastNonClicked;
-		MouseOperations.flagSquare(lastNonClicked);
+		Mouse.flagSquare(lastNonClicked);
 	}
 	
 	
@@ -317,7 +317,7 @@ public class Main {
 		if (otherSquareData != null){
 			int number = otherSquareData.numberOnSquare - otherSquareData.surroundingFlags;
 			if (number == 1){
-				MouseOperations.clickAllNonClickedExceptEdgeAndNonEdge(otherSquareData, advancedData);
+				Mouse.clickAllNonClickedExceptEdgeAndNonEdge(otherSquareData, advancedData);
 			}
 		}
 	}
