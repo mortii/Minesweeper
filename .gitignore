@@ -2,3 +2,4 @@ bin/
 .classpath
 .project
 ComputerVisionTestImages/
+src/minesweeper/ObsoleteFunctions.java
