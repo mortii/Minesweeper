@@ -7,11 +7,8 @@ public class SquareData{
 	public int numberOnSquare;
 	public int row;
 	public int column;
-	public int index;
 	public int surroundingFlags;
 	public ArrayList<Integer> surroundingNonClickedSquares;
-	
-
 	
 	
 	public SquareData(int square){
@@ -19,20 +16,19 @@ public class SquareData{
 		this.row = ElementConversion.getRow(square);
 		this.column = ElementConversion.getColumn(square);
 		this.numberOnSquare = 0;
-		this.index = 0;
 		this.surroundingFlags = 0;
 		this.surroundingNonClickedSquares = new ArrayList<Integer>();
 	}
 	
 	
-	public static void updateSquareData(int square){
+	public static ArrayList<Coordinate> surroundingSquares(int square){
+		ArrayList<Coordinate> surroundingSquaresList = new ArrayList<Coordinate>();
+		
 		int[][] board = Board.board;
 		int[] offset = Main.offset;
 		
-		SquareData squareData = new SquareData(square);
-		int row = squareData.row;
-		int column = squareData.column;
-		squareData.numberOnSquare = board[row][column];
+		int row = ElementConversion.getRow(square);
+		int column = ElementConversion.getColumn(square);
 		
 		for (int rowOffset : offset){
 			for (int columnOffset : offset){
@@ -42,16 +38,33 @@ public class SquareData{
 				
 				if (newRow < board.length && newRow > -1){
 					if (newColumn < board[0].length && newColumn > -1){
-	
-						if (board[newRow][newColumn] == 9){
-							squareData.surroundingFlags++;
-						}
-						else if (board[newRow][newColumn] == 8){
-							int element = ElementConversion.getElement(newRow, newColumn);
-							squareData.surroundingNonClickedSquares.add(element);
-						}
+						
+						Coordinate surroundingSquare = new Coordinate(newRow, newColumn);
+						surroundingSquaresList.add(surroundingSquare);
 					}
 				}
+			}
+		}
+		return surroundingSquaresList;
+	}
+	
+	
+	public static void updateSquareData(int square){
+		ArrayList<Coordinate> surroundingSquares = surroundingSquares(square);
+		int[][] board = Board.board;
+		
+		SquareData squareData = new SquareData(square);
+		int row = squareData.row;
+		int column = squareData.column;
+		squareData.numberOnSquare = board[row][column];
+		
+		for (Coordinate surroundingSquare : surroundingSquares){
+			
+			if (board[surroundingSquare.row][surroundingSquare.column] == 9){
+				squareData.surroundingFlags++;
+			}
+			else if (board[surroundingSquare.row][surroundingSquare.column] == 8){
+				squareData.surroundingNonClickedSquares.add(surroundingSquare.element);
 			}
 		}
 		squareData.printData();
@@ -60,60 +73,29 @@ public class SquareData{
 	
 	
 	public static void removeSurroudingSquareDataClicked(int square){
-		int[][] board = Board.board;
-		int row = ElementConversion.getRow(square);
-		int column = ElementConversion.getColumn(square);
-		
-		for (int rowOffset : Main.offset){
-			for (int columnOffset : Main.offset){
-				
-				int newRow = row + rowOffset;
-				int newColumn = column + columnOffset;
-				
-				if (newRow < board.length && newRow > -1){
-					if (newColumn < board[0].length && newColumn > -1){
-						
-						int element = ElementConversion.getElement(newRow, newColumn);
-						SquareData squareData = Main.squareDataMap.get(element);
-						
-						if (squareData != null){
-//							System.out.println("current square:"+element+" square to remove:"+square);
-							squareData.removeNonClicked(square);
-							Main.squareDataMap.put(element, squareData);
-						}
-						
-					}
-				}
+		ArrayList<Coordinate> surroundingSquares = surroundingSquares(square);
+
+		for (Coordinate surroundingSquare : surroundingSquares){
+			SquareData squareData = Main.squareDataMap.get(surroundingSquare.element);
+			
+			if (squareData != null){
+				squareData.removeNonClicked(square);
+				Main.squareDataMap.put(surroundingSquare.element, squareData);
 			}
 		}
 	}
 	
 	
 	public static  void removeSquareDataFlag(int square){
-		int[][] board = Board.board;
-		int row = ElementConversion.getRow(square);
-		int column = ElementConversion.getColumn(square);
+		ArrayList<Coordinate> surroundingSquares = surroundingSquares(square);
+
+		for (Coordinate surroundingSquare : surroundingSquares){
+			SquareData squareData = Main.squareDataMap.get(surroundingSquare.element);
 		
-		for (int rowOffset : Main.offset){
-			for (int columnOffset : Main.offset){
-				
-				int newRow = row + rowOffset;
-				int newColumn = column + columnOffset;
-				
-				if (newRow < board.length && newRow > -1){
-					if (newColumn < board[0].length && newColumn > -1){
-						
-						int element = ElementConversion.getElement(newRow, newColumn);
-						SquareData squareData = Main.squareDataMap.get(element);
-						
-						if (squareData != null){
-//							System.out.println("current square:"+element+" square to remove:"+square);
-							squareData.removeNonClicked(square);
-							squareData.surroundingFlags++;
-							Main.squareDataMap.put(element, squareData);
-						}
-					}
-				}
+			if (squareData != null){
+				squareData.removeNonClicked(square);
+				squareData.surroundingFlags++;
+				Main.squareDataMap.put(surroundingSquare.element, squareData);
 			}
 		}
 	}
@@ -121,17 +103,13 @@ public class SquareData{
 	
 	public void removeNonClicked(int squareToRemove){
 		int index = surroundingNonClickedSquares.indexOf(squareToRemove);
-//		printNonClicked();
-//		System.out.println("index of square:"+index);
 		try{
 			surroundingNonClickedSquares.remove(index);
 		}
 		catch(Exception E){
-//			System.out.println("failed to remove nonClicked from squareData");
 		}
-//		System.out.println("removed!");
-//		System.out.println();
 	}
+	
 	
 	public boolean inNonClickedList(int row, int column){
 		int element = ElementConversion.getElement(row, column);
@@ -153,16 +131,17 @@ public class SquareData{
 	
 
 	public boolean hasNextNonClicked() {
-		if (surroundingNonClickedSquares.iterator().hasNext()){
+		if (!surroundingNonClickedSquares.isEmpty()){
 			return true;
 		}
 		return false;
 	}
 
+	
 	public Integer nextNonClicked() {
-		int next = surroundingNonClickedSquares.get(index);
-		return next;
+		return surroundingNonClickedSquares.get(0);
 	}
+	
 	
 	public void printData(){
 		System.out.print("square:"+this.square);
@@ -174,3 +153,19 @@ public class SquareData{
 	
 	
 }
+
+
+class Coordinate{
+	public int row;
+	public int column;
+	public int element;
+	
+	public Coordinate(int row, int column){
+		this.row = row;
+		this.column = column;
+		this.element = ElementConversion.getElement(row, column);
+	}
+}
+
+
+
