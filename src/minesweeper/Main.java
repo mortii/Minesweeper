@@ -55,17 +55,6 @@ public class Main {
 			else if (roundsWithoutAction == 2){
 				advancedTechniques();
 				advancedTechniques++;
-				
-				int arrLength = squaresThatHaveValidNumbersList.size();
-				
-				updateAllNonClickedSquares();
-				updateSquareDataForSquaresInValidNumberList();
-				
-				if (arrLength < squaresThatHaveValidNumbersList.size()){
-					roundsWithoutAction = 0;
-				}
-				
-				
 			}
 			else if (roundsWithoutAction == 3){
 				System.out.println("guessed");

@@ -66,7 +66,7 @@ public class SquareData{
 				squareData.surroundingNonClickedSquares.add(surroundingSquare.element);
 			}
 		}
-		squareData.printData();
+//		squareData.printData();
 		Main.squareDataMap.put(square, squareData);
 	}
 	
