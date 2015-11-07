@@ -67,34 +67,28 @@ public class SquareData{
 				squareData.surroundingNonClickedSquares.add(surroundingSquare.element);
 			}
 		}
-		squareData.printData();
+//		squareData.printData();
 		Main.squareDataMap.put(square, squareData);
 	}
 	
 	
-	public static void removeSurroudingSquareDataClicked(int square){
+	public static void removeSurroudingSquareData(int square){
 		ArrayList<Coordinate> surroundingSquares = surroundingSquares(square);
+		
+		int originalRow = ElementConversion.getRow(square);
+		int originalColumn = ElementConversion.getColumn(square);
 
 		for (Coordinate surroundingSquare : surroundingSquares){
 			SquareData squareData = Main.squareDataMap.get(surroundingSquare.element);
 			
 			if (squareData != null){
 				squareData.removeNonClicked(square);
-				Main.squareDataMap.put(surroundingSquare.element, squareData);
-			}
-		}
-	}
-	
-	
-	public static  void removeSquareDataFlag(int square){
-		ArrayList<Coordinate> surroundingSquares = surroundingSquares(square);
-
-		for (Coordinate surroundingSquare : surroundingSquares){
-			SquareData squareData = Main.squareDataMap.get(surroundingSquare.element);
-		
-			if (squareData != null){
-				squareData.removeNonClicked(square);
-				squareData.surroundingFlags++;
+				
+				if (Board.board[originalRow][originalColumn] == 9){
+					squareData.surroundingFlags++;
+					System.out.println("is flag");
+				}
+				
 				Main.squareDataMap.put(surroundingSquare.element, squareData);
 			}
 		}

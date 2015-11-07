@@ -64,9 +64,6 @@ public class Mouse {
 			
 			randomNumber = random.nextInt(listLength-1);
 			randomSquare = squareData.surroundingNonClickedSquares.get(randomNumber);
-			
-	//		squareData.printNonClicked();
-	//		System.out.println("randomSquare:"+randomSquare);
 				
 			moveMouse(randomSquare);
 			leftClickMouse();
@@ -80,11 +77,7 @@ public class Mouse {
 			int next = squareData.nextNonClicked();
 			
 			leftClickSquare(next);
-			SquareData.removeSurroudingSquareDataClicked(next);
-			
-//			Board.printBoard();
-//			System.out.println();
-
+			SquareData.removeSurroudingSquareData(next);
 		}
 	}
 	
@@ -100,14 +93,14 @@ public class Mouse {
 	public static void flagSquare(int square){
 		moveMouse(square);
 		rightClickMouse();
-		SquareData.removeSquareDataFlag(square);
 		
 		int row = ElementConversion.getRow(square);
 		int column = ElementConversion.getColumn(square);
 		
 		Board.board[row][column] = 9;
 		Main.removeFromNonClickedList(square);
-		
+
+		SquareData.removeSurroudingSquareData(square);
 	}
 	
 	
@@ -126,16 +119,13 @@ public class Mouse {
 				squaresToClick.remove(index);
 			}
 			catch (Exception E){
-//				System.out.println("not in list");
 			}
 		}
 		
-		
 		for (int square : squaresToClick){
 			leftClickSquare(square);
-			SquareData.removeSurroudingSquareDataClicked(square);
+			SquareData.removeSurroudingSquareData(square);
 		}
-		
 	}
 	
 }
