@@ -23,8 +23,8 @@ public class Mouse {
 	
 	public static void moveMouse(int square){
 //		System.out.println("moved mouse");
-		Pixel tuple = centerOfSquares.get(square);
-		Main.robot.mouseMove(tuple.x, tuple.y);
+		Pixel pixel = centerOfSquares.get(square);
+		Main.robot.mouseMove(pixel.x, pixel.y);
 //		Main.robot.delay(100);
 	}
 	

@@ -18,7 +18,6 @@ public class ComputerVision {
 			ObjectsOnDisk.getHashMap("squareCoordinates.ser");
 	
 	
-	
 	public static int getNumber(int square){
 		Pixel pixelOffset = getPixelOffset(square);
 		int numberOnSquare = 0;
@@ -100,7 +99,6 @@ public class ComputerVision {
 		Pixel tuple = new Pixel(pixelX, pixelY);
 		return tuple;
 	}
-		
 }
 
 
@@ -120,7 +118,6 @@ class PixelColors {
 		this.red = imageColors.getRed();
 		this.green = imageColors.getGreen();
 		this.blue = imageColors.getBlue();
-//		System.out.println(imageColors);
 	}
 }
 

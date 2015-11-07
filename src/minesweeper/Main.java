@@ -25,7 +25,7 @@ public class Main {
 		advancedDataMap = new HashMap<Integer, AdvancedData>();
 		squareDataMap = new HashMap<Integer, SquareData>();
 		robot = new Robot();
-		
+
 		WindowManipulation.setMinsweeperSizeAndPosition();
 		WindowManipulation.setMinesweeperToForeground();
 		solve();
