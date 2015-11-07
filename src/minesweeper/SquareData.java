@@ -25,8 +25,7 @@ public class SquareData{
 		ArrayList<Coordinate> surroundingSquaresList = new ArrayList<Coordinate>();
 		
 		int[][] board = Board.board;
-		int[] offset = Main.offset;
-		
+		int[] offset = {-1, 0, 1};
 		int row = ElementConversion.getRow(square);
 		int column = ElementConversion.getColumn(square);
 		
@@ -67,7 +66,7 @@ public class SquareData{
 				squareData.surroundingNonClickedSquares.add(surroundingSquare.element);
 			}
 		}
-//		squareData.printData();
+		squareData.printData();
 		Main.squareDataMap.put(square, squareData);
 	}
 	
@@ -86,7 +85,6 @@ public class SquareData{
 				
 				if (Board.board[originalRow][originalColumn] == 9){
 					squareData.surroundingFlags++;
-					System.out.println("is flag");
 				}
 				
 				Main.squareDataMap.put(surroundingSquare.element, squareData);

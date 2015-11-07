@@ -126,9 +126,6 @@ public class AdvancedData {
 		
 		return true;
 	}
-	
-	
-	
 }
 
 

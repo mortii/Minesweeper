@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 
 public class Main {
-	public static int[] offset = {-1, 0, 1};
 	public static int[] notValidNumbersOnSquares = {0, 8, 9};
 	public static ArrayList<Integer> squaresThatHaveValidNumbersList;
 	public static ArrayList<Integer> nonClickedSquaresList;
