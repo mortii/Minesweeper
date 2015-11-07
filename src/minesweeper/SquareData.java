@@ -150,8 +150,6 @@ public class SquareData{
 		System.out.print(" nonClicked:"+this.surroundingNonClickedSquares.size());
 		System.out.println();
 	}
-	
-	
 }
 
 

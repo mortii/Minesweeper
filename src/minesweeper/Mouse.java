@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Mouse {
 	private static int milliSecondClickDelay = 35;
-	public static HashMap<Integer, Tuple> centerOfSquares =
+	public static HashMap<Integer, Pixel> centerOfSquares =
 			ObjectsOnDisk.getHashMap("centerOfSquares.ser");
 	
 	
@@ -23,7 +23,7 @@ public class Mouse {
 	
 	public static void moveMouse(int square){
 //		System.out.println("moved mouse");
-		Tuple tuple = centerOfSquares.get(square);
+		Pixel tuple = centerOfSquares.get(square);
 		Main.robot.mouseMove(tuple.x, tuple.y);
 //		Main.robot.delay(100);
 	}

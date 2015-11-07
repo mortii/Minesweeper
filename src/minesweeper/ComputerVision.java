@@ -5,22 +5,22 @@ import java.util.HashMap;
 
 
 public class ComputerVision {
-	private static Tuple onePixel = new Tuple(16, 16);
-	private static Tuple twoPixel = new Tuple(23, 26);
-	private static Tuple threePixel = new Tuple(20, 11);
-	private static Tuple fourPixel = new Tuple(10, 20);
-	private static Tuple fivePixel = new Tuple(12, 11);
-	private static Tuple sixPixel = new Tuple(13, 20);
-	private static Tuple sevenPixel = new Tuple(24, 7);
-	private static Tuple flagPixel = new Tuple(8, 10);
-	private static Tuple nonClickedPixel = new Tuple(1, 0);
-	private static HashMap<Integer, Tuple> squareCoordinates =
+	private static Pixel onePixel = new Pixel(16, 16);
+	private static Pixel twoPixel = new Pixel(23, 26);
+	private static Pixel threePixel = new Pixel(20, 11);
+	private static Pixel fourPixel = new Pixel(10, 20);
+	private static Pixel fivePixel = new Pixel(12, 11);
+	private static Pixel sixPixel = new Pixel(13, 20);
+	private static Pixel sevenPixel = new Pixel(24, 7);
+	private static Pixel flagPixel = new Pixel(8, 10);
+	private static Pixel nonClickedPixel = new Pixel(1, 0);
+	private static HashMap<Integer, Pixel> squareCoordinates =
 			ObjectsOnDisk.getHashMap("squareCoordinates.ser");
 	
 	
 	
 	public static int getNumber(int square){
-		Tuple pixelOffset = getPixelOffset(square);
+		Pixel pixelOffset = getPixelOffset(square);
 		int numberOnSquare = 0;
 		
 		PixelColors pixelFlagColors = new PixelColors(flagPixel, pixelOffset);
@@ -93,11 +93,11 @@ public class ComputerVision {
 	}
 
 	
-	private static Tuple getPixelOffset(int square){
+	private static Pixel getPixelOffset(int square){
 		int pixelX = squareCoordinates.get(square).x;
 		int pixelY = squareCoordinates.get(square).y;
 		
-		Tuple tuple = new Tuple(pixelX, pixelY);
+		Pixel tuple = new Pixel(pixelX, pixelY);
 		return tuple;
 	}
 		
@@ -110,8 +110,8 @@ class PixelColors {
 	public int blue;
 	
 	
-	public PixelColors(Tuple pixel, Tuple pixelOffset) {
-		Tuple pixelCopy = new Tuple(pixel.x, pixel.y);
+	public PixelColors(Pixel pixel, Pixel pixelOffset) {
+		Pixel pixelCopy = new Pixel(pixel.x, pixel.y);
 		
 		pixelCopy.x += pixelOffset.x;
 		pixelCopy.y += pixelOffset.y;
