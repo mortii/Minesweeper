@@ -63,7 +63,7 @@ public class SquareData{
 				squareData.surroundingFlags++;
 			}
 			else if (board[surroundingSquare.row][surroundingSquare.column] == 8){
-				squareData.surroundingNonClickedSquares.add(surroundingSquare.element);
+				squareData.surroundingNonClickedSquares.add(surroundingSquare.square);
 			}
 		}
 //		squareData.printData();
@@ -78,7 +78,7 @@ public class SquareData{
 		int originalColumn = ElementConversion.getColumn(square);
 
 		for (Coordinate surroundingSquare : surroundingSquares){
-			SquareData squareData = Main.squareDataMap.get(surroundingSquare.element);
+			SquareData squareData = Main.squareDataMap.get(surroundingSquare.square);
 			
 			if (squareData != null){
 				squareData.removeNonClicked(square);
@@ -87,7 +87,7 @@ public class SquareData{
 					squareData.surroundingFlags++;
 				}
 				
-				Main.squareDataMap.put(surroundingSquare.element, squareData);
+				Main.squareDataMap.put(surroundingSquare.square, squareData);
 			}
 		}
 	}
@@ -148,12 +148,12 @@ public class SquareData{
 class Coordinate{
 	public int row;
 	public int column;
-	public int element;
+	public int square;
 	
 	public Coordinate(int row, int column){
 		this.row = row;
 		this.column = column;
-		this.element = ElementConversion.getElement(row, column);
+		this.square = ElementConversion.getElement(row, column);
 	}
 }
 
