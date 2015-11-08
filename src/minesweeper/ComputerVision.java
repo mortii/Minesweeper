@@ -22,70 +22,32 @@ public class ComputerVision {
 		Pixel pixelOffset = getPixelOffset(square);
 		int numberOnSquare = 0;
 		
-		PixelColors pixelFlagColors = new PixelColors(flagPixel, pixelOffset);
-		
-		if (pixelFlagColors.blue < 50){
-			numberOnSquare = 9;
-			return numberOnSquare;
-		}
-		
-		PixelColors pixelNonClickedColors = new PixelColors(nonClickedPixel, pixelOffset);
-		
-		if (pixelNonClickedColors.blue > 40){
+		if (nonClicked(pixelOffset)){
 			numberOnSquare = 8;
-			return numberOnSquare;
 		}
-		
-		PixelColors pixelOneColors = new PixelColors(onePixel, pixelOffset);
-		
-		if (pixelOneColors.red < 75 && pixelOneColors.red > 60 &&
-			pixelOneColors.green < 100){
+		else if (flag(pixelOffset)){
+			numberOnSquare = 9;
+		}
+		else if (numberIsOne(pixelOffset)){
 			numberOnSquare = 1;
-			return numberOnSquare;
 		}
-		
-		PixelColors pixelTwoColors = new PixelColors(twoPixel, pixelOffset);
-		
-		if (pixelTwoColors.blue < 10){
+		else if (numberIsTwo(pixelOffset)){
 			numberOnSquare = 2;
-			return numberOnSquare;
-		}
-		
-		PixelColors pixelThreeColors = new PixelColors(threePixel, pixelOffset);
-		
-		if (pixelThreeColors.blue < 20){
+		}		
+		else if (numberIsThree(pixelOffset)){
 			numberOnSquare = 3;
-			return numberOnSquare;
 		}
-		
-		PixelColors pixelFourColors = new PixelColors(fourPixel, pixelOffset);
-		
-		if (pixelFourColors.red < 5){
+		else if (numberIsFour(pixelOffset)){
 			numberOnSquare = 4;
-			return numberOnSquare;
 		}
-		
-		PixelColors pixelFiveColors = new PixelColors(fivePixel, pixelOffset);
-		
-		if (pixelFiveColors.red < 200 && pixelFiveColors.green < 10 &&
-			pixelFiveColors.blue < 10){
-			
+		else if (numberIsFive(pixelOffset)){
 			numberOnSquare = 5;
-			return numberOnSquare;
 		}
-		
-		PixelColors pixelSixColors = new PixelColors(sixPixel, pixelOffset);
-		
-		if (pixelSixColors.red < 10 && pixelSixColors.green > 100){
+		else if (numberIsSix(pixelOffset)){
 			numberOnSquare = 6;
-			return numberOnSquare;
 		}
-		
-		PixelColors pixelSevenColors = new PixelColors(sevenPixel, pixelOffset);
-		
-		if (pixelSevenColors.green < 30){
+		else if (numberIsSeven(pixelOffset)){
 			numberOnSquare = 7;
-			return numberOnSquare;
 		}
 		
 		return numberOnSquare;
@@ -96,17 +58,107 @@ public class ComputerVision {
 		int pixelX = squareCoordinates.get(square).x;
 		int pixelY = squareCoordinates.get(square).y;
 		
-		Pixel tuple = new Pixel(pixelX, pixelY);
-		return tuple;
+		Pixel pixelOffset = new Pixel(pixelX, pixelY);
+		return pixelOffset;
+	}
+
+
+	private static boolean nonClicked(Pixel pixelOffset){
+		PixelColors nonClickedPixelColors = new PixelColors(nonClickedPixel, pixelOffset);
+		
+		if (nonClickedPixelColors.blue > 40){
+			return true;
+		}
+		return false;
+	}
+
+
+	private static boolean flag(Pixel pixelOffset){
+		PixelColors flagPixelColors = new PixelColors(flagPixel, pixelOffset);
+		
+		if (flagPixelColors.blue < 50){
+			return true;
+		}
+		return false;
+	}
+
+
+	private static boolean numberIsOne(Pixel pixelOffset){
+		PixelColors onePixelColors = new PixelColors(onePixel, pixelOffset);
+		
+		if (onePixelColors.red < 75 && onePixelColors.red > 60 &&
+				onePixelColors.green < 100){
+			return true;
+		}
+		return false;
+	}
+	
+	
+	private static boolean numberIsTwo(Pixel pixelOffset){
+		PixelColors twoPixelColors = new PixelColors(twoPixel, pixelOffset);
+		
+		if (twoPixelColors.blue < 10){
+			return true;
+		}
+		return false;
+	}
+	
+	
+	private static boolean numberIsThree(Pixel pixelOffset){
+		PixelColors threePixelColors = new PixelColors(threePixel, pixelOffset);
+		
+		if (threePixelColors.blue < 20){
+			return true;
+		}
+		return false;
+	}
+	
+	
+	private static boolean numberIsFour(Pixel pixelOffset){
+		PixelColors fourPixelColors = new PixelColors(fourPixel, pixelOffset);
+		
+		if (fourPixelColors.red < 5){
+			return true;
+		}	
+		return false;
+	}
+	
+	
+	private static boolean numberIsFive(Pixel pixelOffset){
+		PixelColors fivePixelColors = new PixelColors(fivePixel, pixelOffset);
+		
+		if (fivePixelColors.red < 200 && fivePixelColors.green < 10 &&
+				fivePixelColors.blue < 10){
+			return true;
+		}
+		return false;
+	}
+	
+	
+	private static boolean numberIsSix(Pixel pixelOffset){
+		PixelColors sixPixelColors = new PixelColors(sixPixel, pixelOffset);
+		
+		if (sixPixelColors.red < 10 && sixPixelColors.green > 100){
+			return true;
+		}
+		return false;
+	}
+	
+	
+	private static boolean numberIsSeven(Pixel pixelOffset){
+		PixelColors sevenPixelColors = new PixelColors(sevenPixel, pixelOffset);
+		
+		if (sevenPixelColors.green < 30){
+			return true;
+		}
+		return false;
 	}
 }
-
 
 class PixelColors {
 	public int red;
 	public int green;
 	public int blue;
-	
 	
 	public PixelColors(Pixel pixel, Pixel pixelOffset) {
 		Pixel pixelCopy = new Pixel(pixel.x, pixel.y);
@@ -120,14 +172,3 @@ class PixelColors {
 		this.blue = imageColors.getBlue();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
