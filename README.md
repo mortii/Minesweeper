@@ -1,6 +1,5 @@
 
 
-![Minesweeper solver](http://i.giphy.com/3o85xkQybJOjWlv5NS.gif)
 ![Minesweeper solver](http://giant.gfycat.com/EveryCheerfulAmericanavocet.gif)
 
 ### Download the old minesweeper here:
