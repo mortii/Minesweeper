@@ -1,6 +1,7 @@
 
 
 ![Minesweeper solver](http://i.giphy.com/3o85xkQybJOjWlv5NS.gif)
+![Minesweeper solver](http://gfycat.com/EveryCheerfulAmericanavocet)
 
 ### Download the old minesweeper here:
 http://forum.xda-developers.com/showthread.php?t=2096449
