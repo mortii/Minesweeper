@@ -19,18 +19,21 @@ public class Main {
 
 	
 	public static void main(String[] args) throws AWTException{
-		squaresThatHaveValidNumbersList = new ArrayList<Integer>();
-		nonClickedSquaresList = new ArrayList<Integer>();
-		advancedDataMap = new HashMap<Integer, AdvancedData>();
-		squareDataMap = new HashMap<Integer, SquareData>();
-		robot = new Robot();
-
+		initiateObjects();
 		WindowManipulation.setMinsweeperSizeAndPosition();
 		WindowManipulation.setMinesweeperToForeground();
 		solve();
 		System.out.println("Used advanced techniques: "+advancedTechniques+" times");
 		System.out.println("Gussed: "+guessed+" times, probability of all being correct: "+0.5/guessed);
 		Board.printBoard();
+	}
+	
+	private static void initiateObjects() throws AWTException{
+		squaresThatHaveValidNumbersList = new ArrayList<Integer>();
+		nonClickedSquaresList = new ArrayList<Integer>();
+		advancedDataMap = new HashMap<Integer, AdvancedData>();
+		squareDataMap = new HashMap<Integer, SquareData>();
+		robot = new Robot();
 	}
 	
 	
@@ -249,9 +252,9 @@ public class Main {
 		
 		if (firstSquareSquareData.hasNextNonClicked()){
 			Mouse.clickAllNonClickedExceptEdgeAndNonEdge(firstSquareSquareData, advancedData);
+			flagOppositeSide(advancedData);
 		}
 		
-		flagOppositeSide(advancedData);
 	}
 
 
@@ -317,8 +320,4 @@ public class Main {
 		}
 		System.out.println();
 	}
-
-
-	
-
 }
