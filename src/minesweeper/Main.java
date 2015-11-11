@@ -21,15 +21,12 @@ public class Main {
 	public static void main(String[] args) throws AWTException{
 		nonClickedSquares = new ArrayList<Integer>();
 		clickedNonEmptySquares = new ArrayList<Integer>();
-
 		advancedDataMap = new HashMap<Integer, AdvancedData>();
 		squareDataMap = new HashMap<Integer, SquareData>();
-		
 		robot = new Robot();
 
 		WindowManipulation.setMinsweeperSizeAndPosition();
 		WindowManipulation.setMinesweeperToForeground();
-		
 		solve();
 		System.out.println("Used advanced techniques: "+advancedTechniques+" times");
 		System.out.println("Gussed: "+guessed+" times, probability of all being correct: "+0.5/guessed);
