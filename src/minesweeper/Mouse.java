@@ -55,9 +55,9 @@ public class Mouse {
 	public static void clickRandomNonClickedSquare(){
 		Random random = new Random();
 		
-		if (Main.squaresThatHaveValidNumbersList.size() > 0){
-			int randomNumber = random.nextInt(Main.squaresThatHaveValidNumbersList.size()-1);
-			int randomSquare = Main.squaresThatHaveValidNumbersList.get(randomNumber);
+		if (Main.clickedNonEmptySquares.size() > 0){
+			int randomNumber = random.nextInt(Main.clickedNonEmptySquares.size()-1);
+			int randomSquare = Main.clickedNonEmptySquares.get(randomNumber);
 			
 			SquareData squareData = Main.squareDataMap.get(randomSquare);
 			int listLength = squareData.surroundingNonClickedSquares.size();

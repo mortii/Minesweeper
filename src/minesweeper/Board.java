@@ -10,11 +10,11 @@ public class Board {
 	public static Rectangle boardRectangle = new Rectangle(83, 186, 975, 520);
 
 	
-	public static void getNumbersOnAllSquares(){
+	public static void updateBoard(){
 		updateBoardImage();
 		
 		for (int square = 0; square < 30*16; square++){
-			updateSquareNumber(square);
+			updateNumberOnSquare(square);
 		}
 	}
 	
@@ -33,7 +33,7 @@ public class Board {
 	}
 	
 	
-	public static void updateSquareNumber(int square){
+	public static void updateNumberOnSquare(int square){
 		int row = ElementConversion.getRow(square);
 		int column = ElementConversion.getColumn(square);
 		int number = ComputerVision.getNumber(square);
