@@ -25,7 +25,7 @@ public class Main {
 		squareDataMap = new HashMap<Integer, SquareData>();
 		robot = new Robot();
 
-		WindowManipulation.setMinsweeperSizeAndPosition();
+		WindowManipulation.setMinesweeperSizeAndPosition();
 		WindowManipulation.setMinesweeperToForeground();
 		solve();
 		System.out.println("Used advanced techniques: "+advancedTechniques+" times");
