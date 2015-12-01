@@ -7,7 +7,7 @@ public class WindowManipulation {
 	private static HWND window = User32.INSTANCE.FindWindow(null, "Minesweeper");
 
 	
-	public static void setMinsweeperSizeAndPosition(){
+	public static void setMinesweeperSizeAndPosition(){
 		if (window == null) {
 			System.out.println("Minesweeper is not running");
 		}

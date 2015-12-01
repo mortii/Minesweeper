@@ -191,7 +191,7 @@ public class Main {
 			int column = ElementConversion.getColumn(square);
 			
 			if (Board.board[row][column] != 8){
-				removeFromNonClickedList(square);
+				removeFromNonClicked(square);
 	
 				if (isNumberOnSquare(row, column)){
 					addSquareToClickedNonEmpty(row, column);
@@ -202,7 +202,7 @@ public class Main {
 	}
 	
 	
-	public static void removeFromNonClickedList(int square){
+	public static void removeFromNonClicked(int square){
 		int index = nonClickedSquares.indexOf(square);
 		nonClickedSquares.remove(index);
 	}
