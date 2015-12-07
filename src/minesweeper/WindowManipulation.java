@@ -21,6 +21,4 @@ public class WindowManipulation {
 	public static void setMinesweeperToForeground() {
 		User32.INSTANCE.SetForegroundWindow(window);
 	}
-	
-	
 }
