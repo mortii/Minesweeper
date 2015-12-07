@@ -10,6 +10,7 @@ public class WindowManipulation {
 	public static void setMinesweeperSizeAndPosition(){
 		if (window == null) {
 			System.out.println("Minesweeper is not running");
+			System.exit(1);
 		}
 		else{
 			User32.INSTANCE.SetWindowPos(window, null, 20, 80, 1100, 1100, 68);
