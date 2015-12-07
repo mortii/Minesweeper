@@ -8,9 +8,8 @@ import java.util.HashMap;
 
 
 public class Main {
-	public static int[] notValidNumbersOnSquares = {0, 8, 9};
 	public static ArrayList<Integer> nonClickedSquares;
-	public static ArrayList<Integer> clickedNonEmptySquares;
+	public static ArrayList<Integer> squaresWithNumbers;
 	public static HashMap<Integer, AdvancedData> advancedDataMap;
 	public static HashMap<Integer, SquareData> squareDataMap;
 	public static Robot robot;
@@ -20,7 +19,7 @@ public class Main {
 	
 	public static void main(String[] args) throws AWTException{
 		nonClickedSquares = new ArrayList<Integer>();
-		clickedNonEmptySquares = new ArrayList<Integer>();
+		squaresWithNumbers = new ArrayList<Integer>();
 		advancedDataMap = new HashMap<Integer, AdvancedData>();
 		squareDataMap = new HashMap<Integer, SquareData>();
 		robot = new Robot();
@@ -28,6 +27,7 @@ public class Main {
 		WindowManipulation.setMinesweeperSizeAndPosition();
 		WindowManipulation.setMinesweeperToForeground();
 		solve();
+		
 		System.out.println("Used advanced techniques: "+advancedTechniques+" times");
 		System.out.println("Gussed: "+guessed+" times, probability of all being correct: "+0.5/guessed);
 		Board.printBoard();
@@ -37,9 +37,8 @@ public class Main {
 	public static void solve(){
 		Mouse.clickFirstSquare();
 		Board.updateBoard();
-		fillNonClicked();
-		fillClickedNonEmpty();
-		updateSquareData(clickedNonEmptySquares);
+		fillArrayLists();
+		updateSquareData(squaresWithNumbers);
 		
 		int roundsWithoutAction = 0;
 		
@@ -51,7 +50,7 @@ public class Main {
 
 			if (roundsWithoutAction == 1){
 				updateAllNonClickedSquares();
-				updateSquareData(clickedNonEmptySquares);
+				updateSquareData(squaresWithNumbers);
 			}
 			else if (roundsWithoutAction == 2){
 				advancedTechniques();
@@ -68,7 +67,8 @@ public class Main {
 		}
 	}
 	
-	public static void fillNonClicked(){
+	
+	public static void fillArrayLists(){
 		int[][] board = Board.board;
 		
 		for (int row = 0; row < board.length; row++){
@@ -76,39 +76,20 @@ public class Main {
 				
 				if (Board.board[row][column] == 8){
 					addSquareToNonClicked(row, column);
+					System.out.println("added to non clicked");
 				}
-			}
-		}
-	}
-	
-	
-	public static void fillClickedNonEmpty(){
-		int[][] board = Board.board;
-		
-		for (int row = 0; row < board.length; row++){
-			for (int column = 0; column < board[0].length; column++){
 				
-				if (isNumberOnSquare(row, column)){
+				else if (Board.board[row][column] != 0 || Board.board[row][column] != 9){
 					addSquareToClickedNonEmpty(row, column);
 				}
 			}
 		}
 	}
 
-	
-	public static boolean isNumberOnSquare(int row, int column){
-		for (int notValid : notValidNumbersOnSquares){
-			if (Board.board[row][column] == notValid){
-				return false;
-			}
-		}
-		return true;
-	}
-
 
 	public static void addSquareToClickedNonEmpty(int row, int column){
 		int square = ElementConversion.getElement(row, column);
-		clickedNonEmptySquares.add(square);
+		squaresWithNumbers.add(square);
 	}
 
 
@@ -149,7 +130,7 @@ public class Main {
 
 	
 	public static boolean doSimpleTechniques(){
-		ArrayList<Integer> clickedNonEmptyCopy = new ArrayList<Integer>(clickedNonEmptySquares);
+		ArrayList<Integer> clickedNonEmptyCopy = new ArrayList<Integer>(squaresWithNumbers);
 		boolean worked = false;
 		
 		for (int square : clickedNonEmptyCopy){
@@ -175,8 +156,8 @@ public class Main {
 
 	
 	public static void removeFromSquaresThatHaveValidNumbers(int square){
-		int index = clickedNonEmptySquares.indexOf(square);
-		clickedNonEmptySquares.remove(index);
+		int index = squaresWithNumbers.indexOf(square);
+		squaresWithNumbers.remove(index);
 	}
 
 
@@ -193,7 +174,7 @@ public class Main {
 			if (Board.board[row][column] != 8){
 				removeFromNonClicked(square);
 	
-				if (isNumberOnSquare(row, column)){
+				if (Board.board[row][column] != 0 || Board.board[row][column] != 9){
 					addSquareToClickedNonEmpty(row, column);
 					SquareData.updateSquareData(square);
 				}
@@ -211,7 +192,7 @@ public class Main {
 	public static void advancedTechniques(){
 //		 http://www.minesweeper.info/wiki/Strategy
 		
-		for (int square : clickedNonEmptySquares){
+		for (int square : squaresWithNumbers){
 			SquareData squareData = squareDataMap.get(square);
 			int number = squareData.numberOnSquare - squareData.surroundingFlags;
 			

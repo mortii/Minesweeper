@@ -7,7 +7,7 @@ import java.util.Random;
 
 
 public class Mouse {
-	private static int milliSecondClickDelay = 5;
+	private static int milliSecondClickDelay = 25;
 	public static HashMap<Integer, Pixel> centerOfSquares =
 			ObjectsOnDisk.getHashMap("centerOfSquares.ser");
 	
@@ -55,9 +55,9 @@ public class Mouse {
 	public static void clickRandomNonClickedSquare(){
 		Random random = new Random();
 		
-		if (Main.clickedNonEmptySquares.size() > 0){
-			int randomNumber = random.nextInt(Main.clickedNonEmptySquares.size()-1);
-			int randomSquare = Main.clickedNonEmptySquares.get(randomNumber);
+		if (Main.squaresWithNumbers.size() > 0){
+			int randomNumber = random.nextInt(Main.squaresWithNumbers.size()-1);
+			int randomSquare = Main.squaresWithNumbers.get(randomNumber);
 			
 			SquareData squareData = Main.squareDataMap.get(randomSquare);
 			int listLength = squareData.surroundingNonClickedSquares.size();
