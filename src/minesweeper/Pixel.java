@@ -12,5 +12,4 @@ public class Pixel implements Serializable{
 		this.x = x;
 		this.y = y;
 	}
-	
 }
