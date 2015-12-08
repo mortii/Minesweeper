@@ -37,7 +37,6 @@ public class Main {
 		Board.updateBoard();
 		fillArrayLists();
 		updateSquareData(squaresWithNumbers);
-		
 		int roundsWithoutAction = 0;
 		
 		while (!gameOver()){
@@ -72,10 +71,10 @@ public class Main {
 		for (int row = 0; row < board.length; row++){
 			for (int column = 0; column < board[0].length; column++){
 				
-				if (Board.board[row][column] == 8){
+				if (board[row][column] == 8){
 					addToNonClicked(row, column);
 				}
-				else if (Board.board[row][column] != 0 || Board.board[row][column] != 9){
+				else if (board[row][column] != 0 || board[row][column] != 9){
 					addToSquaresWithNumbers(row, column);
 				}
 			}
