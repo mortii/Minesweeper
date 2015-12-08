@@ -21,8 +21,8 @@ public class SquareData{
 	}
 	
 	
-	public static ArrayList<Coordinate> surroundingSquares(int square){
-		ArrayList<Coordinate> surroundingSquaresList = new ArrayList<Coordinate>();
+	public static ArrayList<Coordinates> surroundingSquares(int square){
+		ArrayList<Coordinates> surroundingSquaresList = new ArrayList<Coordinates>();
 		
 		int[][] board = Board.board;
 		int[] offset = {-1, 0, 1};
@@ -38,7 +38,7 @@ public class SquareData{
 				if (newRow < board.length && newRow > -1){
 					if (newColumn < board[0].length && newColumn > -1){
 						
-						Coordinate surroundingSquare = new Coordinate(newRow, newColumn);
+						Coordinates surroundingSquare = new Coordinates(newRow, newColumn);
 						surroundingSquaresList.add(surroundingSquare);
 					}
 				}
@@ -49,7 +49,7 @@ public class SquareData{
 	
 	
 	public static void updateSquareData(int square){
-		ArrayList<Coordinate> surroundingSquares = surroundingSquares(square);
+		ArrayList<Coordinates> surroundingSquares = surroundingSquares(square);
 		int[][] board = Board.board;
 		
 		SquareData squareData = new SquareData(square);
@@ -57,7 +57,7 @@ public class SquareData{
 		int column = squareData.column;
 		squareData.numberOnSquare = board[row][column];
 		
-		for (Coordinate surroundingSquare : surroundingSquares){
+		for (Coordinates surroundingSquare : surroundingSquares){
 			
 			if (board[surroundingSquare.row][surroundingSquare.column] == 9){
 				squareData.surroundingFlags++;
@@ -66,18 +66,18 @@ public class SquareData{
 				squareData.surroundingNonClickedSquares.add(surroundingSquare.square);
 			}
 		}
-		squareData.printData();
+//		squareData.printData();
 		Main.squareDataMap.put(square, squareData);
 	}
 	
 	
-	public static void removeSurroudingSquareData(int square){
-		ArrayList<Coordinate> surroundingSquares = surroundingSquares(square);
+	public static void updateSurroundingSquares(int square){
+		ArrayList<Coordinates> surroundingSquares = surroundingSquares(square);
 		
 		int originalRow = ElementConversion.getRow(square);
 		int originalColumn = ElementConversion.getColumn(square);
 
-		for (Coordinate surroundingSquare : surroundingSquares){
+		for (Coordinates surroundingSquare : surroundingSquares){
 			SquareData squareData = Main.squareDataMap.get(surroundingSquare.square);
 			
 			if (squareData != null){
@@ -100,25 +100,6 @@ public class SquareData{
 		}
 		catch(Exception E){
 		}
-	}
-	
-	
-	public boolean inNonClickedList(int row, int column){
-		int element = ElementConversion.getElement(row, column);
-		for (int square : surroundingNonClickedSquares){
-			if (element == square){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-
-	public void printNonClicked(){
-		for (int square : surroundingNonClickedSquares){
-			System.out.print(square + " ");
-		}
-		System.out.println();
 	}
 	
 
@@ -145,12 +126,12 @@ public class SquareData{
 }
 
 
-class Coordinate{
+class Coordinates{
 	public int row;
 	public int column;
 	public int square;
 	
-	public Coordinate(int row, int column){
+	public Coordinates(int row, int column){
 		this.row = row;
 		this.column = column;
 		this.square = ElementConversion.getElement(row, column);

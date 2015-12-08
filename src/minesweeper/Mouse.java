@@ -52,7 +52,7 @@ public class Mouse {
 	}
 	
 	
-	public static void clickRandomNonClickedSquare(){
+	public static void clickRandomNonClicked(){
 		Random random = new Random();
 		
 		if (Main.squaresWithNumbers.size() > 0){
@@ -67,18 +67,18 @@ public class Mouse {
 				
 			moveMouse(randomSquare);
 			leftClickMouse();
-			SquareData.removeSurroudingSquareData(randomSquare);
+			SquareData.updateSurroundingSquares(randomSquare);
 		}
 		
 	}
 	
 	
-	public static void clickAllSurroudingNonClicked(SquareData squareData){
+	public static void clickAllSurroundingNonClicked(SquareData squareData){
 		while(squareData.hasNextNonClicked()){
 			int next = squareData.nextNonClicked();
 			
 			leftClickSquare(next);
-			SquareData.removeSurroudingSquareData(next);
+			SquareData.updateSurroundingSquares(next);
 		}
 	}
 	
@@ -101,7 +101,7 @@ public class Mouse {
 		Board.board[row][column] = 9;
 		Main.removeFromNonClicked(square);
 
-		SquareData.removeSurroudingSquareData(square);
+		SquareData.updateSurroundingSquares(square);
 	}
 	
 	
@@ -125,7 +125,7 @@ public class Mouse {
 		
 		for (int square : squaresToClick){
 			leftClickSquare(square);
-			SquareData.removeSurroudingSquareData(square);
+			SquareData.updateSurroundingSquares(square);
 		}
 	}
 	
