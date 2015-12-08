@@ -43,27 +43,25 @@ public class Main {
 		while (!gameOver()){
 			
 			if (doSimpleTechniques()){
-				System.out.println("simpletechniques");
 				roundsWithoutAction = 0;
 			}
-
-			if (roundsWithoutAction == 1){
-				System.out.println("updateSquareData rouond 1");
-				updateNonClickedSquares();
-				updateSquareData(squaresWithNumbers);
+			else{
+				if (roundsWithoutAction == 1){
+					updateNonClickedSquares();
+					updateSquareData(squaresWithNumbers);
+				}
+				else if (roundsWithoutAction == 2){
+					doAdvancedTechniques();
+					advancedTechniques++;
+				}
+				else if (roundsWithoutAction == 3){
+					System.out.println("guessed");
+					Mouse.clickRandomNonClicked();
+					guessed++;
+					roundsWithoutAction = 0;
+					robot.delay(250);
+				}
 			}
-			else if (roundsWithoutAction == 2){
-				doAdvancedTechniques();
-				advancedTechniques++;
-			}
-			else if (roundsWithoutAction == 3){
-				System.out.println("guessed");
-				Mouse.clickRandomNonClicked();
-				guessed++;
-				roundsWithoutAction = 0;
-				robot.delay(250);
-			}
-			
 			roundsWithoutAction++;
 		}
 	}
