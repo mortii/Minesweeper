@@ -82,12 +82,12 @@ public class Main {
 	}
 
 	public static void addToSquaresWithNumbers(int row, int column){
-		int square = ElementConversion.getElement(row, column);
+		int square = MatrixConversion.getSquare(row, column);
 		squaresWithNumbers.add(square);
 	}
 
 	public static void addToNonClicked(int row, int column){
-		int square = ElementConversion.getElement(row, column);
+		int square = MatrixConversion.getSquare(row, column);
 		nonClickedSquares.add(square);
 	}
 
@@ -156,8 +156,8 @@ public class Main {
 		for (int square : nonClickedCopy){
 			Board.updateNumberOnSquare(square);
 			
-			int row = ElementConversion.getRow(square);
-			int column = ElementConversion.getColumn(square);
+			int row = MatrixConversion.getRow(square);
+			int column = MatrixConversion.getColumn(square);
 			
 			if (Board.board[row][column] != 8){
 				removeFromNonClicked(square);

@@ -95,8 +95,8 @@ public class Mouse {
 		moveMouse(square);
 		rightClickMouse();
 		
-		int row = ElementConversion.getRow(square);
-		int column = ElementConversion.getColumn(square);
+		int row = MatrixConversion.getRow(square);
+		int column = MatrixConversion.getColumn(square);
 		
 		Board.board[row][column] = 9;
 		Main.removeFromNonClicked(square);

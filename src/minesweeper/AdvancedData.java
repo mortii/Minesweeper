@@ -65,8 +65,8 @@ public class AdvancedData {
 	}
 	
 	public boolean squareIsNotAFlag(int square){
-		int row = ElementConversion.getRow(square);
-		int column = ElementConversion.getColumn(square);
+		int row = MatrixConversion.getRow(square);
+		int column = MatrixConversion.getColumn(square);
 		
 		if (Board.board[row][column] == 9){
 			return false;

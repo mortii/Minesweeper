@@ -13,8 +13,8 @@ public class SquareData{
 	
 	public SquareData(int square){
 		this.square = square;
-		this.row = ElementConversion.getRow(square);
-		this.column = ElementConversion.getColumn(square);
+		this.row = MatrixConversion.getRow(square);
+		this.column = MatrixConversion.getColumn(square);
 		this.numberOnSquare = 0;
 		this.surroundingFlags = 0;
 		this.surroundingNonClickedSquares = new ArrayList<Integer>();
@@ -26,8 +26,8 @@ public class SquareData{
 		
 		int[][] board = Board.board;
 		int[] offset = {-1, 0, 1};
-		int row = ElementConversion.getRow(square);
-		int column = ElementConversion.getColumn(square);
+		int row = MatrixConversion.getRow(square);
+		int column = MatrixConversion.getColumn(square);
 		
 		for (int rowOffset : offset){
 			for (int columnOffset : offset){
@@ -74,8 +74,8 @@ public class SquareData{
 	public static void updateSurroundingSquares(int square){
 		ArrayList<Coordinates> surroundingSquares = surroundingSquares(square);
 		
-		int originalRow = ElementConversion.getRow(square);
-		int originalColumn = ElementConversion.getColumn(square);
+		int originalRow = MatrixConversion.getRow(square);
+		int originalColumn = MatrixConversion.getColumn(square);
 
 		for (Coordinates surroundingSquare : surroundingSquares){
 			SquareData squareData = Main.squareDataMap.get(surroundingSquare.square);
@@ -134,7 +134,7 @@ class Coordinates{
 	public Coordinates(int row, int column){
 		this.row = row;
 		this.column = column;
-		this.square = ElementConversion.getElement(row, column);
+		this.square = MatrixConversion.getSquare(row, column);
 	}
 }
 
