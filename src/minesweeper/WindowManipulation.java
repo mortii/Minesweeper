@@ -20,3 +20,4 @@ public class WindowManipulation {
 		User32.INSTANCE.SetForegroundWindow(window);
 	}
 }
+
