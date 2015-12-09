@@ -46,14 +46,6 @@ public class SquareData{
 		return surroundingSquaresList;
 	}
 	
-	
-	public static void printArrayList(ArrayList<Coordinates> liste){
-		for (Coordinates element : liste){
-			System.out.print(element.square + " ");
-		}
-		System.out.println();
-	}
-
 	public static void updateSquareData(int square){
 		ArrayList<Coordinates> surroundingSquares = surroundingSquares(square);
 		int[][] board = Board.board;
