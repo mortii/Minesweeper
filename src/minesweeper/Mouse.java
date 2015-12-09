@@ -7,7 +7,7 @@ import java.util.Random;
 
 
 public class Mouse {
-	private static int milliSecondClickDelay = 25;
+	private static int milliSecondClickDelay = 925;
 	public static HashMap<Integer, Pixel> centerOfSquares =
 			ObjectsOnDisk.getHashMap("centerOfSquares.ser");
 	
@@ -73,7 +73,7 @@ public class Mouse {
 	}
 	
 	
-	public static void clickAllSurroundingNonClicked(SquareData squareData){
+	public static void clickSurroundingNonClicked(SquareData squareData){
 		while(squareData.hasNextNonClicked()){
 			int next = squareData.nextNonClicked();
 			
@@ -83,7 +83,7 @@ public class Mouse {
 	}
 	
 	
-	public static void flagSurroudingSquares(SquareData squareData){
+	public static void flagSurroudingNonClicked(SquareData squareData){
 		while(squareData.hasNextNonClicked()){
 			int newFlag = squareData.nextNonClicked();
 			flagSquare(newFlag);
@@ -105,7 +105,7 @@ public class Mouse {
 	}
 	
 	
-	public static void clickAllNonClickedExceptEdgeAndNonEdge(SquareData otherSquareData,
+	public static boolean clickAllNonClickedExceptEdgeAndNonEdge(SquareData otherSquareData,
 			AdvancedData edgeData){
 		
 		ArrayList<Integer> squaresToClick = new ArrayList<Integer>();
@@ -123,10 +123,15 @@ public class Mouse {
 			}
 		}
 		
+		boolean clickedSquares = false;
+		
 		for (int square : squaresToClick){
 			leftClickSquare(square);
 			SquareData.updateSurroundingSquares(square);
+			clickedSquares = true;
 		}
+		
+		return clickedSquares;
 	}
 	
 }
