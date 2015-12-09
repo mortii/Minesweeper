@@ -3,7 +3,6 @@ package minesweeper;
 import java.awt.Color;
 import java.util.HashMap;
 
-
 public class ComputerVision {
 	private static Pixel onePixel = new Pixel(16, 16);
 	private static Pixel twoPixel = new Pixel(23, 26);
@@ -17,15 +16,14 @@ public class ComputerVision {
 	private static HashMap<Integer, Pixel> squareCoordinates =
 			HashMapsOnDisk.getHashMap("squareCoordinates.ser");
 	
-	
 	public static int getNumber(int square){
 		Pixel pixelOffset = getPixelOffset(square);
 		int numberOnSquare = 0;
 		
-		if (nonClicked(pixelOffset)){
+		if (squareIsNonClicked(pixelOffset)){
 			numberOnSquare = 8;
 		}
-		else if (flag(pixelOffset)){
+		else if (squareIsFlag(pixelOffset)){
 			numberOnSquare = 9;
 		}
 		else if (numberIsOne(pixelOffset)){
@@ -52,7 +50,6 @@ public class ComputerVision {
 		
 		return numberOnSquare;
 	}
-
 	
 	private static Pixel getPixelOffset(int square){
 		int pixelX = squareCoordinates.get(square).x;
@@ -62,8 +59,7 @@ public class ComputerVision {
 		return pixelOffset;
 	}
 
-
-	private static boolean nonClicked(Pixel pixelOffset){
+	private static boolean squareIsNonClicked(Pixel pixelOffset){
 		PixelColors nonClickedPixelColors = new PixelColors(nonClickedPixel, pixelOffset);
 		
 		if (nonClickedPixelColors.blue > 40){
@@ -72,8 +68,7 @@ public class ComputerVision {
 		return false;
 	}
 
-
-	private static boolean flag(Pixel pixelOffset){
+	private static boolean squareIsFlag(Pixel pixelOffset){
 		PixelColors flagPixelColors = new PixelColors(flagPixel, pixelOffset);
 		
 		if (flagPixelColors.blue < 50){
@@ -81,7 +76,6 @@ public class ComputerVision {
 		}
 		return false;
 	}
-
 
 	private static boolean numberIsOne(Pixel pixelOffset){
 		PixelColors onePixelColors = new PixelColors(onePixel, pixelOffset);
@@ -93,7 +87,6 @@ public class ComputerVision {
 		return false;
 	}
 	
-	
 	private static boolean numberIsTwo(Pixel pixelOffset){
 		PixelColors twoPixelColors = new PixelColors(twoPixel, pixelOffset);
 		
@@ -102,7 +95,6 @@ public class ComputerVision {
 		}
 		return false;
 	}
-	
 	
 	private static boolean numberIsThree(Pixel pixelOffset){
 		PixelColors threePixelColors = new PixelColors(threePixel, pixelOffset);
@@ -113,7 +105,6 @@ public class ComputerVision {
 		return false;
 	}
 	
-	
 	private static boolean numberIsFour(Pixel pixelOffset){
 		PixelColors fourPixelColors = new PixelColors(fourPixel, pixelOffset);
 		
@@ -122,7 +113,6 @@ public class ComputerVision {
 		}	
 		return false;
 	}
-	
 	
 	private static boolean numberIsFive(Pixel pixelOffset){
 		PixelColors fivePixelColors = new PixelColors(fivePixel, pixelOffset);
@@ -134,7 +124,6 @@ public class ComputerVision {
 		return false;
 	}
 	
-	
 	private static boolean numberIsSix(Pixel pixelOffset){
 		PixelColors sixPixelColors = new PixelColors(sixPixel, pixelOffset);
 		
@@ -143,7 +132,6 @@ public class ComputerVision {
 		}
 		return false;
 	}
-	
 	
 	private static boolean numberIsSeven(Pixel pixelOffset){
 		PixelColors sevenPixelColors = new PixelColors(sevenPixel, pixelOffset);
@@ -160,13 +148,13 @@ class PixelColors {
 	public int green;
 	public int blue;
 	
-	public PixelColors(Pixel pixel, Pixel pixelOffset) {
-		Pixel pixelCopy = new Pixel(pixel.x, pixel.y);
+	public PixelColors(Pixel identityPixel, Pixel pixelOffset) {
+		Pixel identityPixelCopy = new Pixel(identityPixel.x, identityPixel.y);
 		
-		pixelCopy.x += pixelOffset.x;
-		pixelCopy.y += pixelOffset.y;
+		identityPixelCopy.x += pixelOffset.x;
+		identityPixelCopy.y += pixelOffset.y;
 		
-		Color imageColors = new Color(Board.boardImage.getRGB(pixelCopy.x, pixelCopy.y));
+		Color imageColors = new Color(Board.boardImage.getRGB(identityPixelCopy.x, identityPixelCopy.y));
 		this.red = imageColors.getRed();
 		this.green = imageColors.getGreen();
 		this.blue = imageColors.getBlue();
