@@ -56,14 +56,14 @@ public class Main {
 				}
 				else if (roundsWithoutAction == 3){
 					System.out.println("guessed");
-					robot.delay(1500);
+//					robot.delay(1500);
 					Mouse.clickRandomNonClicked();
 					guessed++;
 					roundsWithoutAction = 0;
-					robot.delay(1500);
+					robot.delay(300);
 				}
 			}
-			roundsWithoutAction++;
+			roundsWithoutAction++;			
 		}
 	}
 	
@@ -296,7 +296,7 @@ public class Main {
 
 	public static void flagOppositeSide(AdvancedData advancedData){
 		System.out.println("flagging opposite");
-		robot.delay(5000);
+//		robot.delay(5000);
 		int lastNonClicked = advancedData.lastNonClicked;
 		Mouse.flagSquare(lastNonClicked);
 	}

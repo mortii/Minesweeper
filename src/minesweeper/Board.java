@@ -9,7 +9,6 @@ public class Board {
 	public static BufferedImage boardImage;
 	public static Rectangle boardRectangle = new Rectangle(83, 186, 975, 520);
 
-	
 	public static void updateBoard(){
 		updateBoardImage();
 		
@@ -22,7 +21,15 @@ public class Board {
 		boardImage = Main.robot.createScreenCapture(boardRectangle);
 	}
 	
-	
+	public static void updateNumberOnSquare(int square){
+			int row = MatrixConversion.getRow(square);
+			int column = MatrixConversion.getColumn(square);
+			int number = ComputerVision.getNumber(square);
+			
+	//		System.out.println("square:"+ square +" number:"+ number);
+			board[row][column] = number;
+		}
+
 	public static void printBoard(){
 		for (int row = 0; row < board.length; row++){
 			for (int column = 0; column < board[0].length; column++){
@@ -31,16 +38,4 @@ public class Board {
 			System.out.println();
 		}
 	}
-	
-	
-	public static void updateNumberOnSquare(int square){
-		int row = MatrixConversion.getRow(square);
-		int column = MatrixConversion.getColumn(square);
-		int number = ComputerVision.getNumber(square);
-		
-//		System.out.println("square:"+ square +" number:"+ number);
-		board[row][column] = number;
-	}
-	
-	
 }
