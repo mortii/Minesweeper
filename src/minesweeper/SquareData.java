@@ -10,7 +10,6 @@ public class SquareData{
 	public int surroundingFlags;
 	public ArrayList<Integer> surroundingNonClickedSquares;
 	
-	
 	public SquareData(int square){
 		this.square = square;
 		this.row = MatrixConversion.getRow(square);
@@ -19,7 +18,6 @@ public class SquareData{
 		this.surroundingFlags = 0;
 		this.surroundingNonClickedSquares = new ArrayList<Integer>();
 	}
-	
 	
 	public static ArrayList<Coordinates> surroundingSquares(int square){
 		ArrayList<Coordinates> surroundingSquaresList = new ArrayList<Coordinates>();
@@ -47,7 +45,6 @@ public class SquareData{
 		return surroundingSquaresList;
 	}
 	
-	
 	public static void updateSquareData(int square){
 		ArrayList<Coordinates> surroundingSquares = surroundingSquares(square);
 		int[][] board = Board.board;
@@ -70,7 +67,6 @@ public class SquareData{
 		Main.squareDataMap.put(square, squareData);
 	}
 	
-	
 	public static void updateSurroundingSquares(int square){
 		ArrayList<Coordinates> surroundingSquares = surroundingSquares(square);
 		
@@ -92,7 +88,6 @@ public class SquareData{
 		}
 	}
 	
-	
 	public void removeNonClicked(int squareToRemove){
 		int index = surroundingNonClickedSquares.indexOf(squareToRemove);
 		try{
@@ -101,7 +96,6 @@ public class SquareData{
 		catch(Exception E){
 		}
 	}
-	
 
 	public boolean hasNextNonClicked() {
 		if (!surroundingNonClickedSquares.isEmpty()){
@@ -109,12 +103,10 @@ public class SquareData{
 		}
 		return false;
 	}
-
 	
 	public Integer nextNonClicked() {
 		return surroundingNonClickedSquares.get(0);
 	}
-	
 	
 	public void printData(){
 		System.out.print("square:"+this.square);
@@ -124,7 +116,6 @@ public class SquareData{
 		System.out.println();
 	}
 }
-
 
 class Coordinates{
 	public int row;
@@ -137,6 +128,3 @@ class Coordinates{
 		this.square = MatrixConversion.getSquare(row, column);
 	}
 }
-
-
-

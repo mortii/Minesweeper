@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-
 public class Mouse {
 	private static int milliSecondClickDelay = 25;
 	public static HashMap<Integer, Pixel> centerOfSquares =
-			ObjectsOnDisk.getHashMap("centerOfSquares.ser");
-	
+			HashMapsOnDisk.getHashMap("centerOfSquares.ser");
 	
 	public static void clickFirstSquare(){
 		int startSquare = 0;
@@ -19,38 +17,29 @@ public class Mouse {
 		moveMouse(startSquare);
 		leftClickMouse();
 	}
-
 	
 	public static void moveMouse(int square){
-//		System.out.println("moved mouse");
 		Pixel pixel = centerOfSquares.get(square);
 		Main.robot.mouseMove(pixel.x, pixel.y);
-//		Main.robot.delay(100);
 	}
-	
 	
 	public static void leftClickSquare(int square){
 		moveMouse(square);
 		leftClickMouse();
 	}
 	
-	
 	public static void leftClickMouse(){
-//		System.out.println("left click mouse");
 		Main.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 		Main.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 		Main.robot.delay(milliSecondClickDelay);
 		Main.robot.mouseMove(0, 0);
 	}
-
 	
 	public static void rightClickMouse(){
-//		System.out.println("right click mouse");
 		Main.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
 		Main.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
 		Main.robot.delay(milliSecondClickDelay);
 	}
-	
 	
 	public static void clickRandomNonClicked(){
 		Random random = new Random();
@@ -69,9 +58,7 @@ public class Mouse {
 			leftClickMouse();
 			SquareData.updateSurroundingSquares(randomSquare);
 		}
-		
 	}
-	
 	
 	public static void clickSurroundingNonClicked(SquareData squareData){
 		while(squareData.hasNextNonClicked()){
@@ -82,14 +69,12 @@ public class Mouse {
 		}
 	}
 	
-	
 	public static void flagSurroudingNonClicked(SquareData squareData){
 		while(squareData.hasNextNonClicked()){
 			int newFlag = squareData.nextNonClicked();
 			flagSquare(newFlag);
 		}
 	}
-	
 	
 	public static void flagSquare(int square){
 		moveMouse(square);
@@ -103,7 +88,6 @@ public class Mouse {
 
 		SquareData.updateSurroundingSquares(square);
 	}
-	
 	
 	public static boolean clickAllNonClickedExceptEdgeAndNonEdge(SquareData otherSquareData,
 			AdvancedData edgeData){
@@ -133,14 +117,4 @@ public class Mouse {
 		
 		return clickedSquares;
 	}
-	
 }
-
-
-
-
-
-
-
-
-

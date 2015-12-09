@@ -3,17 +3,16 @@ package minesweeper;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-
 public class Board {
 	public static int[][] board = new int[16][30];
 	public static BufferedImage boardImage;
 	public static Rectangle boardRectangle = new Rectangle(83, 186, 975, 520);
 
-	public static void updateBoard(){
+	public static void updateEntireBoard(){
 		updateBoardImage();
 		
 		for (int square = 0; square < 30*16; square++){
-			updateNumberOnSquare(square);
+			getNumberOnSquare(square);
 		}
 	}
 	
@@ -21,7 +20,7 @@ public class Board {
 		boardImage = Main.robot.createScreenCapture(boardRectangle);
 	}
 	
-	public static void updateNumberOnSquare(int square){
+	public static void getNumberOnSquare(int square){
 			int row = MatrixConversion.getRow(square);
 			int column = MatrixConversion.getColumn(square);
 			int number = ComputerVision.getNumber(square);

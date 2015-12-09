@@ -19,8 +19,6 @@ public class AdvancedData {
 	public ArrayList<Integer> nonClickedSquaresNotToClick =
 			new ArrayList<Integer>();
 	
-	
-	
 	public void setEdgeAndNonEdge(SquareData squareData){
 		originSquare = squareData.square;
 		int possibleEdge = squareData.surroundingNonClickedSquares.get(0);
@@ -36,9 +34,7 @@ public class AdvancedData {
 			this.edge = possibleNonEdge;
 			this.nonEdge = possibleEdge;
 		}
-		
 	}
-	
 	
 	public boolean squaresAreNextToEachOther(int edge, int nonEdge){
 		if (edge + 1 == nonEdge){
@@ -81,8 +77,6 @@ public class AdvancedData {
 		}
 	}
 	
-	
-	
 	public void orderTheNonClickedSquares(SquareData squareData){
 		int tempFirst = squareData.surroundingNonClickedSquares.get(0);
 		int tempMiddle = squareData.surroundingNonClickedSquares.get(1);
@@ -96,7 +90,6 @@ public class AdvancedData {
 		lastNonClicked = sortArray[2];
 		originSquare = squareData.square;
 	}
-	
 	
 	public boolean squaresThreeAreNextToEachOther(){
 		if (firstNonClicked + 1 == middleNonClicked && middleNonClicked + 1 == lastNonClicked){
@@ -127,8 +120,3 @@ public class AdvancedData {
 		return true;
 	}
 }
-
-
-
-
-

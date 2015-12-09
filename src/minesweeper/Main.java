@@ -13,8 +13,8 @@ public class Main {
 	public static HashMap<Integer, AdvancedData> advancedDataMap;
 	public static HashMap<Integer, SquareData> squareDataMap;
 	public static Robot robot;
-	public static int guessed = 0;
 	public static int advancedTechniques = 0;
+	public static int guessed = 0;
 
 	public static void main(String[] args) throws AWTException{
 		nonClickedSquares = new ArrayList<Integer>();
@@ -22,7 +22,7 @@ public class Main {
 		advancedDataMap = new HashMap<Integer, AdvancedData>();
 		squareDataMap = new HashMap<Integer, SquareData>();
 		robot = new Robot();
-
+		
 		WindowManipulation.setMinesweeperSizeAndPosition();
 		WindowManipulation.setMinesweeperToForeground();
 		solve();
@@ -34,7 +34,7 @@ public class Main {
 	
 	public static void solve(){
 		Mouse.clickFirstSquare();
-		Board.updateBoard();
+		Board.updateEntireBoard();
 		fillArrayLists();
 		updateSquareData(squaresWithNumbers);
 		int roundsWithoutAction = 0;
@@ -54,9 +54,8 @@ public class Main {
 						advancedTechniques++;
 					}
 				}
-				else if (roundsWithoutAction == 3){
+				else{
 					System.out.println("guessed");
-//					robot.delay(1500);
 					Mouse.clickRandomNonClicked();
 					guessed++;
 					roundsWithoutAction = 0;
@@ -153,18 +152,19 @@ public class Main {
 
 	public static void updateNonClickedSquares(){
 		ArrayList<Integer> nonClickedCopy = new ArrayList<Integer>(nonClickedSquares);
+		int[][] board = Board.board;
 		Board.updateBoardImage();
 		
 		for (int square : nonClickedCopy){
-			Board.updateNumberOnSquare(square);
+			Board.getNumberOnSquare(square);
 			
 			int row = MatrixConversion.getRow(square);
 			int column = MatrixConversion.getColumn(square);
 			
-			if (Board.board[row][column] != 8){
+			if (board[row][column] != 8){
 				removeFromNonClicked(square);
 	
-				if (Board.board[row][column] != 0 || Board.board[row][column] != 9){
+				if (board[row][column] != 0 || board[row][column] != 9){
 					addToSquaresWithNumbers(row, column);
 					SquareData.updateSquareData(square);
 				}
@@ -295,8 +295,6 @@ public class Main {
 	}
 
 	public static void flagOppositeSide(AdvancedData advancedData){
-		System.out.println("flagging opposite");
-//		robot.delay(5000);
 		int lastNonClicked = advancedData.lastNonClicked;
 		Mouse.flagSquare(lastNonClicked);
 	}
