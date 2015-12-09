@@ -57,7 +57,7 @@ public class Main {
 					}
 				}
 				else{
-					Mouse.clickRandomNonClicked();
+					Mouse.clickRandomSurroundingNonClicked();
 					System.out.println("guessed");
 					guessed++;
 					roundsWithoutAction = 0;
@@ -151,7 +151,6 @@ public class Main {
 		Board.updateBoardImage();
 		
 		for (int square : nonClickedCopy){
-			
 			int number = ComputerVision.getNumber(square);
 			
 			if (number != 8){

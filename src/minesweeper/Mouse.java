@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Mouse {
-	private static int milliSecondClickDelay = 1125;
+	private static int milliSecondClickDelay = 25;
 	public static HashMap<Integer, Pixel> centerOfSquares =
 			HashMapsOnDisk.getHashMap("centerOfSquares.ser");
 	
@@ -14,18 +14,17 @@ public class Mouse {
 		int startSquare = 0;
 		int milliseconds = 200;
 		Main.robot.delay(milliseconds);
-		moveMouse(startSquare);
-		leftClickMouse();
-	}
-	
-	public static void moveMouse(int square){
-		Pixel pixel = centerOfSquares.get(square);
-		Main.robot.mouseMove(pixel.x, pixel.y);
+		leftClickSquare(startSquare);
 	}
 	
 	public static void leftClickSquare(int square){
 		moveMouse(square);
 		leftClickMouse();
+	}
+
+	public static void moveMouse(int square){
+		Pixel pixel = centerOfSquares.get(square);
+		Main.robot.mouseMove(pixel.x, pixel.y);
 	}
 	
 	public static void leftClickMouse(){
@@ -35,33 +34,28 @@ public class Mouse {
 		Main.robot.mouseMove(0, 0);
 	}
 	
-	public static void rightClickMouse(){
-		Main.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
-		Main.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
-		Main.robot.delay(milliSecondClickDelay);
-	}
-	
-	public static void clickRandomNonClicked(){
-		Random random = new Random();
-		
+	public static void clickRandomSurroundingNonClicked(){
 		if (Main.squaresWithNumbers.size() > 0){
 			
-			int randomNumber = 0;
-			if (Main.squaresWithNumbers.size() != 1){
-				randomNumber = random.nextInt(Main.squaresWithNumbers.size()-1);
-			}
-			int randomSquare = Main.squaresWithNumbers.get(randomNumber);
+			int square = randomSquare(Main.squaresWithNumbers);
+			SquareData squareData = Main.squareDataMap.get(square);
 			
-			SquareData squareData = Main.squareDataMap.get(randomSquare);
-			int listLength = squareData.surroundingNonClickedSquares.size();
-			
-			randomNumber = random.nextInt(listLength-1);
-			randomSquare = squareData.surroundingNonClickedSquares.get(randomNumber);
-				
-			moveMouse(randomSquare);
-			leftClickMouse();
-			SquareData.updateSurroundingSquares(randomSquare);
+			square = randomSquare(squareData.surroundingNonClickedSquares);
+			leftClickSquare(square);
+			SquareData.updateSurroundingSquares(square);
 		}
+	}
+	
+	public static int randomSquare(ArrayList<Integer> squaresList){
+		Random random = new Random();
+		int randomNumber = 0;
+		
+		if (squaresList.size() > 1){
+			randomNumber = random.nextInt(squaresList.size()-1);
+		}
+		
+		int randomSquare = squaresList.get(randomNumber);
+		return randomSquare;
 	}
 	
 	public static void clickSurroundingNonClicked(SquareData squareData){
@@ -83,16 +77,19 @@ public class Mouse {
 	public static void flagSquare(int square){
 		moveMouse(square);
 		rightClickMouse();
-		
-		int row = MatrixConversion.getRow(square);
-		int column = MatrixConversion.getColumn(square);
-		
-		Board.board[row][column] = 9;
+
+		Board.placeNumberOnBoard(square, 9);
 		Main.removeFromNonClicked(square);
 
 		SquareData.updateSurroundingSquares(square);
 	}
 	
+	public static void rightClickMouse(){
+		Main.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
+		Main.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
+		Main.robot.delay(milliSecondClickDelay);
+	}
+
 	public static boolean clickAllNonClickedExceptEdgeAndNonEdge(SquareData otherSquareData,
 			AdvancedData edgeData){
 		
