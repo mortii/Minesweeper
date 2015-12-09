@@ -14,7 +14,7 @@ public class SquareData{
 		this.square = square;
 		this.row = MatrixConversion.getRow(square);
 		this.column = MatrixConversion.getColumn(square);
-		this.numberOnSquare = 0;
+		this.numberOnSquare = Board.board[row][column];
 		this.surroundingFlags = 0;
 		this.surroundingNonClickedSquares = new ArrayList<Integer>();
 	}
@@ -33,11 +33,12 @@ public class SquareData{
 				int newRow = row + rowOffset;
 				int newColumn = column + columnOffset;
 				
-				if (newRow < board.length && newRow > -1){
-					if (newColumn < board[0].length && newColumn > -1){
-						
-						Coordinates surroundingSquare = new Coordinates(newRow, newColumn);
-						surroundingSquaresList.add(surroundingSquare);
+				if (newRow != row || newColumn != column){
+					if (newRow < board.length && newRow > -1){
+						if (newColumn < board[0].length && newColumn > -1){
+								Coordinates surroundingSquare = new Coordinates(newRow, newColumn);
+								surroundingSquaresList.add(surroundingSquare);
+						}
 					}
 				}
 			}
@@ -45,14 +46,19 @@ public class SquareData{
 		return surroundingSquaresList;
 	}
 	
+	
+	public static void printArrayList(ArrayList<Coordinates> liste){
+		for (Coordinates element : liste){
+			System.out.print(element.square + " ");
+		}
+		System.out.println();
+	}
+
 	public static void updateSquareData(int square){
 		ArrayList<Coordinates> surroundingSquares = surroundingSquares(square);
 		int[][] board = Board.board;
 		
 		SquareData squareData = new SquareData(square);
-		int row = squareData.row;
-		int column = squareData.column;
-		squareData.numberOnSquare = board[row][column];
 		
 		for (Coordinates surroundingSquare : surroundingSquares){
 			
