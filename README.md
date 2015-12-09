@@ -8,6 +8,8 @@ http://forum.xda-developers.com/showthread.php?t=2096449
 ### How to use:
 **This only works with a 1920x1080 screen resolution on Windows.**
 
+This is made to work on windows 10, but if you want to use it on another version, just change the gameOver function in Main.
+
 The minesweeper board must have the same tile grid as the "Advanced" difficulty, i.e. 16x30.
 You also need to untick the "Display animations" and "Allow question marks" boxes to get the optimal results.
 

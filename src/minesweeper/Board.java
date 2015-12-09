@@ -12,7 +12,8 @@ public class Board {
 		updateBoardImage();
 		
 		for (int square = 0; square < 30*16; square++){
-			getNumberOnSquare(square);
+			int number = ComputerVision.getNumber(square);
+			placeNumberOnBoard(square, number);
 		}
 	}
 	
@@ -20,12 +21,9 @@ public class Board {
 		boardImage = Main.robot.createScreenCapture(boardRectangle);
 	}
 	
-	public static void getNumberOnSquare(int square){
+	public static void placeNumberOnBoard(int square, int number){
 			int row = MatrixConversion.getRow(square);
 			int column = MatrixConversion.getColumn(square);
-			int number = ComputerVision.getNumber(square);
-			
-	//		System.out.println("square:"+ square +" number:"+ number);
 			board[row][column] = number;
 		}
 

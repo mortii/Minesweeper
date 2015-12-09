@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Mouse {
-	private static int milliSecondClickDelay = 25;
+	private static int milliSecondClickDelay = 1125;
 	public static HashMap<Integer, Pixel> centerOfSquares =
 			HashMapsOnDisk.getHashMap("centerOfSquares.ser");
 	
@@ -45,7 +45,11 @@ public class Mouse {
 		Random random = new Random();
 		
 		if (Main.squaresWithNumbers.size() > 0){
-			int randomNumber = random.nextInt(Main.squaresWithNumbers.size()-1);
+			
+			int randomNumber = 0;
+			if (Main.squaresWithNumbers.size() != 1){
+				randomNumber = random.nextInt(Main.squaresWithNumbers.size()-1);
+			}
 			int randomSquare = Main.squaresWithNumbers.get(randomNumber);
 			
 			SquareData squareData = Main.squareDataMap.get(randomSquare);

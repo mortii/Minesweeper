@@ -10,8 +10,8 @@ import java.util.HashMap;
 public class Main {
 	public static ArrayList<Integer> nonClickedSquares;
 	public static ArrayList<Integer> squaresWithNumbers;
-	public static HashMap<Integer, AdvancedData> advancedDataMap;
 	public static HashMap<Integer, SquareData> squareDataMap;
+	public static HashMap<Integer, AdvancedData> advancedDataMap;
 	public static Robot robot;
 	public static int advancedTechniques = 0;
 	public static int guessed = 0;
@@ -19,8 +19,8 @@ public class Main {
 	public static void main(String[] args) throws AWTException{
 		nonClickedSquares = new ArrayList<Integer>();
 		squaresWithNumbers = new ArrayList<Integer>();
-		advancedDataMap = new HashMap<Integer, AdvancedData>();
 		squareDataMap = new HashMap<Integer, SquareData>();
+		advancedDataMap = new HashMap<Integer, AdvancedData>();
 		robot = new Robot();
 		
 		WindowManipulation.setMinesweeperSizeAndPosition();
@@ -29,6 +29,7 @@ public class Main {
 		
 		System.out.println("Used advanced techniques: "+advancedTechniques+" times");
 		System.out.println("Gussed: "+guessed+" times, probability of all being correct: "+0.5/guessed);
+		//TODO fix probability?
 		Board.printBoard();
 	}
 	
@@ -37,8 +38,9 @@ public class Main {
 		Board.updateEntireBoard();
 		fillArrayLists();
 		updateSquareData(squaresWithNumbers);
-		int roundsWithoutAction = 0;
 		
+		int roundsWithoutAction = 0;
+
 		while (!gameOver()){
 			
 			if (doSimpleTechniques()){
@@ -55,8 +57,8 @@ public class Main {
 					}
 				}
 				else{
-					System.out.println("guessed");
 					Mouse.clickRandomNonClicked();
+					System.out.println("guessed");
 					guessed++;
 					roundsWithoutAction = 0;
 					robot.delay(300);
@@ -92,8 +94,8 @@ public class Main {
 		nonClickedSquares.add(square);
 	}
 
-	public static void updateSquareData(ArrayList<Integer> squares){
-		for (int square : squares){
+	public static void updateSquareData(ArrayList<Integer> squaresList){
+		for (int square : squaresList){
 			SquareData.updateSquareData(square);
 		}
 	}
@@ -102,17 +104,11 @@ public class Main {
 		Color gameLost = robot.getPixelColor(560, 326);
 		Color gameWon = robot.getPixelColor(580, 310);
 		
-		if (gameLost.getBlue() == 255 &&
-			gameLost.getGreen() == 255 &&
-			gameLost.getRed() == 255){
-			
+		if (gameLost.equals(Color.white)){
 			System.out.println("Game Lost");
 			return true;
 		}
-		else if (gameWon.getBlue() == 255 &&
-			gameWon.getGreen() == 255 &&
-			gameWon.getRed() == 255){
-			
+		else if (gameWon.equals(Color.white)){
 			System.out.println("Game Won");
 			return true;
 		}
@@ -152,20 +148,18 @@ public class Main {
 
 	public static void updateNonClickedSquares(){
 		ArrayList<Integer> nonClickedCopy = new ArrayList<Integer>(nonClickedSquares);
-		int[][] board = Board.board;
 		Board.updateBoardImage();
 		
 		for (int square : nonClickedCopy){
-			Board.getNumberOnSquare(square);
 			
-			int row = MatrixConversion.getRow(square);
-			int column = MatrixConversion.getColumn(square);
+			int number = ComputerVision.getNumber(square);
 			
-			if (board[row][column] != 8){
+			if (number != 8){
+				Board.placeNumberOnBoard(square, number);
 				removeFromNonClicked(square);
 	
-				if (board[row][column] != 0 || board[row][column] != 9){
-					addToSquaresWithNumbers(row, column);
+				if (number != 0 && number != 9){
+					squaresWithNumbers.add(square);
 					SquareData.updateSquareData(square);
 				}
 			}
