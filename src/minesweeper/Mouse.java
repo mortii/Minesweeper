@@ -35,15 +35,12 @@ public class Mouse {
 	}
 	
 	public static void clickRandomSurroundingNonClicked(){
-		if (Main.squaresWithNumbers.size() > 0){
-			
-			int square = randomSquare(Main.squaresWithNumbers);
-			SquareData squareData = Main.squareDataMap.get(square);
-			
-			square = randomSquare(squareData.surroundingNonClickedSquares);
-			leftClickSquare(square);
-			SquareData.updateSurroundingSquares(square);
-		}
+		int square = randomSquare(Main.squaresWithNumbers);
+		SquareData squareData = Main.squareDataMap.get(square);
+		
+		square = randomSquare(squareData.surroundingNonClickedSquares);
+		leftClickSquare(square);
+		SquareData.updateSurroundingSquares(square);
 	}
 	
 	public static int randomSquare(ArrayList<Integer> squaresList){
@@ -90,32 +87,52 @@ public class Mouse {
 		Main.robot.delay(milliSecondClickDelay);
 	}
 
-	public static boolean clickAllNonClickedExceptEdgeAndNonEdge(SquareData otherSquareData,
-			AdvancedData edgeData){
-		
+	public static boolean clickAllExceptEdgeAndNonEdge(AdvancedData advancedData){
 		ArrayList<Integer> squaresToClick = new ArrayList<Integer>();
+		SquareData otherNumberedSquareData = Main.squareDataMap.get(advancedData.otherNumberedSquare);
 		
-		for (int square : otherSquareData.surroundingNonClickedSquares){
+		addSquaresToClick(squaresToClick, otherNumberedSquareData);
+		removeEdgeAndNonEdge(squaresToClick, advancedData);
+
+		boolean clickedSquares = false;
+		if (squaresToClick.size() > 0){
+			clickSquares(squaresToClick);
+			clickedSquares = true;
+		}
+
+		return clickedSquares;
+	}
+	
+	public static void addSquaresToClick(ArrayList<Integer> squaresToClick,
+			SquareData squareData){
+		
+		for (int square : squareData.surroundingNonClickedSquares){
 			squaresToClick.add(square);
 		}
-		
-		for (int square : edgeData.nonClickedSquaresNotToClick){
-			int index = squaresToClick.indexOf(square);
-			try{
-				squaresToClick.remove(index);
-			}
-			catch (Exception E){
-			}
+	}
+
+	public static void removeEdgeAndNonEdge(ArrayList<Integer> squaresToClick,
+				AdvancedData advancedData){
+			
+			int indexEdge = squaresToClick.indexOf(advancedData.edge);
+			squaresToClick.remove(indexEdge);
+			
+			int indexNonEdge = squaresToClick.indexOf(advancedData.nextToEdge);
+			squaresToClick.remove(indexNonEdge);
+	
+	//		try{
+	//			
+	//		}
+	//		catch (Exception E){
+	//		}
+			
+			
 		}
-		
-		boolean clickedSquares = false;
-		
+
+	public static void clickSquares(ArrayList<Integer> squaresToClick){
 		for (int square : squaresToClick){
 			leftClickSquare(square);
 			SquareData.updateSurroundingSquares(square);
-			clickedSquares = true;
 		}
-		
-		return clickedSquares;
 	}
 }

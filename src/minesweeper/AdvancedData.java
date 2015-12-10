@@ -4,60 +4,72 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class AdvancedData {
-	public int originSquare;
+	public int square;
 	public int otherNumberedSquare;
 	public int edge;
-	public int nonEdge;
-	
-	public int firstNonClicked;
-	public int middleNonClicked;
-	public int lastNonClicked;
+	public int nextToEdge;
 	
 	public int firstNumSquareNextToOrigin;
 	public int lastNumSquareNextToOrigin;
 	
-	public ArrayList<Integer> nonClickedSquaresNotToClick =
-			new ArrayList<Integer>();
+	public int lastNonClicked;
+	public int firstNonClicked;
 	
-	public void setEdgeAndNonEdge(SquareData squareData){
-		originSquare = squareData.square;
-		int possibleEdge = squareData.surroundingNonClickedSquares.get(0);
-		int possibleNonEdge = squareData.surroundingNonClickedSquares.get(1);
-		
-		if (possibleEdge + 1 == originSquare || possibleEdge - 1 == originSquare ||
-			possibleEdge + 30 == originSquare || possibleEdge - 30 == originSquare){
-			
-			this.edge = possibleEdge;
-			this.nonEdge = possibleNonEdge;
-		}
-		else{
-			this.edge = possibleNonEdge;
-			this.nonEdge = possibleEdge;
-		}
+	public AdvancedData(SquareData squareData){
+		this.square = squareData.square;
 	}
 	
-	public boolean squaresAreNextToEachOther(int edge, int nonEdge){
-		if (edge + 1 == nonEdge){
-			this.otherNumberedSquare = this.originSquare + 1;
+	public boolean nonClickedIsEdge(SquareData squareData){
+		setEdgeAndNonEdge(squareData);
+	
+		if (squaresAreNextToEachOther()){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean squaresAreNextToEachOther(){
+		if (edge + 1 == nextToEdge){
+			this.otherNumberedSquare = this.square + 1;
 			return true;
 		}
 		
-		else if (edge - 1 == nonEdge){
-			this.otherNumberedSquare = this.originSquare - 1;
+		else if (edge - 1 == nextToEdge){
+			this.otherNumberedSquare = this.square - 1;
 			return true;
 		}
 		
-		else if (edge + 30 == nonEdge){
-			this.otherNumberedSquare = this.originSquare + 30;
+		else if (edge + 30 == nextToEdge){
+			this.otherNumberedSquare = this.square + 30;
 			return true;
 		}
 		
-		else if (edge - 30 == nonEdge){
-			this.otherNumberedSquare = this.originSquare - 30;
+		else if (edge - 30 == nextToEdge){
+			this.otherNumberedSquare = this.square - 30;
 			return true;
 		}
 		
 		return false;
+	}
+
+	public void setEdgeAndNonEdge(SquareData squareData){
+		/*
+		 * the edge has to be in a + direction to the origin square.
+		 */
+		square = squareData.square;
+		int possibleEdge = squareData.surroundingNonClickedSquares.get(0);
+		int possibleNonEdge = squareData.surroundingNonClickedSquares.get(1);
+		
+		if (possibleEdge + 1 == square || possibleEdge - 1 == square ||
+			possibleEdge + 30 == square || possibleEdge - 30 == square){
+			
+			this.edge = possibleEdge;
+			this.nextToEdge = possibleNonEdge;
+		}
+		else{
+			this.edge = possibleNonEdge;
+			this.nextToEdge = possibleEdge;
+		}
 	}
 	
 	public boolean squareIsNotAFlag(int square){
@@ -77,24 +89,30 @@ public class AdvancedData {
 		}
 	}
 	
-	public void orderTheNonClickedSquares(SquareData squareData){
+	public int[] orderTheNonClickedSquares(SquareData squareData){
 		int tempFirst = squareData.surroundingNonClickedSquares.get(0);
 		int tempMiddle = squareData.surroundingNonClickedSquares.get(1);
 		int tempLast = squareData.surroundingNonClickedSquares.get(2);
 		
-		int[] sortArray = {tempFirst, tempMiddle, tempLast};
-		Arrays.sort(sortArray);
+		int[] sortedArray = {tempFirst, tempMiddle, tempLast};
+		Arrays.sort(sortedArray);
 		
-		firstNonClicked = sortArray[0];
-		middleNonClicked = sortArray[1];
-		lastNonClicked = sortArray[2];
-		originSquare = squareData.square;
+		
+		return sortedArray;
 	}
 	
-	public boolean squaresThreeAreNextToEachOther(){
+	public boolean squaresThreeAreNextToEachOther(SquareData squareData){
+		int[] sortedSquares = orderTheNonClickedSquares(squareData);
+		int firstNonClicked = sortedSquares[0];
+		int middleNonClicked = sortedSquares[1];
+		int lastNonClicked = sortedSquares[2];
+		
+		this.firstNonClicked = firstNonClicked;
+		this.lastNonClicked = lastNonClicked;
+		
 		if (firstNonClicked + 1 == middleNonClicked && middleNonClicked + 1 == lastNonClicked){
 			
-			if (originSquare > middleNonClicked){
+			if (square > middleNonClicked){
 				firstNumSquareNextToOrigin = firstNonClicked + 30;
 				lastNumSquareNextToOrigin = lastNonClicked + 30;
 			}
@@ -106,7 +124,7 @@ public class AdvancedData {
 		}
 		else if (firstNonClicked + 30 == middleNonClicked && middleNonClicked + 30 == lastNonClicked){
 			
-			if (originSquare > middleNonClicked){
+			if (square > middleNonClicked){
 				firstNumSquareNextToOrigin = firstNonClicked + 1;
 				lastNumSquareNextToOrigin = lastNonClicked + 1;
 			}
@@ -117,6 +135,6 @@ public class AdvancedData {
 			return true;
 		}
 		
-		return true;
+		return false;
 	}
 }

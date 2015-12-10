@@ -11,7 +11,7 @@ public class Main {
 	public static ArrayList<Integer> nonClickedSquares;
 	public static ArrayList<Integer> squaresWithNumbers;
 	public static HashMap<Integer, SquareData> squareDataMap;
-	public static HashMap<Integer, AdvancedData> advancedDataMap;
+//	public static HashMap<Integer, AdvancedData> advancedDataMap;
 	public static Robot robot;
 	public static int advancedTechniques = 0;
 	public static int guessed = 0;
@@ -20,7 +20,7 @@ public class Main {
 		nonClickedSquares = new ArrayList<Integer>();
 		squaresWithNumbers = new ArrayList<Integer>();
 		squareDataMap = new HashMap<Integer, SquareData>();
-		advancedDataMap = new HashMap<Integer, AdvancedData>();
+//		advancedDataMap = new HashMap<Integer, AdvancedData>();
 		robot = new Robot();
 		
 		WindowManipulation.setMinesweeperSizeAndPosition();
@@ -54,11 +54,12 @@ public class Main {
 				else if (roundsWithoutAction == 2){
 					if (doAdvancedTechniques()){
 						advancedTechniques++;
+						roundsWithoutAction = 0;
 					}
 				}
-				else{
-					Mouse.clickRandomSurroundingNonClicked();
+				else if (roundsWithoutAction == 3){
 					System.out.println("guessed");
+					Mouse.clickRandomSurroundingNonClicked();
 					guessed++;
 					roundsWithoutAction = 0;
 					robot.delay(300);
@@ -77,7 +78,7 @@ public class Main {
 				if (board[row][column] == 8){
 					addToNonClicked(row, column);
 				}
-				else if (board[row][column] != 0 || board[row][column] != 9){
+				else if (board[row][column] != 0 && board[row][column] != 9){
 					addToSquaresWithNumbers(row, column);
 				}
 			}
@@ -180,60 +181,60 @@ public class Main {
 			int number = squareData.numberOnSquare - squareData.surroundingFlags;
 			
 			if (number == 1){
-				if (squareData.surroundingNonClickedSquares.size() == 2){
-					if (squareIsEdge(squareData)){
-						if (oneAndOneTechnique(square)){
-							clickedSquares = true;
-						}
-					}
+				if (oneAndOneTechnique(squareData)){
+					clickedSquares = true;
 				}
 			}
-			
 			else if (number == 2){
-				if (squareData.surroundingNonClickedSquares.size() == 3){
-					if (squaresAreNextToEachOher(squareData)){
-						if (squareNextToOriginIsOne(squareData)){
-							if(oneAndTwoTechnique(squareData)){
-								clickedSquares = true;
-							}
-						}
-					}
+				if(oneAndTwoTechnique(squareData)){
+					clickedSquares = true;
 				}
 			}
 		}
 		return clickedSquares;
 	}
 	
-	public static boolean squareIsEdge(SquareData squareData){
-		AdvancedData advancedData = new AdvancedData();
-		advancedData.originSquare = squareData.square;
-		advancedData.setEdgeAndNonEdge(squareData);
-	
-		int edge = advancedData.edge;
-		int nonEdge = advancedData.nonEdge;
+	public static boolean oneAndOneTechnique(SquareData squareData){
+		AdvancedData advancedData = new AdvancedData(squareData);
 		
-		if (advancedData.squaresAreNextToEachOther(edge, nonEdge)){
-			if (advancedData.squareIsNotAFlag(advancedData.otherNumberedSquare)){
-				
-				advancedData.storeNonClicked(squareData);
-				
-				advancedDataMap.put(advancedData.originSquare, advancedData);
-				return true;
+		if (squareData.surroundingNonClickedSquares.size() == 2){
+			if (advancedData.nonClickedIsEdge(squareData)){
+				if (adjacentSquareIsOne(advancedData.otherNumberedSquare)){
+					if (Mouse.clickAllExceptEdgeAndNonEdge(advancedData)){
+						System.out.println("advancedTechnique 1-1");
+						return true;
+					}
+				}
 			}
 		}
-			
 		return false;
 	}
 
-	public static boolean oneAndOneTechnique(int originSquare){
-		AdvancedData advancedData = advancedDataMap.get(originSquare);
-		SquareData otherSquareData = squareDataMap.get(advancedData.otherNumberedSquare);
+	public static boolean adjacentSquareIsOne(int adjecentSquare){
+		SquareData adjecentSquareData = Main.squareDataMap.get(adjecentSquare);
 		
-		if (otherSquareData != null){
-			int number = otherSquareData.numberOnSquare - otherSquareData.surroundingFlags;
+		if (adjecentSquareData != null){
+			int number = adjecentSquareData.numberOnSquare - adjecentSquareData.surroundingFlags;
 			if (number == 1){
-				if (Mouse.clickAllNonClickedExceptEdgeAndNonEdge(otherSquareData, advancedData)){
-					System.out.println("advancedTechnique 1-1");
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean oneAndTwoTechnique(SquareData squareData){
+		AdvancedData advancedData = new AdvancedData(squareData);
+		
+		if (squareData.surroundingNonClickedSquares.size() == 3){
+			if (advancedData.squaresThreeAreNextToEachOther(squareData)){
+				if (adjacentSquareIsOne(advancedData.firstNumSquareNextToOrigin)){
+					System.out.println("advancedTecnique 1-2 1");
+					Mouse.flagSquare(advancedData.lastNonClicked);
+					return true;
+				}
+				else if (adjacentSquareIsOne(advancedData.lastNumSquareNextToOrigin)){
+					System.out.println("advancedTecnique 1-2 2");
+					Mouse.flagSquare(advancedData.firstNonClicked);
 					return true;
 				}
 			}
@@ -241,57 +242,6 @@ public class Main {
 		return false;
 	}
 
-	public static boolean squaresAreNextToEachOher(SquareData squareData){
-		AdvancedData advancedData = new AdvancedData();
-		advancedData.orderTheNonClickedSquares(squareData);
-		
-		if (advancedData.squaresThreeAreNextToEachOther()){
-			
-			advancedData.storeNonClicked(squareData);
-			advancedDataMap.put(squareData.square, advancedData);
-			return true;
-			
-		}
-		return false;
-	}
-
-	public static boolean squareNextToOriginIsOne(SquareData originSquareData){
-		AdvancedData edgeData = advancedDataMap.get(originSquareData.square);
-		int firstSquare = edgeData.firstNumSquareNextToOrigin;
-		SquareData firstSquareSquareData = squareDataMap.get(firstSquare);
-		
-		if (firstSquareSquareData != null){
-			int Number = firstSquareSquareData.numberOnSquare - firstSquareSquareData.surroundingFlags;
-			
-			if (Number == 1){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public static boolean oneAndTwoTechnique(SquareData originSquareData){
-		AdvancedData advancedData = advancedDataMap.get(originSquareData.square);
-		int firstSquare = advancedData.firstNumSquareNextToOrigin;
-		SquareData firstSquareSquareData = squareDataMap.get(firstSquare);
-		
-		if (firstSquareSquareData.hasNextNonClicked()){
-			//it can be next to the edge, and still work because it flags, but
-			//it doesn't left click
-			Mouse.clickAllNonClickedExceptEdgeAndNonEdge(firstSquareSquareData, advancedData);
-			System.out.println("advancedTechnique 1-2");
-			flagOppositeSide(advancedData);
-			return true;
-		
-		}
-		return false;
-	}
-
-	public static void flagOppositeSide(AdvancedData advancedData){
-		int lastNonClicked = advancedData.lastNonClicked;
-		Mouse.flagSquare(lastNonClicked);
-	}
-	
 	public static void printArrayList(ArrayList<Integer> liste){
 		for (int element : liste){
 			System.out.print(element + " ");
