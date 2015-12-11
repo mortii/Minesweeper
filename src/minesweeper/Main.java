@@ -16,6 +16,11 @@ public class Main {
 	public static int guessed = 0;
 
 	public static void main(String[] args) throws AWTException{
+		
+		
+//		int number = ComputerVision.getNumber(0);
+//		System.out.println(number);
+		
 		nonClickedSquares = new ArrayList<Integer>();
 		squaresWithNumbers = new ArrayList<Integer>();
 		squareDataMap = new HashMap<Integer, SquareData>();

@@ -20,12 +20,11 @@ public class ComputerVision {
 		Pixel pixelOffset = getPixelOffset(square);
 		int numberOnSquare = 0;
 		
-		if (squareIsNonClicked(pixelOffset)){
-			numberOnSquare = 8;
-		}
-		else if (squareIsFlag(pixelOffset)){
-			System.out.println("squareIsFlag");
+		if (squareIsFlag(pixelOffset)){
 			numberOnSquare = 9;
+		}
+		else if (squareIsNonClicked(pixelOffset)){
+			numberOnSquare = 8;
 		}
 		else if (numberIsOne(pixelOffset)){
 			numberOnSquare = 1;
@@ -100,7 +99,7 @@ public class ComputerVision {
 	private static boolean numberIsThree(Pixel pixelOffset){
 		PixelColors threePixelColors = new PixelColors(threePixel, pixelOffset);
 		
-		if (threePixelColors.blue < 20){
+		if (threePixelColors.blue < 20 && threePixelColors.green < 10){
 			return true;
 		}
 		return false;
