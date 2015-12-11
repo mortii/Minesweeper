@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Robot;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
-
 
 public class Main {
 	public static ArrayList<Integer> nonClickedSquares;
@@ -17,29 +15,17 @@ public class Main {
 	public static int guessed = 0;
 
 	public static void main(String[] args) throws AWTException{
+		nonClickedSquares = new ArrayList<Integer>();
+		squaresWithNumbers = new ArrayList<Integer>();
+		squareDataMap = new HashMap<Integer, SquareData>();
+		robot = new Robot();
 		
+		start();
+		solve();
 		
-		
-		HashMap<Integer, Pixel> squareCoordinates =
-				HashMapsOnDisk.getHashMap("squareCoordinates.ser");
-		
-		
-		for (Integer key : squareCoordinates.keySet()){
-			Pixel pixel = squareCoordinates.get(key);
-			System.out.println("square:"+key+", x:"+pixel.x+", y:"+pixel.y);
-		}
-		
-//		nonClickedSquares = new ArrayList<Integer>();
-//		squaresWithNumbers = new ArrayList<Integer>();
-//		squareDataMap = new HashMap<Integer, SquareData>();
-//		robot = new Robot();
-//		
-//		start();
-//		solve();
-//		
-//		System.out.println("Used advanced techniques: "+advancedTechniques+" times");
-//		System.out.println("Gussed: "+guessed+" times");
-//		Board.printBoard();
+		System.out.println("Used advanced techniques: "+advancedTechniques+" times");
+		System.out.println("Gussed: "+guessed+" times");
+		Board.printBoard();
 	}
 	
 	public static void start(){
