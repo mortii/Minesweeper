@@ -1,4 +1,4 @@
-squareCoordinates opper-left corner
+squareCoordinates upper-left corner
 
 square:0, x:0, y:0
 square:1, x:32, y:0
