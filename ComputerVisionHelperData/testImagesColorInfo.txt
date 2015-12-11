@@ -1,0 +1,49 @@
+numberOnSquare: (pixel) x, y
+example1(bright)
+example2(darker)
+example3(dark)
+
+1: 16, 16
+java.awt.Color[r=66,g=82,b=191]
+java.awt.Color[r=67,g=82,b=191]
+java.awt.Color[r=66,g=81,b=189]
+
+2: 23, 26
+java.awt.Color[r=32,g=103,b=7]
+java.awt.Color[r=32,g=103,b=6]
+java.awt.Color[r=29,g=106,b=4]
+
+3: 20, 11
+java.awt.Color[r=172,g=5,b=7]
+java.awt.Color[r=172,g=5,b=7]
+java.awt.Color[r=170,g=7,b=5]
+
+4: 10, 20
+java.awt.Color[r=0,g=1,b=128]
+java.awt.Color[r=0,g=2,b=127]
+java.awt.Color[r=1,g=4,b=131]
+
+5: 12, 11:
+java.awt.Color[r=123,g=0,b=1]
+java.awt.Color[r=123,g=0,b=1]
+java.awt.Color[r=124,g=0,b=1]
+
+6: 13, 20
+java.awt.Color[r=3,g=124,b=129]
+java.awt.Color[r=5,g=122,b=130]
+java.awt.Color[r=5,g=122,b=130]
+
+7: 24, 7
+java.awt.Color[r=175,g=14,b=17]
+java.awt.Color[r=173,g=8,b=8]
+java.awt.Color[r=175,g=7,b=7]
+
+flag: 8, 10
+java.awt.Color[r=244,g=2,b=11]
+java.awt.Color[r=232,g=3,b=7]
+java.awt.Color[r=244,g=4,b=10]
+
+nonClicked: 1, 0
+java.awt.Color[r=111,g=172,b=229]
+java.awt.Color[r=63,g=99,b=212]
+java.awt.Color[r=50,g=67,b=191]
