@@ -102,6 +102,10 @@ public class Main {
 	}
 
 	private static boolean gameOver(){
+		//The pop-up window is in different position depending on whether
+		//the game is won or lost. 
+		//The windows 10 pop-up window is white.
+		
 		Color gameLost = robot.getPixelColor(560, 326);
 		Color gameWon = robot.getPixelColor(580, 310);
 		
@@ -118,6 +122,8 @@ public class Main {
 	}
 	
 	public static boolean doSimpleTechniques(){
+//		 http://www.minesweeper.info/wiki/Strategy
+		//copy ArrayList to avoid concurrency issues
 		ArrayList<Integer> squaresWithNumbersCopy = new ArrayList<Integer>(squaresWithNumbers);
 		boolean clickedSquares = false;
 		
@@ -148,6 +154,7 @@ public class Main {
 	}
 
 	public static void updateNonClickedSquares(){
+		//copy ArrayList to avoid concurrency issues
 		ArrayList<Integer> nonClickedCopy = new ArrayList<Integer>(nonClickedSquares);
 		Board.updateBoardImage();
 		
@@ -178,74 +185,74 @@ public class Main {
 		
 		for (int square : squaresWithNumbers){
 			SquareData squareData = squareDataMap.get(square);
+			AdvancedData advancedData = new AdvancedData(squareData);
+			
 			int number = squareData.numberOnSquare - squareData.surroundingFlags;
 			
 			if (number == 1){
-				if (oneAndOneTechnique(squareData)){
-					clickedSquares = true;
+				if (squareData.surroundingNonClickedSquares.size() == 2){
+					if (oneAndOneTechnique(advancedData)){
+						clickedSquares = true;
+					}
 				}
 			}
 			else if (number == 2){
-				if(oneAndTwoTechnique(squareData)){
-					clickedSquares = true;
+				if (squareData.surroundingNonClickedSquares.size() == 3){
+					if(oneAndTwoTechnique(advancedData)){
+						clickedSquares = true;
+					}
 				}
 			}
 		}
 		return clickedSquares;
 	}
 	
-	public static boolean oneAndOneTechnique(SquareData squareData){
-		AdvancedData advancedData = new AdvancedData(squareData);
+	public static boolean oneAndOneTechnique(AdvancedData advancedData){
+		AdvancedData.OneAndOne oneAndOneData = advancedData.new OneAndOne();
 		
-		if (squareData.surroundingNonClickedSquares.size() == 2){
-			if (advancedData.nonClickedIsEdge(squareData)){
-				if (adjacentSquareIsOne(advancedData.otherNumberedSquare)){
-					if (Mouse.clickAllExceptEdgeAndNonEdge(advancedData)){
-						System.out.println("advancedTechnique 1-1");
-						advancedTechniques++;
-						return true;
-					}
+		if (oneAndOneData.nonClickedAreNextToEachOther()){
+			if (squareIsOne(oneAndOneData.adjecentSquareWithNumber)){
+				if (Mouse.clickAllExceptEdgeAndNextToEdge(oneAndOneData)){
+					System.out.println("advancedTechnique 1-1");
+					advancedTechniques++;
+					return true;
 				}
 			}
 		}
 		return false;
 	}
 
-	public static boolean adjacentSquareIsOne(int adjecentSquare){
-		SquareData adjecentSquareData = Main.squareDataMap.get(adjecentSquare);
+	public static boolean squareIsOne(int adjecentSquare){
+		int row = MatrixConversion.getRow(adjecentSquare);
+		int column = MatrixConversion.getColumn(adjecentSquare);
 		
-		if (adjecentSquareData != null){
-			int number = adjecentSquareData.numberOnSquare - adjecentSquareData.surroundingFlags;
-			
-			if (number == 1){
+		if (Board.board[row][column] == 1){
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean oneAndTwoTechnique(AdvancedData advancedData){
+		AdvancedData.OneAndTwo oneAndTwoData = advancedData.new OneAndTwo();
+		
+		if (oneAndTwoData.nonClickedAreNextToEachOther()){
+			if (squareIsOne(oneAndTwoData.firstNumberedAdjecent)){
+				flagAndUpdate(oneAndTwoData.lastNonClicked);
+				return true;
+			}
+			else if (squareIsOne(oneAndTwoData.lastNumberedAdjecent)){
+				flagAndUpdate(oneAndTwoData.firstNonClicked);
 				return true;
 			}
 		}
 		return false;
 	}
-
-	public static boolean oneAndTwoTechnique(SquareData squareData){
-		AdvancedData advancedData = new AdvancedData(squareData);
-		
-		if (squareData.surroundingNonClickedSquares.size() == 3){
-			if (advancedData.squaresThreeAreNextToEachOther(squareData)){
-				if (adjacentSquareIsOne(advancedData.firstNumSquareNextToOrigin)){
-					System.out.println("advancedTechnique 1-2");
-					Mouse.flagSquare(advancedData.lastNonClicked);
-					SquareData.updateSurroundingSquares(advancedData.lastNonClicked);
-					advancedTechniques++;
-					return true;
-				}
-				else if (adjacentSquareIsOne(advancedData.lastNumSquareNextToOrigin)){
-					System.out.println("advancedTechnique 1-2");
-					Mouse.flagSquare(advancedData.firstNonClicked);
-					SquareData.updateSurroundingSquares(advancedData.firstNonClicked);
-					advancedTechniques++;
-					return true;
-				}
-			}
-		}
-		return false;
+	
+	public static void flagAndUpdate(int square){
+		System.out.println("advancedTechnique 1-2");
+		Mouse.flagSquare(square);
+		SquareData.updateSurroundingSquares(square);
+		advancedTechniques++;
 	}
 
 	public static void printArrayList(ArrayList<Integer> liste){

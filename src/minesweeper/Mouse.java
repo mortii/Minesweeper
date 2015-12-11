@@ -118,12 +118,12 @@ public class Mouse {
 		Main.robot.delay(milliSecondClickDelay);
 	}
 
-	public static boolean clickAllExceptEdgeAndNonEdge(AdvancedData advancedData){
+	public static boolean clickAllExceptEdgeAndNextToEdge(AdvancedData.OneAndOne advancedData){
 		ArrayList<Integer> squaresToClick = new ArrayList<Integer>();
-		SquareData otherNumberedSquareData = Main.squareDataMap.get(advancedData.otherNumberedSquare);
+		SquareData otherNumberedSquareData = Main.squareDataMap.get(advancedData.adjecentSquareWithNumber);
 		
 		addSquaresToClick(squaresToClick, otherNumberedSquareData);
-		removeEdgeAndNonEdge(squaresToClick, advancedData);
+		removeEdgeAndNextToEdge(squaresToClick, advancedData);
 
 		boolean clickedSquares = false;
 		if (squaresToClick.size() > 0){
@@ -142,22 +142,14 @@ public class Mouse {
 		}
 	}
 
-	public static void removeEdgeAndNonEdge(ArrayList<Integer> squaresToClick,
-				AdvancedData advancedData){
+	public static void removeEdgeAndNextToEdge(ArrayList<Integer> squaresToClick,
+				AdvancedData.OneAndOne advancedData){
 			
 			int indexEdge = squaresToClick.indexOf(advancedData.edge);
 			squaresToClick.remove(indexEdge);
 			
 			int indexNonEdge = squaresToClick.indexOf(advancedData.nextToEdge);
 			squaresToClick.remove(indexNonEdge);
-	
-	//		try{
-	//			
-	//		}
-	//		catch (Exception E){
-	//		}
-			
-			
 		}
 
 	public static void clickSquares(ArrayList<Integer> squaresToClick){
