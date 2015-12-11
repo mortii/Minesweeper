@@ -3,4 +3,4 @@ bin/
 .project
 ComputerVisionTestImages/
 src/minesweeper/ObsoleteFunctions.java
-pixelColorInfo..txt
+pixelColorInfo.txt
