@@ -23,6 +23,7 @@ public class Main {
 		
 		WindowManipulation.setMinesweeperSizeAndPosition();
 		WindowManipulation.setMinesweeperToForeground();
+		start();
 		solve();
 		
 		System.out.println("Used advanced techniques: "+advancedTechniques+" times");
@@ -30,12 +31,14 @@ public class Main {
 		Board.printBoard();
 	}
 	
-	public static void solve(){
+	public static void start(){
 		Mouse.clickFirstSquare();
 		Board.updateEntireBoard();
 		fillArrayLists();
 		updateSquareData(squaresWithNumbers);
-		
+	}
+
+	public static void solve(){
 		int roundsWithoutAction = 0;
 
 		while (!gameOver()){
