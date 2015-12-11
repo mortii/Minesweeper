@@ -21,8 +21,6 @@ public class Main {
 		squareDataMap = new HashMap<Integer, SquareData>();
 		robot = new Robot();
 		
-		WindowManipulation.setMinesweeperSizeAndPosition();
-		WindowManipulation.setMinesweeperToForeground();
 		start();
 		solve();
 		
@@ -32,10 +30,34 @@ public class Main {
 	}
 	
 	public static void start(){
+		WindowManipulation.setMinesweeperSizeAndPosition();
+		WindowManipulation.setMinesweeperToForeground();
 		Mouse.clickFirstSquare();
 		Board.updateEntireBoard();
 		fillArrayLists();
 		updateSquareData(squaresWithNumbers);
+	}
+
+	public static void fillArrayLists(){
+		int[][] board = Board.board;
+		
+		for (int row = 0; row < board.length; row++){
+			for (int column = 0; column < board[0].length; column++){
+				
+				if (board[row][column] == 8){
+					addToNonClickedSquares(row, column);
+				}
+				else if (board[row][column] != 0 && board[row][column] != 9){
+					addToSquaresWithNumbers(row, column);
+				}
+			}
+		}
+	}
+
+	public static void updateSquareData(ArrayList<Integer> squaresList){
+		for (int square : squaresList){
+			SquareData.updateSquareData(square);
+		}
 	}
 
 	public static void solve(){
@@ -70,22 +92,6 @@ public class Main {
 		}
 	}
 	
-	public static void fillArrayLists(){
-		int[][] board = Board.board;
-		
-		for (int row = 0; row < board.length; row++){
-			for (int column = 0; column < board[0].length; column++){
-				
-				if (board[row][column] == 8){
-					addToNonClickedSquares(row, column);
-				}
-				else if (board[row][column] != 0 && board[row][column] != 9){
-					addToSquaresWithNumbers(row, column);
-				}
-			}
-		}
-	}
-
 	public static void addToSquaresWithNumbers(int row, int column){
 		int square = MatrixConversion.getSquare(row, column);
 		squaresWithNumbers.add(square);
@@ -94,12 +100,6 @@ public class Main {
 	public static void addToNonClickedSquares(int row, int column){
 		int square = MatrixConversion.getSquare(row, column);
 		nonClickedSquares.add(square);
-	}
-
-	public static void updateSquareData(ArrayList<Integer> squaresList){
-		for (int square : squaresList){
-			SquareData.updateSquareData(square);
-		}
 	}
 
 	private static boolean gameOver(){

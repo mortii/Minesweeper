@@ -24,6 +24,7 @@ public class ComputerVision {
 			numberOnSquare = 8;
 		}
 		else if (squareIsFlag(pixelOffset)){
+			System.out.println("squareIsFlag");
 			numberOnSquare = 9;
 		}
 		else if (numberIsOne(pixelOffset)){
