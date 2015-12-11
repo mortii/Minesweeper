@@ -34,20 +34,47 @@ public class Mouse {
 		Main.robot.mouseMove(0, 0);
 	}
 	
-	public static void clickRandomSurroundingNonClicked(){
+	public static boolean clickRandomSurroundingNonClicked(){
 		int square = randomSquare(Main.squaresWithNumbers);
-		SquareData squareData = Main.squareDataMap.get(square);
 		
+		if (square == -1){
+			return false;
+		}
+
+		SquareData squareData = Main.squareDataMap.get(square);
 		square = randomSquare(squareData.surroundingNonClickedSquares);
-		leftClickSquare(square);
-		SquareData.updateSurroundingSquares(square);
+		
+		if (square == -1){
+			return false;
+		}
+		else{
+			System.out.println("guessed");
+			Main.guessed++;
+			leftClickSquare(square);
+			SquareData.updateSurroundingSquares(square);
+			return true;
+		}
 	}
 	
+	public static void clickRandomNonClicked(){
+		int square = randomSquare(Main.nonClickedSquares);
+		
+		if (square != -1){
+			System.out.println("guessed empty");
+			Main.guessed++;
+			leftClickSquare(square);
+			SquareData.updateSurroundingSquares(square);
+		}
+	}
+
 	public static int randomSquare(ArrayList<Integer> squaresList){
 		Random random = new Random();
 		int randomNumber = 0;
 		
-		if (squaresList.size() > 1){
+		if (squaresList.size() == 0){
+			return -1;
+		}
+		else if (squaresList.size() > 1){
 			randomNumber = random.nextInt(squaresList.size()-1);
 		}
 		

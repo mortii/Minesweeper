@@ -50,16 +50,17 @@ public class Main {
 				}
 				else if (roundsWithoutAction == 2){
 					if (doAdvancedTechniques()){
-						advancedTechniques++;
 						roundsWithoutAction = 0;
 					}
 				}
 				else if (roundsWithoutAction == 3){
-					System.out.println("guessed");
-					Mouse.clickRandomSurroundingNonClicked();
-					guessed++;
+					if(Mouse.clickRandomSurroundingNonClicked()){
+						roundsWithoutAction = 0;
+					}
+				}
+				else if (roundsWithoutAction == 4){
+					Mouse.clickRandomNonClicked();
 					roundsWithoutAction = 0;
-					robot.delay(300);
 				}
 			}
 			roundsWithoutAction++;			
@@ -199,6 +200,7 @@ public class Main {
 				if (adjacentSquareIsOne(advancedData.otherNumberedSquare)){
 					if (Mouse.clickAllExceptEdgeAndNonEdge(advancedData)){
 						System.out.println("advancedTechnique 1-1");
+						advancedTechniques++;
 						return true;
 					}
 				}
@@ -212,6 +214,7 @@ public class Main {
 		
 		if (adjecentSquareData != null){
 			int number = adjecentSquareData.numberOnSquare - adjecentSquareData.surroundingFlags;
+			
 			if (number == 1){
 				return true;
 			}
@@ -225,15 +228,17 @@ public class Main {
 		if (squareData.surroundingNonClickedSquares.size() == 3){
 			if (advancedData.squaresThreeAreNextToEachOther(squareData)){
 				if (adjacentSquareIsOne(advancedData.firstNumSquareNextToOrigin)){
-					System.out.println("advancedTecnique 1-2 1");
+					System.out.println("advancedTechnique 1-2");
 					Mouse.flagSquare(advancedData.lastNonClicked);
 					SquareData.updateSurroundingSquares(advancedData.lastNonClicked);
+					advancedTechniques++;
 					return true;
 				}
 				else if (adjacentSquareIsOne(advancedData.lastNumSquareNextToOrigin)){
-					System.out.println("advancedTecnique 1-2 2");
+					System.out.println("advancedTechnique 1-2");
 					Mouse.flagSquare(advancedData.firstNonClicked);
 					SquareData.updateSurroundingSquares(advancedData.firstNonClicked);
+					advancedTechniques++;
 					return true;
 				}
 			}
