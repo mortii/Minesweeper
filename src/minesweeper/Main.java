@@ -11,7 +11,6 @@ public class Main {
 	public static ArrayList<Integer> nonClickedSquares;
 	public static ArrayList<Integer> squaresWithNumbers;
 	public static HashMap<Integer, SquareData> squareDataMap;
-//	public static HashMap<Integer, AdvancedData> advancedDataMap;
 	public static Robot robot;
 	public static int advancedTechniques = 0;
 	public static int guessed = 0;
@@ -20,7 +19,6 @@ public class Main {
 		nonClickedSquares = new ArrayList<Integer>();
 		squaresWithNumbers = new ArrayList<Integer>();
 		squareDataMap = new HashMap<Integer, SquareData>();
-//		advancedDataMap = new HashMap<Integer, AdvancedData>();
 		robot = new Robot();
 		
 		WindowManipulation.setMinesweeperSizeAndPosition();
@@ -28,8 +26,7 @@ public class Main {
 		solve();
 		
 		System.out.println("Used advanced techniques: "+advancedTechniques+" times");
-		System.out.println("Gussed: "+guessed+" times, probability of all being correct: "+0.5/guessed);
-		//TODO fix probability?
+		System.out.println("Gussed: "+guessed+" times");
 		Board.printBoard();
 	}
 	
@@ -76,7 +73,7 @@ public class Main {
 			for (int column = 0; column < board[0].length; column++){
 				
 				if (board[row][column] == 8){
-					addToNonClicked(row, column);
+					addToNonClickedSquares(row, column);
 				}
 				else if (board[row][column] != 0 && board[row][column] != 9){
 					addToSquaresWithNumbers(row, column);
@@ -90,7 +87,7 @@ public class Main {
 		squaresWithNumbers.add(square);
 	}
 
-	public static void addToNonClicked(int row, int column){
+	public static void addToNonClickedSquares(int row, int column){
 		int square = MatrixConversion.getSquare(row, column);
 		nonClickedSquares.add(square);
 	}
@@ -230,11 +227,13 @@ public class Main {
 				if (adjacentSquareIsOne(advancedData.firstNumSquareNextToOrigin)){
 					System.out.println("advancedTecnique 1-2 1");
 					Mouse.flagSquare(advancedData.lastNonClicked);
+					SquareData.updateSurroundingSquares(advancedData.lastNonClicked);
 					return true;
 				}
 				else if (adjacentSquareIsOne(advancedData.lastNumSquareNextToOrigin)){
 					System.out.println("advancedTecnique 1-2 2");
 					Mouse.flagSquare(advancedData.firstNonClicked);
+					SquareData.updateSurroundingSquares(advancedData.firstNonClicked);
 					return true;
 				}
 			}

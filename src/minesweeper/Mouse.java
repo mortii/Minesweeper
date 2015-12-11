@@ -55,30 +55,34 @@ public class Mouse {
 		return randomSquare;
 	}
 	
-	public static void clickSurroundingNonClicked(SquareData squareData){
+	public static boolean clickSurroundingNonClicked(SquareData squareData){
+		boolean clickedSquare = false;
+		
 		while(squareData.hasNextNonClicked()){
 			int next = squareData.nextNonClicked();
 			
 			leftClickSquare(next);
 			SquareData.updateSurroundingSquares(next);
+			
+			clickedSquare = true;
 		}
+		return clickedSquare;
 	}
 	
 	public static void flagSurroudingNonClicked(SquareData squareData){
 		while(squareData.hasNextNonClicked()){
-			int newFlag = squareData.nextNonClicked();
-			flagSquare(newFlag);
+			int next = squareData.nextNonClicked();
+
+			flagSquare(next);
+			SquareData.updateSurroundingSquares(next);
 		}
 	}
 	
 	public static void flagSquare(int square){
 		moveMouse(square);
 		rightClickMouse();
-
 		Board.placeNumberOnBoard(square, 9);
 		Main.removeFromNonClicked(square);
-
-		SquareData.updateSurroundingSquares(square);
 	}
 	
 	public static void rightClickMouse(){
