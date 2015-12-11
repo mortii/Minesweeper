@@ -63,7 +63,6 @@ public class Main {
 		int roundsWithoutAction = 0;
 
 		while (!gameOver()){
-			
 			if (doSimpleTechniques()){
 				roundsWithoutAction = 0;
 			}
