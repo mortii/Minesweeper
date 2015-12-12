@@ -11,8 +11,10 @@ public class AdvancedData {
 		
 	public class OneAndOne{
 		public SquareData squareData;
+		
 		public int square;
 		public int adjecentSquareWithNumber;
+		
 		public int nonClickedEdge;
 		public int nonClickedAdjecentToEdge;
 		

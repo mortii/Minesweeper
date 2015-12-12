@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Mouse {
-	private static int milliSecondClickDelay = 525;
-	public static HashMap<Integer, Pixel> centerOfSquares =
+	private static int milliSecondClickDelay = 25;
+	private static HashMap<Integer, Pixel> centerOfSquares =
 			HashMapsOnDisk.getHashMap("centerOfSquares.ser");
 	
 	public static void clickFirstSquare(){
@@ -17,17 +17,17 @@ public class Mouse {
 		leftClickSquare(startSquare);
 	}
 	
-	public static void leftClickSquare(int square){
+	private static void leftClickSquare(int square){
 		moveMouse(square);
 		leftClickMouse();
 	}
 
-	public static void moveMouse(int square){
+	private static void moveMouse(int square){
 		Pixel pixel = centerOfSquares.get(square);
 		Main.robot.mouseMove(pixel.x, pixel.y);
 	}
 	
-	public static void leftClickMouse(){
+	private static void leftClickMouse(){
 		Main.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 		Main.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 		Main.robot.delay(milliSecondClickDelay);
@@ -67,7 +67,7 @@ public class Mouse {
 		}
 	}
 
-	public static int randomSquare(ArrayList<Integer> squaresList){
+	private static int randomSquare(ArrayList<Integer> squaresList){
 		Random random = new Random();
 		int randomNumber = 0;
 		
@@ -112,7 +112,7 @@ public class Mouse {
 		Main.removeFromNonClicked(square);
 	}
 	
-	public static void rightClickMouse(){
+	private static void rightClickMouse(){
 		Main.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
 		Main.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
 		Main.robot.delay(milliSecondClickDelay);
@@ -134,7 +134,7 @@ public class Mouse {
 		return clickedSquares;
 	}
 	
-	public static void addSquaresToClick(ArrayList<Integer> squaresToClick,
+	private static void addSquaresToClick(ArrayList<Integer> squaresToClick,
 			SquareData squareData){
 		
 		for (int square : squareData.surroundingNonClickedSquares){
@@ -142,7 +142,7 @@ public class Mouse {
 		}
 	}
 
-	public static void removeEdgeAndNextToEdge(ArrayList<Integer> squaresToClick,
+	private static void removeEdgeAndNextToEdge(ArrayList<Integer> squaresToClick,
 				AdvancedData.OneAndOne advancedData){
 			
 			int indexEdge = squaresToClick.indexOf(advancedData.nonClickedEdge);

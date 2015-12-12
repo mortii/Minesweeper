@@ -19,7 +19,7 @@ public class SquareData{
 		this.surroundingNonClickedSquares = new ArrayList<Integer>();
 	}
 	
-	public static ArrayList<Coordinates> surroundingSquares(int square){
+	private static ArrayList<Coordinates> surroundingSquares(int square){
 		ArrayList<Coordinates> surroundingSquaresList = new ArrayList<Coordinates>();
 		
 		int[][] board = Board.board;
@@ -86,7 +86,7 @@ public class SquareData{
 		}
 	}
 	
-	public void removeNonClicked(int squareToRemove){
+	private void removeNonClicked(int squareToRemove){
 		int index = surroundingNonClickedSquares.indexOf(squareToRemove);
 		try{
 			surroundingNonClickedSquares.remove(index);
