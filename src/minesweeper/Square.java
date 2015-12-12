@@ -9,7 +9,6 @@ public class Square{
 	public int column;
 	private ArrayList<Coordinates> surroundingSquares;
 	public ArrayList<Integer> surroundingNonClickedSquares;
-	public ArrayList<Integer> surroundingSquaresWithNumbers;
 	public int surroundingFlags;
 	
 	public Square(int square){
