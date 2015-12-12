@@ -145,10 +145,10 @@ public class Mouse {
 	public static void removeEdgeAndNextToEdge(ArrayList<Integer> squaresToClick,
 				AdvancedData.OneAndOne advancedData){
 			
-			int indexEdge = squaresToClick.indexOf(advancedData.edge);
+			int indexEdge = squaresToClick.indexOf(advancedData.nonClickedEdge);
 			squaresToClick.remove(indexEdge);
 			
-			int indexNonEdge = squaresToClick.indexOf(advancedData.nextToEdge);
+			int indexNonEdge = squaresToClick.indexOf(advancedData.nonClickedAdjecentToEdge);
 			squaresToClick.remove(indexNonEdge);
 		}
 

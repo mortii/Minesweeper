@@ -13,8 +13,8 @@ public class AdvancedData {
 		public SquareData squareData;
 		public int square;
 		public int adjecentSquareWithNumber;
-		public int edge;
-		public int nextToEdge;
+		public int nonClickedEdge;
+		public int nonClickedAdjecentToEdge;
 		
 		public OneAndOne(){
 			this.squareData = AdvancedData.this.squareData;
@@ -22,24 +22,24 @@ public class AdvancedData {
 		}
 		
 		public boolean nonClickedAreNextToEachOther(){
-			setEdgeAndNextToEdge();
+			setEdgeAndAdjecentToEdge();
 			
-			if (edge + 1 == nextToEdge){
+			if (nonClickedEdge + 1 == nonClickedAdjecentToEdge){
 				this.adjecentSquareWithNumber = this.square + 1;
 				return true;
 			}
 			
-			else if (edge - 1 == nextToEdge){
+			else if (nonClickedEdge - 1 == nonClickedAdjecentToEdge){
 				this.adjecentSquareWithNumber = this.square - 1;
 				return true;
 			}
 			
-			else if (edge + 30 == nextToEdge){
+			else if (nonClickedEdge + 30 == nonClickedAdjecentToEdge){
 				this.adjecentSquareWithNumber = this.square + 30;
 				return true;
 			}
 			
-			else if (edge - 30 == nextToEdge){
+			else if (nonClickedEdge - 30 == nonClickedAdjecentToEdge){
 				this.adjecentSquareWithNumber = this.square - 30;
 				return true;
 			}
@@ -48,7 +48,7 @@ public class AdvancedData {
 			return false;
 		}
 
-		public void setEdgeAndNextToEdge(){
+		private void setEdgeAndAdjecentToEdge(){
 			/*Edge means that it only has one nonClicked square next to it
 			 * in the same column or row, depending on the orientation to
 			 * the square we are testing.
@@ -60,17 +60,17 @@ public class AdvancedData {
 			 */
 			
 			int tempEdge = this.squareData.surroundingNonClickedSquares.get(0);
-			int tempNextToEdge = this.squareData.surroundingNonClickedSquares.get(1);
+			int tempAdjecentToEdge = this.squareData.surroundingNonClickedSquares.get(1);
 
 			if (tempEdge + 1 == square || tempEdge - 1 == square ||
 					tempEdge + 30 == square || tempEdge - 30 == square){
 				
-				this.edge = tempEdge;
-				this.nextToEdge = tempNextToEdge;
+				this.nonClickedEdge = tempEdge;
+				this.nonClickedAdjecentToEdge = tempAdjecentToEdge;
 			}
 			else{
-				this.edge = tempNextToEdge;
-				this.nextToEdge = tempEdge;
+				this.nonClickedEdge = tempAdjecentToEdge;
+				this.nonClickedAdjecentToEdge = tempEdge;
 			}
 		}
 	}
@@ -79,28 +79,18 @@ public class AdvancedData {
 		public SquareData squareData;
 		public int square;
 		
-		public int firstNumberedAdjecent;
-		public int lastNumberedAdjecent;
+		public int firstAdjecentNumbered;
+		public int lastAdjecentNumbered;
 		
-		public int lastNonClicked;
 		public int firstNonClicked;
+		public int lastNonClicked;
 		
 		public OneAndTwo(){
 			this.squareData = AdvancedData.this.squareData;
 			this.square = squareData.square;
 		}
 		
-//		public boolean squareIsNotAFlag(int square){
-//			int row = MatrixConversion.getRow(square);
-//			int column = MatrixConversion.getColumn(square);
-//			
-//			if (Board.board[row][column] == 9){
-//				return false;
-//			}
-//			
-//			return true;
-//		}
-		public int[] orderTheNonClickedSquares(){
+		private int[] orderTheNonClickedSquares(){
 			int tempFirst = this.squareData.surroundingNonClickedSquares.get(0);
 			int tempMiddle = this.squareData.surroundingNonClickedSquares.get(1);
 			int tempLast = this.squareData.surroundingNonClickedSquares.get(2);
@@ -113,6 +103,7 @@ public class AdvancedData {
 		
 		public boolean nonClickedAreNextToEachOther(){
 			int[] sortedSquares = orderTheNonClickedSquares();
+			
 			int firstNonClicked = sortedSquares[0];
 			int middleNonClicked = sortedSquares[1];
 			int lastNonClicked = sortedSquares[2];
@@ -123,24 +114,24 @@ public class AdvancedData {
 			if (firstNonClicked + 1 == middleNonClicked && middleNonClicked + 1 == lastNonClicked){
 				
 				if (square > middleNonClicked){
-					firstNumberedAdjecent = firstNonClicked + 30;
-					lastNumberedAdjecent = lastNonClicked + 30;
+					firstAdjecentNumbered = firstNonClicked + 30;
+					lastAdjecentNumbered = lastNonClicked + 30;
 				}
 				else{
-					firstNumberedAdjecent = firstNonClicked - 30;
-					lastNumberedAdjecent = lastNonClicked - 30;
+					firstAdjecentNumbered = firstNonClicked - 30;
+					lastAdjecentNumbered = lastNonClicked - 30;
 				}
 				return true;
 			}
 			else if (firstNonClicked + 30 == middleNonClicked && middleNonClicked + 30 == lastNonClicked){
 				
 				if (square > middleNonClicked){
-					firstNumberedAdjecent = firstNonClicked + 1;
-					lastNumberedAdjecent = lastNonClicked + 1;
+					firstAdjecentNumbered = firstNonClicked + 1;
+					lastAdjecentNumbered = lastNonClicked + 1;
 				}
 				else{
-					firstNumberedAdjecent = firstNonClicked - 1;
-					lastNumberedAdjecent = lastNonClicked - 1;
+					firstAdjecentNumbered = firstNonClicked - 1;
+					lastAdjecentNumbered = lastNonClicked - 1;
 				}
 				return true;
 			}
@@ -148,7 +139,4 @@ public class AdvancedData {
 			return false;
 		}
 	}
-	
-	
-	
 }

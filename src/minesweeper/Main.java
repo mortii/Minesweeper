@@ -235,11 +235,11 @@ public class Main {
 		AdvancedData.OneAndTwo oneAndTwoData = advancedData.new OneAndTwo();
 		
 		if (oneAndTwoData.nonClickedAreNextToEachOther()){
-			if (squareIsOne(oneAndTwoData.firstNumberedAdjecent)){
+			if (squareIsOne(oneAndTwoData.firstAdjecentNumbered)){
 				flagAndUpdate(oneAndTwoData.lastNonClicked);
 				return true;
 			}
-			else if (squareIsOne(oneAndTwoData.lastNumberedAdjecent)){
+			else if (squareIsOne(oneAndTwoData.lastAdjecentNumbered)){
 				flagAndUpdate(oneAndTwoData.firstNonClicked);
 				return true;
 			}
