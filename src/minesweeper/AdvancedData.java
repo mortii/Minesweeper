@@ -12,7 +12,6 @@ public class AdvancedData {
 	public class OneAndOne{
 		public SquareData squareData;
 		public int square;
-
 		public int adjecentSquareWithNumber;
 		public int edge;
 		public int nextToEdge;
@@ -91,16 +90,16 @@ public class AdvancedData {
 			this.square = squareData.square;
 		}
 		
-		public boolean squareIsNotAFlag(int square){
-			int row = MatrixConversion.getRow(square);
-			int column = MatrixConversion.getColumn(square);
-			
-			if (Board.board[row][column] == 9){
-				return false;
-			}
-			
-			return true;
-		}
+//		public boolean squareIsNotAFlag(int square){
+//			int row = MatrixConversion.getRow(square);
+//			int column = MatrixConversion.getColumn(square);
+//			
+//			if (Board.board[row][column] == 9){
+//				return false;
+//			}
+//			
+//			return true;
+//		}
 		public int[] orderTheNonClickedSquares(){
 			int tempFirst = this.squareData.surroundingNonClickedSquares.get(0);
 			int tempMiddle = this.squareData.surroundingNonClickedSquares.get(1);

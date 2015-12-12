@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Mouse {
-	private static int milliSecondClickDelay = 25;
+	private static int milliSecondClickDelay = 525;
 	public static HashMap<Integer, Pixel> centerOfSquares =
 			HashMapsOnDisk.getHashMap("centerOfSquares.ser");
 	

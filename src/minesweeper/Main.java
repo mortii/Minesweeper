@@ -197,7 +197,7 @@ public class Main {
 			}
 			else if (number == 2){
 				if (squareData.surroundingNonClickedSquares.size() == 3){
-					if(oneAndTwoTechnique(advancedData)){
+					if (oneAndTwoTechnique(advancedData)){
 						clickedSquares = true;
 					}
 				}
