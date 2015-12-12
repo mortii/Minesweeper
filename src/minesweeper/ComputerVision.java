@@ -14,7 +14,7 @@ public class ComputerVision {
 	private static Pixel flagPixel = new Pixel(8, 10);
 	private static Pixel nonClickedPixel = new Pixel(1, 0);
 	private static HashMap<Integer, Pixel> squareCoordinates =
-			HashMapsOnDisk.getHashMap("squareCoordinates.ser");
+			OnDisk.tryToGetHashMap("squareCoordinates.ser");
 	
 	public static int getNumber(int square){
 		Pixel pixelOffset = getPixelOffset(square);
