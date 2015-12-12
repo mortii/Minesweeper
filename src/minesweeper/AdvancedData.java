@@ -3,14 +3,14 @@ package minesweeper;
 import java.util.Arrays;
 
 public class AdvancedData {
-	public SquareData squareData;
+	public Square squareData;
 	
-	public AdvancedData(SquareData squareData){
+	public AdvancedData(Square squareData){
 		this.squareData = squareData;
 	}
 		
 	public class OneAndOne{
-		public SquareData squareData;
+		public Square squareData;
 		
 		public int square;
 		public int adjecentSquareWithNumber;
@@ -78,7 +78,7 @@ public class AdvancedData {
 	}
 
 	public class OneAndTwo{
-		public SquareData squareData;
+		public Square squareData;
 		public int square;
 		
 		public int firstAdjecentNumbered;

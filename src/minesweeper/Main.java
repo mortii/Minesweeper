@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Main {
 	public static ArrayList<Integer> nonClickedSquares;
 	public static ArrayList<Integer> squaresWithNumbers;
-	public static HashMap<Integer, SquareData> squareDataMap;
+	public static HashMap<Integer, Square> squaresMap;
 	public static Robot robot;
 	public static int advancedTechniques = 0;
 	public static int guessed = 0;
@@ -17,7 +17,7 @@ public class Main {
 	public static void main(String[] args) throws AWTException{
 		nonClickedSquares = new ArrayList<Integer>();
 		squaresWithNumbers = new ArrayList<Integer>();
-		squareDataMap = new HashMap<Integer, SquareData>();
+		squaresMap = new HashMap<Integer, Square>();
 		robot = new Robot();
 		
 		start();
@@ -29,12 +29,12 @@ public class Main {
 	}
 	
 	public static void start(){
-		WindowManipulation.setMinesweeperSizeAndPosition();
-		WindowManipulation.setMinesweeperToForeground();
+		Window.setMinesweeperSizeAndPosition();
+		Window.setMinesweeperToForeground();
 		Mouse.clickFirstSquare();
 		Board.updateEntireBoard();
 		fillArrayLists();
-		updateSquareData(squaresWithNumbers);
+		fillSquaresMap();
 	}
 
 	public static void fillArrayLists(){
@@ -54,18 +54,27 @@ public class Main {
 	}
 
 	public static void addToNonClickedSquares(int row, int column){
-		int square = MatrixConversion.getSquare(row, column);
+		int square = Board.getSquare(row, column);
 		nonClickedSquares.add(square);
 	}
 
 	public static void addToSquaresWithNumbers(int row, int column){
-		int square = MatrixConversion.getSquare(row, column);
+		int square = Board.getSquare(row, column);
 		squaresWithNumbers.add(square);
 	}
 
-	public static void updateSquareData(ArrayList<Integer> squaresList){
-		for (int square : squaresList){
-			SquareData.updateSquareData(square);
+	public static void fillSquaresMap(){
+		for (int square : squaresWithNumbers){
+			Square squareWithNumber = new Square(square);
+			squaresMap.put(square, squareWithNumber);
+		}
+	}
+
+	public static void updateSquaresWithNumbers(){
+		for (int square : squaresWithNumbers){
+			Square squareWithNumber = squaresMap.get(square);
+			squareWithNumber.updateSurroundings();
+			squaresMap.put(square, squareWithNumber);
 		}
 	}
 
@@ -79,7 +88,7 @@ public class Main {
 			else{
 				if (roundsWithoutClicking == 1){
 					updateNonClickedSquares();
-					updateSquareData(squaresWithNumbers);
+					updateSquaresWithNumbers();
 				}
 				else if (roundsWithoutClicking == 2){
 					if (doAdvancedTechniques()){
@@ -127,7 +136,7 @@ public class Main {
 		boolean clickedSquares = false;
 		
 		for (int square : squaresWithNumbersCopy){
-			SquareData squareData = squareDataMap.get(square);
+			Square squareData = squaresMap.get(square);
 			
 			int number = squareData.numberOnSquare;
 			int flags = squareData.surroundingFlags;
@@ -165,8 +174,9 @@ public class Main {
 				removeFromNonClicked(square);
 	
 				if (number != 0 && number != 9){
+					Square squareWithNumber = new Square(square);
+					squaresMap.put(square, squareWithNumber);
 					squaresWithNumbers.add(square);
-					SquareData.updateSquareData(square);
 				}
 			}
 		}
@@ -182,21 +192,21 @@ public class Main {
 		
 		boolean clickedSquares = false;
 		
-		for (int square : squaresWithNumbers){
-			SquareData squareData = squareDataMap.get(square);
-			AdvancedData advancedData = new AdvancedData(squareData);
+		for (int numberedSquare : squaresWithNumbers){
+			Square square = squaresMap.get(numberedSquare);
+			AdvancedData advancedData = new AdvancedData(square);
 			
-			int number = squareData.numberOnSquare - squareData.surroundingFlags;
+			int number = square.numberOnSquare - square.surroundingFlags;
 			
 			if (number == 1){
-				if (squareData.surroundingNonClickedSquares.size() == 2){
+				if (square.surroundingNonClickedSquares.size() == 2){
 					if (oneAndOneTechnique(advancedData)){
 						clickedSquares = true;
 					}
 				}
 			}
 			else if (number == 2){
-				if (squareData.surroundingNonClickedSquares.size() == 3){
+				if (square.surroundingNonClickedSquares.size() == 3){
 					if (oneAndTwoTechnique(advancedData)){
 						clickedSquares = true;
 					}
@@ -222,8 +232,8 @@ public class Main {
 	}
 
 	public static boolean squareIsOne(int adjecentSquare){
-		int row = MatrixConversion.getRow(adjecentSquare);
-		int column = MatrixConversion.getColumn(adjecentSquare);
+		int row = Board.getRow(adjecentSquare);
+		int column = Board.getColumn(adjecentSquare);
 		
 		if (Board.board[row][column] == 1){
 			return true;
@@ -250,7 +260,7 @@ public class Main {
 	public static void flagAndUpdate(int square){
 		System.out.println("advancedTechnique 1-2");
 		Mouse.flagSquare(square);
-		SquareData.updateSurroundingSquares(square);
+		Square.updateTheSurroundingSquares(square);
 		advancedTechniques++;
 	}
 

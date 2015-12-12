@@ -3,7 +3,7 @@ package minesweeper;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef.HWND;
 
-public class WindowManipulation {
+public class Window {
 	private static HWND window = User32.INSTANCE.FindWindow(null, "Minesweeper");
 	
 	public static void setMinesweeperSizeAndPosition(){

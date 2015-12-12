@@ -22,10 +22,35 @@ public class Board {
 	}
 	
 	public static void placeNumberOnBoard(int square, int number){
-			int row = MatrixConversion.getRow(square);
-			int column = MatrixConversion.getColumn(square);
-			board[row][column] = number;
+		int row = getRow(square);
+		int column = getColumn(square);
+		board[row][column] = number;
+	}
+
+	public static int getRow(int square){
+		int row = square / 30;
+		return row;
+	}
+	
+	public static int getColumn(int square){
+		int column = square % 30;
+		return column;
+	}
+	
+	public static int getSquare(int row, int column){
+		int square;
+		
+		if (row == 0){
+			square = column;
 		}
+		else if (column == 0){
+			square = row*30;
+		}
+		else{
+			square = row*30 + column;
+		}
+		return square;
+	}
 
 	public static void printBoard(){
 		for (int row = 0; row < board.length; row++){
