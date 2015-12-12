@@ -53,6 +53,16 @@ public class Main {
 		}
 	}
 
+	public static void addToNonClickedSquares(int row, int column){
+		int square = MatrixConversion.getSquare(row, column);
+		nonClickedSquares.add(square);
+	}
+
+	public static void addToSquaresWithNumbers(int row, int column){
+		int square = MatrixConversion.getSquare(row, column);
+		squaresWithNumbers.add(square);
+	}
+
 	public static void updateSquareData(ArrayList<Integer> squaresList){
 		for (int square : squaresList){
 			SquareData.updateSquareData(square);
@@ -60,46 +70,36 @@ public class Main {
 	}
 
 	public static void solve(){
-		int roundsWithoutAction = 0;
+		int roundsWithoutClicking = 0;
 
 		while (!gameOver()){
 			if (doSimpleTechniques()){
-				roundsWithoutAction = 0;
+				roundsWithoutClicking = 0;
 			}
 			else{
-				if (roundsWithoutAction == 1){
+				if (roundsWithoutClicking == 1){
 					updateNonClickedSquares();
 					updateSquareData(squaresWithNumbers);
 				}
-				else if (roundsWithoutAction == 2){
+				else if (roundsWithoutClicking == 2){
 					if (doAdvancedTechniques()){
-						roundsWithoutAction = 0;
+						roundsWithoutClicking = 0;
 					}
 				}
-				else if (roundsWithoutAction == 3){
+				else if (roundsWithoutClicking == 3){
 					if(Mouse.clickRandomSurroundingNonClicked()){
-						roundsWithoutAction = 0;
+						roundsWithoutClicking = 0;
 					}
 				}
-				else if (roundsWithoutAction == 4){
+				else if (roundsWithoutClicking == 4){
 					Mouse.clickRandomNonClicked();
-					roundsWithoutAction = 0;
+					roundsWithoutClicking = 0;
 				}
 			}
-			roundsWithoutAction++;			
+			roundsWithoutClicking++;			
 		}
 	}
 	
-	public static void addToSquaresWithNumbers(int row, int column){
-		int square = MatrixConversion.getSquare(row, column);
-		squaresWithNumbers.add(square);
-	}
-
-	public static void addToNonClickedSquares(int row, int column){
-		int square = MatrixConversion.getSquare(row, column);
-		nonClickedSquares.add(square);
-	}
-
 	private static boolean gameOver(){
 		//The pop-up window is in different position depending on whether
 		//the game is won or lost. 
