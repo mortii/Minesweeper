@@ -1,7 +1,6 @@
 package minesweeper;
 
 import java.awt.AWTException;
-import java.awt.Color;
 import java.awt.Robot;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +8,7 @@ import java.util.HashMap;
 public class Main {
 	public static ArrayList<Integer> nonClickedSquares;
 	public static ArrayList<Integer> squaresWithNumbers;
-	public static HashMap<Integer, Square> squaresMap;
+	public static HashMap<Integer, Square> squareMap;
 	public static Robot robot;
 	public static int advancedTechniques = 0;
 	public static int guessed = 0;
@@ -17,7 +16,7 @@ public class Main {
 	public static void main(String[] args) throws AWTException{
 		nonClickedSquares = new ArrayList<Integer>();
 		squaresWithNumbers = new ArrayList<Integer>();
-		squaresMap = new HashMap<Integer, Square>();
+		squareMap = new HashMap<Integer, Square>();
 		robot = new Robot();
 		
 		start();
@@ -34,7 +33,7 @@ public class Main {
 		Mouse.clickFirstSquare();
 		Board.updateEntireBoard();
 		fillArrayLists();
-		fillSquaresMap();
+		fillSquareMap();
 	}
 
 	public static void fillArrayLists(){
@@ -63,18 +62,18 @@ public class Main {
 		squaresWithNumbers.add(square);
 	}
 
-	public static void fillSquaresMap(){
+	public static void fillSquareMap(){
 		for (int square : squaresWithNumbers){
 			Square squareWithNumber = new Square(square);
-			squaresMap.put(square, squareWithNumber);
+			squareMap.put(square, squareWithNumber);
 		}
 	}
 
 	public static void updateSquaresWithNumbers(){
 		for (int square : squaresWithNumbers){
-			Square squareWithNumber = squaresMap.get(square);
+			Square squareWithNumber = squareMap.get(square);
 			squareWithNumber.updateSurroundings();
-			squaresMap.put(square, squareWithNumber);
+			squareMap.put(square, squareWithNumber);
 		}
 	}
 
@@ -87,6 +86,7 @@ public class Main {
 			}
 			else{
 				if (roundsWithoutClicking == 1){
+					Board.updateBoardImage();
 					updateNonClickedSquares();
 					updateSquaresWithNumbers();
 				}
@@ -118,12 +118,8 @@ public class Main {
 		return false;
 	}
 	
-	/* http://www.minesweeper.info/wiki/Strategy
-	 * 
-	 * The most basic pattern:
-	 * iff numberOnSquare 
-	 * "If a number is touching the same number of squares,
-	 * then the squares are all mines."
+	/* 
+	 * http://www.minesweeper.info/wiki/Strategy
 	 */
 	public static boolean doBasicSolving(){
 		//copy ArrayList to avoid concurrency issues
@@ -131,7 +127,7 @@ public class Main {
 		boolean clickedSquares = false;
 		
 		for (int square : squaresWithNumbersCopy){
-			Square squareWithNumber = squaresMap.get(square);
+			Square squareWithNumber = squareMap.get(square);
 			
 			int number = squareWithNumber.numberOnSquare;
 			int flags = squareWithNumber.surroundingFlags;
@@ -159,7 +155,6 @@ public class Main {
 	public static void updateNonClickedSquares(){
 		//copy ArrayList to avoid concurrency issues
 		ArrayList<Integer> nonClickedCopy = new ArrayList<Integer>(nonClickedSquares);
-		Board.updateBoardImage();
 		
 		for (int square : nonClickedCopy){
 			int number = ComputerVision.getNumber(square);
@@ -170,7 +165,7 @@ public class Main {
 	
 				if (number != 0 && number != 9){
 					Square squareWithNumber = new Square(square);
-					squaresMap.put(square, squareWithNumber);
+					squareMap.put(square, squareWithNumber);
 					squaresWithNumbers.add(square);
 				}
 			}
@@ -187,22 +182,22 @@ public class Main {
 		
 		boolean clickedSquares = false;
 		
-		for (int numberedSquare : squaresWithNumbers){
-			Square square = squaresMap.get(numberedSquare);
-			AdvancedData advancedData = new AdvancedData(square);
+		for (int square : squaresWithNumbers){
+			Square squareWithNumber = squareMap.get(square);
 			
-			int number = square.numberOnSquare - square.surroundingFlags;
+			int number = squareWithNumber.numberOnSquare
+					- squareWithNumber.surroundingFlags;
 			
 			if (number == 1){
-				if (square.surroundingNonClickedSquares.size() == 2){
-					if (oneAndOneTechnique(advancedData)){
+				if (squareWithNumber.surroundingNonClickedSquares.size() == 2){
+					if (oneAndOneTechnique(squareWithNumber)){
 						clickedSquares = true;
 					}
 				}
 			}
 			else if (number == 2){
-				if (square.surroundingNonClickedSquares.size() == 3){
-					if (oneAndTwoTechnique(advancedData)){
+				if (squareWithNumber.surroundingNonClickedSquares.size() == 3){
+					if (oneAndTwoTechnique(squareWithNumber)){
 						clickedSquares = true;
 					}
 				}
@@ -211,8 +206,8 @@ public class Main {
 		return clickedSquares;
 	}
 	
-	public static boolean oneAndOneTechnique(AdvancedData advancedData){
-		AdvancedData.OneAndOne oneAndOneData = advancedData.new OneAndOne();
+	public static boolean oneAndOneTechnique(Square squareWithNumber){
+		OneAndOne oneAndOneData = new OneAndOne(squareWithNumber);
 		
 		if (oneAndOneData.nonClickedAreNextToEachOther()){
 			if (squareIsOne(oneAndOneData.adjecentSquareWithNumber)){
@@ -236,8 +231,8 @@ public class Main {
 		return false;
 	}
 
-	public static boolean oneAndTwoTechnique(AdvancedData advancedData){
-		AdvancedData.OneAndTwo oneAndTwoData = advancedData.new OneAndTwo();
+	public static boolean oneAndTwoTechnique(Square squareWithNumber){
+		OneAndTwo oneAndTwoData = new OneAndTwo(squareWithNumber);
 		
 		if (oneAndTwoData.nonClickedAreNextToEachOther()){
 			if (squareIsOne(oneAndTwoData.firstAdjecentNumbered)){

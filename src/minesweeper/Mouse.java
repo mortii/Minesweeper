@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Mouse {
-	private static final int MILLISECONDS_CLICK_DELAY = 25;
+	private static final int MILLISECONDS_CLICK_DELAY = 35;
 	private static HashMap<Integer, Pixel> centerOfSquares =
 			OnDisk.tryToGetHashMap("centerOfSquares.ser");
 	
@@ -37,7 +37,7 @@ public class Mouse {
 	public static boolean clickRandomSurroundingNonClicked(){
 		try{
 			int randomSquare = getRandomSquare(Main.squaresWithNumbers);
-			Square squareWithNumber = Main.squaresMap.get(randomSquare);
+			Square squareWithNumber = Main.squareMap.get(randomSquare);
 
 			randomSquare = getRandomSquare(squareWithNumber.surroundingNonClickedSquares);
 			leftClickSquare(randomSquare);
@@ -114,9 +114,9 @@ public class Mouse {
 		Main.robot.delay(MILLISECONDS_CLICK_DELAY);
 	}
 
-	public static boolean clickAllExceptEdgeAndNextToEdge(AdvancedData.OneAndOne advanced){
+	public static boolean clickAllExceptEdgeAndNextToEdge(OneAndOne advanced){
 		ArrayList<Integer> squaresToClick = new ArrayList<Integer>();
-		Square otherNumberedSquareData = Main.squaresMap.get(advanced.adjecentSquareWithNumber);
+		Square otherNumberedSquareData = Main.squareMap.get(advanced.adjecentSquareWithNumber);
 		
 		addSquaresToClick(squaresToClick, otherNumberedSquareData);
 		removeEdgeAndNextToEdge(squaresToClick, advanced);
@@ -139,7 +139,7 @@ public class Mouse {
 	}
 
 	private static void removeEdgeAndNextToEdge(ArrayList<Integer> squaresToClick,
-				AdvancedData.OneAndOne advanced){
+				OneAndOne advanced){
 			
 		int indexEdge = squaresToClick.indexOf(advanced.nonClickedEdge);
 		squaresToClick.remove(indexEdge);

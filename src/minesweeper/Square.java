@@ -95,7 +95,7 @@ public class Square{
 		int column = Board.getColumn(square);
 		
 		for (Coordinates surrSquare : surroundingSquares){
-			Square squareWithNumber = Main.squaresMap.get(surrSquare.square);
+			Square squareWithNumber = Main.squareMap.get(surrSquare.square);
 			
 			if (squareWithNumber != null){
 				
@@ -103,7 +103,7 @@ public class Square{
 					squareWithNumber.surroundingFlags++;
 				}
 				squareWithNumber.removeNonClicked(square);
-				Main.squaresMap.put(surrSquare.square, squareWithNumber);
+				Main.squareMap.put(surrSquare.square, squareWithNumber);
 			}
 		}
 	}
