@@ -82,7 +82,7 @@ public class Main {
 		int roundsWithoutClicking = 0;
 
 		while (!gameOver()){
-			if (doSimpleTechniques()){
+			if (doBasicSolving()){
 				roundsWithoutClicking = 0;
 			}
 			else{
@@ -91,7 +91,7 @@ public class Main {
 					updateSquaresWithNumbers();
 				}
 				else if (roundsWithoutClicking == 2){
-					if (doAdvancedTechniques()){
+					if (doAdvancedSolving()){
 						roundsWithoutClicking = 0;
 					}
 				}
@@ -104,16 +104,17 @@ public class Main {
 					Mouse.clickRandomNonClicked();
 					roundsWithoutClicking = 0;
 				}
+
 			}
 			roundsWithoutClicking++;			
 		}
 	}
 	
+	/* The gameover pop-up window position is different depending on whether
+	 * the game is won or lost.
+	 * The windows 10 pop-up window is white.
+	 */
 	private static boolean gameOver(){
-		//The pop-up window is in different position depending on whether
-		//the game is won or lost. 
-		//The windows 10 pop-up window is white.
-		
 		Color gameLost = robot.getPixelColor(560, 326);
 		Color gameWon = robot.getPixelColor(580, 310);
 		
@@ -129,26 +130,32 @@ public class Main {
 		return false;
 	}
 	
-	public static boolean doSimpleTechniques(){
-//		 http://www.minesweeper.info/wiki/Strategy
+	/* http://www.minesweeper.info/wiki/Strategy
+	 * 
+	 * The most basic pattern:
+	 * iff numberOnSquare 
+	 * "If a number is touching the same number of squares,
+	 * then the squares are all mines."
+	 */
+	public static boolean doBasicSolving(){
 		//copy ArrayList to avoid concurrency issues
 		ArrayList<Integer> squaresWithNumbersCopy = new ArrayList<Integer>(squaresWithNumbers);
 		boolean clickedSquares = false;
 		
 		for (int square : squaresWithNumbersCopy){
-			Square squareData = squaresMap.get(square);
+			Square squareWithNumber = squaresMap.get(square);
 			
-			int number = squareData.numberOnSquare;
-			int flags = squareData.surroundingFlags;
-			int nonClicked = squareData.surroundingNonClickedSquares.size();
+			int number = squareWithNumber.numberOnSquare;
+			int flags = squareWithNumber.surroundingFlags;
+			int nonClicked = squareWithNumber.surroundingNonClickedSquares.size();
 			
 			if (number == flags){
-				Mouse.clickSurroundingNonClicked(squareData);
+				Mouse.clickSurroundingNonClicked(squareWithNumber);
 				removeFromSquaresWithNumbers(square);
 				clickedSquares = true;
 			}
 			else if (number == flags + nonClicked){
-				Mouse.flagSurroudingNonClicked(squareData);
+				Mouse.flagSurroudingNonClicked(squareWithNumber);
 				removeFromSquaresWithNumbers(square);
 				clickedSquares = true;
 			}
@@ -187,7 +194,7 @@ public class Main {
 		nonClickedSquares.remove(index);
 	}
 	
-	public static boolean doAdvancedTechniques(){
+	public static boolean doAdvancedSolving(){
 //		 http://www.minesweeper.info/wiki/Strategy
 		
 		boolean clickedSquares = false;

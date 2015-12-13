@@ -108,8 +108,6 @@ public class Square{
 		}
 	}
 	
-//	public static removeFromSurroundingSquares()
-	
 	private void removeNonClicked(int squareToRemove){
 		int index = surroundingNonClickedSquares.indexOf(squareToRemove);
 		try{
