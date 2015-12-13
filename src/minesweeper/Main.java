@@ -101,8 +101,9 @@ public class Main {
 					}
 				}
 				else if (roundsWithoutClicking == 4){
-					Mouse.clickRandomNonClicked();
-					roundsWithoutClicking = 0;
+					if (Mouse.clickRandomNonClicked()){
+						roundsWithoutClicking = 0;
+					}
 				}
 
 			}
@@ -110,23 +111,10 @@ public class Main {
 		}
 	}
 	
-	/* The gameover pop-up window position is different depending on whether
-	 * the game is won or lost.
-	 * The windows 10 pop-up window is white.
-	 */
 	private static boolean gameOver(){
-		Color gameLost = robot.getPixelColor(560, 326);
-		Color gameWon = robot.getPixelColor(580, 310);
-		
-		if (gameLost.equals(Color.white)){
-			System.out.println("Game Lost");
+		if (Window.gameWasWon() || Window.gameWasLost()){
 			return true;
 		}
-		else if (gameWon.equals(Color.white)){
-			System.out.println("Game Won");
-			return true;
-		}
-			
 		return false;
 	}
 	

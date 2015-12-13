@@ -35,46 +35,42 @@ public class Mouse {
 	}
 	
 	public static boolean clickRandomSurroundingNonClicked(){
-		int square = randomSquare(Main.squaresWithNumbers);
-		
-		if (square == -1){
-			return false;
-		}
+		try{
+			int randomSquare = getRandomSquare(Main.squaresWithNumbers);
+			Square squareWithNumber = Main.squaresMap.get(randomSquare);
 
-		Square squareData = Main.squaresMap.get(square);
-		square = randomSquare(squareData.surroundingNonClickedSquares);
-		
-		if (square == -1){
-			return false;
-		}
-		else{
+			randomSquare = getRandomSquare(squareWithNumber.surroundingNonClickedSquares);
+			leftClickSquare(randomSquare);
+			Square.updateTheSurroundingSquares(randomSquare);
 			System.out.println("guessed");
 			Main.guessed++;
-			leftClickSquare(square);
-			Square.updateTheSurroundingSquares(square);
 			return true;
+			
+		}
+		catch (Exception exeption){
+			return false;	
 		}
 	}
 	
-	public static void clickRandomNonClicked(){
-		int square = randomSquare(Main.nonClickedSquares);
-		
-		if (square != -1){
-			System.out.println("guessed empty");
-			Main.guessed++;
+	public static boolean clickRandomNonClicked(){
+		try{
+			int square = getRandomSquare(Main.nonClickedSquares);
 			leftClickSquare(square);
 			Square.updateTheSurroundingSquares(square);
+			System.out.println("guessed empty");
+			Main.guessed++;
+			return true;
+		}
+		catch (Exception exeption){
+			return false;
 		}
 	}
 
-	private static int randomSquare(ArrayList<Integer> squaresList){
+	private static int getRandomSquare(ArrayList<Integer> squaresList) throws Exception{
 		Random random = new Random();
 		int randomNumber = 0;
 		
-		if (squaresList.size() == 0){
-			return -1;
-		}
-		else if (squaresList.size() > 1){
+		if (squaresList.size() > 1){
 			randomNumber = random.nextInt(squaresList.size()-1);
 		}
 		
