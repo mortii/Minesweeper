@@ -4,42 +4,39 @@ import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef.HWND;
 
 public class Window {
+	static HWND minesweeperWindow = User32.INSTANCE.FindWindow(null, "Minesweeper");
 	
 	public static void setMinesweeperSizeAndPosition(){
-		HWND window = User32.INSTANCE.FindWindow(null, "Minesweeper");
-
-		if (window == null) {
+		if (minesweeperWindow == null) {
 			System.out.println("Minesweeper is not running");
 			System.exit(1);
 		}
 		else{
-			User32.INSTANCE.SetWindowPos(window, null, 20, 80, 1100, 1100, 68);
+			User32.INSTANCE.SetWindowPos(minesweeperWindow, null, 20, 80, 1100, 1100, 68);
 		}
 	}
 	
 	public static void setMinesweeperToForeground() {
-		User32.INSTANCE.SetForegroundWindow(window);
+		User32.INSTANCE.SetForegroundWindow(minesweeperWindow);
 	}
 	
 	public static boolean gameWasLost(){
-		HWND window = User32.INSTANCE.FindWindow(null, "Game Lost");
+		HWND gameLostPopUp = User32.INSTANCE.FindWindow(null, "Game Lost");
 		
-		if (window == null){
+		if (gameLostPopUp == null){
 			return false;
 		}
-		
-		System.out.println("game lost");
+		System.out.println("Game Lost");
 		return true;
 	}
 	
 	public static boolean gameWasWon(){
-		HWND window = User32.INSTANCE.FindWindow(null, "Game Won");
+		HWND gameWonPopUp = User32.INSTANCE.FindWindow(null, "Game Won");
 		
-		if (window == null){
+		if (gameWonPopUp == null){
 			return false;
 		}
-		
-		System.out.println("game won");
+		System.out.println("Game Won");
 		return true;
 	}
 }
