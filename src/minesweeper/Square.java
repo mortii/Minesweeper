@@ -17,8 +17,8 @@ public class Square{
 		this.column = Board.getColumn(square);
 		this.numberOnSquare = Board.board[row][column];
 		this.surroundingSquares = getSurroundingSquares(square);
-		this.surroundingFlags = getSurroundingFlags();
 		this.surroundingNonClickedSquares = getSurroundingNonClicked();
+		this.surroundingFlags = getSurroundingFlags();
 	}
 	
 	private static ArrayList<Coordinates> getSurroundingSquares(int square){
@@ -109,8 +109,8 @@ public class Square{
 	}
 	
 	private void removeNonClicked(int squareToRemove){
-		int index = surroundingNonClickedSquares.indexOf(squareToRemove);
 		try{
+			int index = surroundingNonClickedSquares.indexOf(squareToRemove);
 			surroundingNonClickedSquares.remove(index);
 		}
 		catch(Exception E){
