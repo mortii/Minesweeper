@@ -105,7 +105,7 @@ public class Mouse {
 		moveMouse(square);
 		rightClickMouse();
 		Board.placeNumberOnBoard(square, 9);
-		Main.removeFromNonClicked(square);
+		Lists.removeFromNonClicked(square);
 	}
 	
 	private static void rightClickMouse(){
@@ -115,7 +115,7 @@ public class Mouse {
 	}
 
 	public static boolean clickAllExceptEdgeAndNextToEdge(OneAndOne advanced){
-		ArrayList<Integer> squaresToClick = new ArrayList<Integer>();
+			ArrayList<Integer> squaresToClick = new ArrayList<Integer>();
 		Square otherNumberedSquareData = Main.squareMap.get(advanced.adjecentSquareWithNumber);
 		
 		addSquaresToClick(squaresToClick, otherNumberedSquareData);

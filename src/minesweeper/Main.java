@@ -123,7 +123,7 @@ public class Main {
 			
 			if (number != 8){
 				Board.placeNumberOnBoard(square, number);
-				removeFromNonClicked(square);
+				Lists.removeFromNonClicked(square);
 	
 				if (number != 0 && number != 9){
 					Square squareWithNumber = new Square(square);
