@@ -32,47 +32,13 @@ public class Main {
 		Window.setMinesweeperToForeground();
 		Mouse.clickFirstSquare();
 		Board.updateEntireBoard();
-		fillArrayLists();
+		Lists.fillArrayLists();
 		fillSquareMap();
-	}
-
-	public static void fillArrayLists(){
-		int[][] board = Board.board;
-		
-		for (int row = 0; row < board.length; row++){
-			for (int column = 0; column < board[0].length; column++){
-				
-				if (board[row][column] == 8){
-					addToNonClickedSquares(row, column);
-				}
-				else if (board[row][column] != 0 && board[row][column] != 9){
-					addToSquaresWithNumbers(row, column);
-				}
-			}
-		}
-	}
-
-	public static void addToNonClickedSquares(int row, int column){
-		int square = Board.getSquare(row, column);
-		nonClickedSquares.add(square);
-	}
-
-	public static void addToSquaresWithNumbers(int row, int column){
-		int square = Board.getSquare(row, column);
-		squaresWithNumbers.add(square);
 	}
 
 	public static void fillSquareMap(){
 		for (int square : squaresWithNumbers){
 			Square squareWithNumber = new Square(square);
-			squareMap.put(square, squareWithNumber);
-		}
-	}
-
-	public static void updateSquaresWithNumbers(){
-		for (int square : squaresWithNumbers){
-			Square squareWithNumber = squareMap.get(square);
-			squareWithNumber.updateSurroundings();
 			squareMap.put(square, squareWithNumber);
 		}
 	}
@@ -88,7 +54,7 @@ public class Main {
 				if (roundsWithoutClicking == 1){
 					Board.updateBoardImage();
 					updateNonClickedSquares();
-					updateSquaresWithNumbers();
+					Lists.updateSquaresWithNumbers();
 				}
 				else if (roundsWithoutClicking == 2){
 					if (doAdvancedSolving()){
@@ -135,22 +101,18 @@ public class Main {
 			
 			if (number == flags){
 				Mouse.clickSurroundingNonClicked(squareWithNumber);
-				removeFromSquaresWithNumbers(square);
+				Lists.removeFromSquaresWithNumbers(square);
 				clickedSquares = true;
 			}
 			else if (number == flags + nonClicked){
 				Mouse.flagSurroudingNonClicked(squareWithNumber);
-				removeFromSquaresWithNumbers(square);
+				Lists.removeFromSquaresWithNumbers(square);
 				clickedSquares = true;
 			}
 		}
 		return clickedSquares;
 	}
 
-	public static void removeFromSquaresWithNumbers(int square){
-		int index = squaresWithNumbers.indexOf(square);
-		squaresWithNumbers.remove(index);
-	}
 
 	public static void updateNonClickedSquares(){
 		//copy ArrayList to avoid concurrency issues
@@ -170,11 +132,6 @@ public class Main {
 				}
 			}
 		}
-	}
-	
-	public static void removeFromNonClicked(int square){
-		int index = nonClickedSquares.indexOf(square);
-		nonClickedSquares.remove(index);
 	}
 	
 	public static boolean doAdvancedSolving(){
@@ -254,10 +211,5 @@ public class Main {
 		advancedTechniques++;
 	}
 
-	public static void printArrayList(ArrayList<Integer> liste){
-		for (int element : liste){
-			System.out.print(element + " ");
-		}
-		System.out.println();
-	}
+
 }
