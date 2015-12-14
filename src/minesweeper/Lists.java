@@ -54,4 +54,24 @@ public class Lists {
 		}
 		System.out.println();
 	}
+	
+	public static void updateNonClickedSquares(){
+		//copy ArrayList to avoid concurrency issues
+		ArrayList<Integer> nonClickedCopy = new ArrayList<Integer>(Main.nonClickedSquares);
+		
+		for (int square : nonClickedCopy){
+			int number = ComputerVision.getNumber(square);
+			
+			if (number != 8){
+				Board.placeNumberOnBoard(square, number);
+				Lists.removeFromNonClicked(square);
+	
+				if (number != 0 && number != 9){
+					Square squareWithNumber = new Square(square);
+					Main.squareMap.put(square, squareWithNumber);
+					Main.squaresWithNumbers.add(square);
+				}
+			}
+		}
+	}
 }

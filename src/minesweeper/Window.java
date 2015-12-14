@@ -20,7 +20,14 @@ public class Window {
 		User32.INSTANCE.SetForegroundWindow(minesweeperWindow);
 	}
 	
-	public static boolean gameWasLost(){
+	public static boolean gameNotOver(){
+		if (gameWasWon() || gameWasLost()){
+			return false;
+		}
+		return true;
+	}
+	
+	private static boolean gameWasLost(){
 		HWND gameLostPopUp = User32.INSTANCE.FindWindow(null, "Game Lost");
 		
 		if (gameLostPopUp == null){
@@ -30,7 +37,7 @@ public class Window {
 		return true;
 	}
 	
-	public static boolean gameWasWon(){
+	private static boolean gameWasWon(){
 		HWND gameWonPopUp = User32.INSTANCE.FindWindow(null, "Game Won");
 		
 		if (gameWonPopUp == null){
