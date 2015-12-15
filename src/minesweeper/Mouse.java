@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Mouse {
-	private static final int MILLISECONDS_CLICK_DELAY = 35;
+	private static final int MILLISECONDS_CLICK_DELAY = 5;
 	private static HashMap<Integer, Pixel> centerOfSquares =
 			OnDisk.tryToGetHashMap("centerOfSquares.ser");
 	
@@ -114,7 +114,7 @@ public class Mouse {
 		Main.robot.delay(MILLISECONDS_CLICK_DELAY);
 	}
 
-	public static boolean clickAllExceptEdgeAndNextToEdge(OneAndOne advanced){
+	public static boolean clickAllExceptEdgeAndNextToEdge(Advanced.OneAndOne advanced){
 			ArrayList<Integer> squaresToClick = new ArrayList<Integer>();
 		Square otherNumberedSquareData = Main.squareMap.get(advanced.adjecentSquareWithNumber);
 		
@@ -139,7 +139,7 @@ public class Mouse {
 	}
 
 	private static void removeEdgeAndNextToEdge(ArrayList<Integer> squaresToClick,
-				OneAndOne advanced){
+				Advanced.OneAndOne advanced){
 			
 		int indexEdge = squaresToClick.indexOf(advanced.nonClickedEdge);
 		squaresToClick.remove(indexEdge);

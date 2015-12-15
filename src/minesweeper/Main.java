@@ -18,7 +18,7 @@ public class Main {
 		squaresWithNumbers = new ArrayList<Integer>();
 		squareMap = new HashMap<Integer, Square>();
 		robot = new Robot();
-		
+			
 		start();
 		solve();
 		

@@ -99,7 +99,7 @@ public class ComputerVision {
 	private static boolean numberIsThree(Pixel squareOffset){
 		PixelColors threePixelColors = new PixelColors(threePixel, squareOffset);
 		
-		if (threePixelColors.blue < 20 && threePixelColors.green < 10){
+		if (threePixelColors.blue < 20 && threePixelColors.green < 20){
 			return true;
 		}
 		return false;
