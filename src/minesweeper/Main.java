@@ -2,21 +2,13 @@ package minesweeper;
 
 import java.awt.AWTException;
 import java.awt.Robot;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Main {
-	public static ArrayList<Integer> nonClickedSquares;
-	public static ArrayList<Integer> squaresWithNumbers;
-	public static HashMap<Integer, Square> squareMap;
 	public static Robot robot;
 	public static int advancedTechniques = 0;
 	public static int guessed = 0;
 
 	public static void main(String[] args) throws AWTException{
-		nonClickedSquares = new ArrayList<Integer>();
-		squaresWithNumbers = new ArrayList<Integer>();
-		squareMap = new HashMap<Integer, Square>();
 		robot = new Robot();
 			
 		start();
@@ -24,6 +16,7 @@ public class Main {
 		
 		System.out.println("Used advanced techniques: "+advancedTechniques+" times");
 		System.out.println("Gussed: "+guessed+" times");
+		System.out.println(rounds+" rounds");
 		Board.printBoard();
 	}
 	
@@ -66,7 +59,7 @@ public class Main {
 				}
 
 			}
-			roundsWithoutClicking++;			
+			roundsWithoutClicking++;	
 		}
 	}
 }

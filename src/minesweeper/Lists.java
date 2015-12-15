@@ -3,6 +3,8 @@ package minesweeper;
 import java.util.ArrayList;
 
 public class Lists {
+	public static ArrayList<Integer> nonClickedSquares = new ArrayList<Integer>();
+	public static ArrayList<Integer> squaresWithNumbers = new ArrayList<Integer>();
 
 	public static void fillArrayLists(){
 		int[][] board = Board.board;
@@ -22,30 +24,30 @@ public class Lists {
 	
 	public static void addToNonClickedSquares(int row, int column){
 		int square = Board.getSquare(row, column);
-		Main.nonClickedSquares.add(square);
+		nonClickedSquares.add(square);
 	}
 
 	public static void addToSquaresWithNumbers(int row, int column){
 		int square = Board.getSquare(row, column);
-		Main.squaresWithNumbers.add(square);
+		squaresWithNumbers.add(square);
 	}
 	
 	public static void updateSquaresWithNumbers(){
-		for (int square : Main.squaresWithNumbers){
-			Square squareWithNumber = Main.squareMap.get(square);
+		for (int square : squaresWithNumbers){
+			Square squareWithNumber = Maps.squareMap.get(square);
 			squareWithNumber.updateSurroundings();
-			Main.squareMap.put(square, squareWithNumber);
+			Maps.squareMap.put(square, squareWithNumber);
 		}
 	}
 	
 	public static void removeFromSquaresWithNumbers(int square){
-		int index = Main.squaresWithNumbers.indexOf(square);
-		Main.squaresWithNumbers.remove(index);
+		int index = squaresWithNumbers.indexOf(square);
+		squaresWithNumbers.remove(index);
 	}
 	
 	public static void removeFromNonClicked(int square){
-		int index = Main.nonClickedSquares.indexOf(square);
-		Main.nonClickedSquares.remove(index);
+		int index = nonClickedSquares.indexOf(square);
+		nonClickedSquares.remove(index);
 	}
 	
 	public static void printArrayList(ArrayList<Integer> liste){
@@ -57,7 +59,7 @@ public class Lists {
 	
 	public static void updateNonClickedSquares(){
 		//copy ArrayList to avoid concurrency issues
-		ArrayList<Integer> nonClickedCopy = new ArrayList<Integer>(Main.nonClickedSquares);
+		ArrayList<Integer> nonClickedCopy = new ArrayList<Integer>(nonClickedSquares);
 		
 		for (int square : nonClickedCopy){
 			int number = ComputerVision.getNumber(square);
@@ -68,8 +70,8 @@ public class Lists {
 	
 				if (number != 0 && number != 9){
 					Square squareWithNumber = new Square(square);
-					Main.squareMap.put(square, squareWithNumber);
-					Main.squaresWithNumbers.add(square);
+					Maps.squareMap.put(square, squareWithNumber);
+					squaresWithNumbers.add(square);
 				}
 			}
 		}

@@ -10,8 +10,8 @@ public class Advanced {
 		
 		boolean clickedSquares = false;
 		
-		for (int square : Main.squaresWithNumbers){
-			Square squareWithNumber = Main.squareMap.get(square);
+		for (int square : Lists.squaresWithNumbers){
+			Square squareWithNumber = Maps.squareMap.get(square);
 			
 			int number = squareWithNumber.numberOnSquare
 					- squareWithNumber.surroundingFlags;
@@ -48,13 +48,29 @@ public class Advanced {
 		}
 		return false;
 	}
+	
+	private static boolean squareHasNumber(int square){
+		int[] notValidNumbers = {0, 8, 9};
+		int row = Board.getRow(square);
+		int column = Board.getColumn(square);
+		
+		for (int notValid : notValidNumbers){
+			if (Board.board[row][column] == notValid){
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public static boolean squareIsOne(int adjecentSquare){
-		int row = Board.getRow(adjecentSquare);
-		int column = Board.getColumn(adjecentSquare);
-		
-		if (Board.board[row][column] == 1){
-			return true;
+		if (squareHasNumber(adjecentSquare)){
+			Square squareData = Maps.squareMap.get(adjecentSquare);
+			
+			int number = squareData.numberOnSquare - squareData.surroundingFlags;
+			
+			if (number == 1){
+				return true;
+			}
 		}
 		return false;
 	}

@@ -1,10 +1,14 @@
 package minesweeper;
 
+import java.util.HashMap;
+
 public class Maps {
+	public static HashMap<Integer, Square> squareMap = new HashMap<Integer, Square>();
+	
 	public static void fillSquareMap(){
-		for (int square : Main.squaresWithNumbers){
+		for (int square : Lists.squaresWithNumbers){
 			Square squareWithNumber = new Square(square);
-			Main.squareMap.put(square, squareWithNumber);
+			squareMap.put(square, squareWithNumber);
 		}
 	}
 }

@@ -36,8 +36,8 @@ public class Mouse {
 	
 	public static boolean clickRandomSurroundingNonClicked(){
 		try{
-			int randomSquare = getRandomSquare(Main.squaresWithNumbers);
-			Square squareWithNumber = Main.squareMap.get(randomSquare);
+			int randomSquare = getRandomSquare(Lists.squaresWithNumbers);
+			Square squareWithNumber = Maps.squareMap.get(randomSquare);
 
 			randomSquare = getRandomSquare(squareWithNumber.surroundingNonClickedSquares);
 			leftClickSquare(randomSquare);
@@ -54,7 +54,7 @@ public class Mouse {
 	
 	public static boolean clickRandomNonClicked(){
 		try{
-			int square = getRandomSquare(Main.nonClickedSquares);
+			int square = getRandomSquare(Lists.nonClickedSquares);
 			leftClickSquare(square);
 			Square.updateTheSurroundingSquares(square);
 			System.out.println("guessed empty");
@@ -116,7 +116,7 @@ public class Mouse {
 
 	public static boolean clickAllExceptEdgeAndNextToEdge(Advanced.OneAndOne advanced){
 			ArrayList<Integer> squaresToClick = new ArrayList<Integer>();
-		Square otherNumberedSquareData = Main.squareMap.get(advanced.adjecentSquareWithNumber);
+		Square otherNumberedSquareData = Maps.squareMap.get(advanced.adjecentSquareWithNumber);
 		
 		addSquaresToClick(squaresToClick, otherNumberedSquareData);
 		removeEdgeAndNextToEdge(squaresToClick, advanced);

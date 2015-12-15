@@ -77,25 +77,13 @@ public class Square{
 		this.surroundingNonClickedSquares = getSurroundingNonClicked();
 	}
 
-	public static ArrayList<Integer> getSurroundingSquaresWithNumbers(int square){
-		ArrayList<Coordinates> surroundingSquares = getSurroundingSquares(square);
-		ArrayList<Integer> surroundingSquaresWithNumbers = new ArrayList<Integer>();
-		
-		for (Coordinates surrSquare : surroundingSquares){
-			if (Main.squaresWithNumbers.contains(surrSquare.square)){
-				surroundingSquaresWithNumbers.add(surrSquare.square);
-			}
-		}
-		return surroundingSquaresWithNumbers;
-	}
-
 	public static void updateTheSurroundingSquares(int square){
 		ArrayList<Coordinates> surroundingSquares = getSurroundingSquares(square);
 		int row = Board.getRow(square);
 		int column = Board.getColumn(square);
 		
 		for (Coordinates surrSquare : surroundingSquares){
-			Square squareWithNumber = Main.squareMap.get(surrSquare.square);
+			Square squareWithNumber = Maps.squareMap.get(surrSquare.square);
 			
 			if (squareWithNumber != null){
 				
@@ -103,7 +91,7 @@ public class Square{
 					squareWithNumber.surroundingFlags++;
 				}
 				squareWithNumber.removeNonClicked(square);
-				Main.squareMap.put(surrSquare.square, squareWithNumber);
+				Maps.squareMap.put(surrSquare.square, squareWithNumber);
 			}
 		}
 	}
