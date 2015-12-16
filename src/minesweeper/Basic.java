@@ -31,7 +31,7 @@ public class Basic {
 	//http://www.minesweeper.info/wiki/Strategy
 	private static void solve(int square){
 		if (number == flags){
-			Mouse.clickSurroundingNonClickedAndUpdateSurroundingSquares(squareWithNumber);
+			Mouse.clickSurroundingNonClicked(squareWithNumber);
 			updateVariablesWhenSuccessfull(square);
 		}
 		else if (number == flags + nonClicked){

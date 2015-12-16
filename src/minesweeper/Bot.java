@@ -8,10 +8,9 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 public class Bot {
-	private static final int MILLISECONDS_CLICK_DELAY = 35;
 	private static Robot robot;
-	private static HashMap<Integer, Pixel> centerOfSquares =
-			OnDisk.getHashMap("centerOfSquares.ser");
+	private static final int MILLISECONDS_CLICK_DELAY = 5;
+	private static HashMap<Integer, Pixel> centerOfSquares = OnDisk.getHashMap("centerOfSquares.ser");
 	
 	public static void initiateRobot(){
 		try {

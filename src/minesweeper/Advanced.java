@@ -10,9 +10,7 @@ public class Advanced {
 		
 		for (int square : Lists.squaresWithNumbers){
 			Square squareWithNumber = Maps.squareMap.get(square);
-			
-			int number = squareWithNumber.numberOnSquare
-					- squareWithNumber.surroundingFlags;
+			int number = squareWithNumber.numberOnSquare - squareWithNumber.surroundingFlags;
 			
 			if (number == 1){
 				if (squareWithNumber.surroundingNonClickedSquares.size() == 2){
@@ -33,11 +31,12 @@ public class Advanced {
 	}
 	
 	public static boolean oneAndOneTechnique(Square squareWithNumber){
-		OneAndOne oneAndOneData = new Advanced().new OneAndOne(squareWithNumber);
+		OneAndOne oneAndOne = new Advanced().new OneAndOne(squareWithNumber);
 		
-		if (oneAndOneData.nonClickedAreNextToEachOther()){
-			if (squareIsOne(oneAndOneData.adjecentSquareWithNumber)){
-				if (Mouse.clickAllExceptEdgeAndNextToEdge(oneAndOneData)){
+		if (oneAndOne.nonClickedAreNextToEachOther()){
+			if (squareIsOne(oneAndOne.adjecentSquareWithNumber)){
+				if (squareHasMoreThanTwoNonClicked(oneAndOne.adjecentSquareWithNumber)){
+					Mouse.clickAllExceptEdgeAndNextToEdge(oneAndOne);
 					System.out.println("advancedTechnique 1-1");
 					Main.advanced++;
 					return true;
@@ -47,23 +46,10 @@ public class Advanced {
 		return false;
 	}
 	
-	private static boolean squareHasNumber(int square){
-		int[] notValidNumbers = {0, 8, 9};
-		
-		for (int notValid : notValidNumbers){
-			if (Board.getNumberOnSquare(square) == notValid){
-				return false;
-			}
-		}
-		return true;
-	}
-
 	public static boolean squareIsOne(int adjecentSquare){
 		if (squareHasNumber(adjecentSquare)){
 			Square squareData = Maps.squareMap.get(adjecentSquare);
-			
 			int number = squareData.numberOnSquare - squareData.surroundingFlags;
-			
 			if (number == 1){
 				return true;
 			}
@@ -71,6 +57,26 @@ public class Advanced {
 		return false;
 	}
 
+	private static boolean squareHasNumber(int square){
+		int[] notValidNumbers = {0, 8, 9};
+		int numberOnSquare = Board.getNumberOnSquare(square);
+		
+		for (int notValid : notValidNumbers){
+			if (numberOnSquare == notValid){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private static boolean squareHasMoreThanTwoNonClicked(int square){
+		Square squareWithNumber = Maps.squareMap.get(square);
+		if (squareWithNumber.surroundingNonClickedSquares.size() > 2){
+			return true;
+		}
+		return false;
+	}
+	
 	public static boolean oneAndTwoTechnique(Square squareWithNumber){
 		OneAndTwo oneAndTwoData = new Advanced().new OneAndTwo(squareWithNumber);
 		

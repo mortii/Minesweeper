@@ -17,7 +17,7 @@ public class Square{
 		this.surroundingFlags = getSurroundingFlags();
 	}
 	
-	public int getSurroundingFlags(){
+	private int getSurroundingFlags(){
 		int surroundingFlags = 0;
 		
 		for (Integer surroundingSquare : this.surroundingSquares){
@@ -28,7 +28,7 @@ public class Square{
 		return surroundingFlags;
 	}
 	
-	public ArrayList<Integer> getSurroundingNonClicked(){
+	private ArrayList<Integer> getSurroundingNonClicked(){
 		ArrayList<Integer> surroundingNonClicked = new ArrayList<Integer>();
 		
 		for (int surroundingSquare : this.surroundingSquares){
