@@ -21,26 +21,28 @@ public class Basic {
 		return clickedSquares;
 	}
 	
-	//http://www.minesweeper.info/wiki/Strategy
-	private static void solve(int square){
-		if (number == flags){
-			Mouse.clickSurroundingNonClickedAndUpdateSurroundingSquares(squareWithNumber);
-			Lists.removeFromSquaresWithNumbers(square);
-			clickedSquares = true;
-			Main.basic++;
-		}
-		else if (number == flags + nonClicked){
-			Mouse.flagSurroudingNonClicked(squareWithNumber);
-			Lists.removeFromSquaresWithNumbers(square);
-			clickedSquares = true;
-			Main.basic++;
-		}
-	}
-	
 	private static void setClassVariables(int square){
 		squareWithNumber = Maps.squareMap.get(square);
 		number = squareWithNumber.numberOnSquare;
 		flags = squareWithNumber.surroundingFlags;
 		nonClicked = squareWithNumber.surroundingNonClickedSquares.size();
+	}
+
+	//http://www.minesweeper.info/wiki/Strategy
+	private static void solve(int square){
+		if (number == flags){
+			Mouse.clickSurroundingNonClickedAndUpdateSurroundingSquares(squareWithNumber);
+			updateVariablesWhenSuccessfull(square);
+		}
+		else if (number == flags + nonClicked){
+			Mouse.flagSurroudingNonClicked(squareWithNumber);
+			updateVariablesWhenSuccessfull(square);
+		}
+	}
+
+	public static void updateVariablesWhenSuccessfull(int square){
+		Main.basic++;
+		clickedSquares = true;
+		Lists.removeFromSquaresWithNumbers(square);
 	}
 }

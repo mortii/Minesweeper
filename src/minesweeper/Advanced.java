@@ -5,9 +5,8 @@ import java.util.Arrays;
 public class Advanced {
 	
 	
+//	http://www.minesweeper.info/wiki/Strategy
 	public static boolean doAdvancedSolving(){
-//		 http://www.minesweeper.info/wiki/Strategy
-		
 		boolean clickedSquares = false;
 		
 		for (int square : Lists.squaresWithNumbers){
@@ -138,16 +137,6 @@ public class Advanced {
 		}
 
 		private void setEdgeAndAdjecentToEdge(){
-			/*Edge means that it only has one nonClicked square next to it
-			 * in the same column or row, depending on the orientation to
-			 * the square we are testing.
-			 * 
-			 * The edge has to be in a 90 degree direction (i.e. +) from the
-			 *square we are testing.
-			 *
-			 *examples: http://www.minesweeper.info/wiki/Strategy
-			 */
-			
 			int tempEdge = this.squareData.surroundingNonClickedSquares.get(0);
 			int tempAdjecentToEdge = this.squareData.surroundingNonClickedSquares.get(1);
 

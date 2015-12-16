@@ -8,11 +8,11 @@ import java.util.HashMap;
 
 public class OnDisk {
 	
-	public static <E> HashMap<Integer, E> tryToGetHashMap(String file){
+	public static <E> HashMap<Integer, E> getHashMap(String file){
 		HashMap<Integer, E> map = null;
 		
 		try {
-			map = getHashMap(file);
+			map = tryToGetHashMap(file);
 		} 
 		catch (Exception e) {
 			System.out.println("Error when getting hashmap");
@@ -23,16 +23,16 @@ public class OnDisk {
 	}
 	
 	@SuppressWarnings({ "resource", "unchecked" })
-	private static <E> HashMap<Integer, E> getHashMap(String file) throws Exception{
+	private static <E> HashMap<Integer, E> tryToGetHashMap(String file) throws Exception{
 		FileInputStream inputFile = new FileInputStream(file);
 		ObjectInputStream inputObject = new ObjectInputStream(inputFile);
 		HashMap<Integer, E> map = (HashMap<Integer, E>) inputObject.readObject();
 		return map;
 	}
 	
-	public static <E> void tryToSetHashMap(String file, HashMap<Integer, E> map){
+	public static <E> void setHashMap(String file, HashMap<Integer, E> map){
 		try {
-			setHashMap(file, map);
+			tryToSetHashMap(file, map);
 		}
 		catch (Exception e) {
 			System.out.println("Error setting hashmap");
@@ -41,7 +41,7 @@ public class OnDisk {
 	}
 	
 	@SuppressWarnings("resource")
-	private static <E> void setHashMap(String file, HashMap<Integer, E> map) throws Exception {
+	private static <E> void tryToSetHashMap(String file, HashMap<Integer, E> map) throws Exception {
 		FileOutputStream fileOutput = new FileOutputStream(file);
 		ObjectOutputStream objectOutput = new ObjectOutputStream(fileOutput);
 		objectOutput.writeObject(map);

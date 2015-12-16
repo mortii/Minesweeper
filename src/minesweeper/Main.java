@@ -44,16 +44,15 @@ public class Main {
 					}
 				}
 				else if (roundsWithoutClicking == 3){
-					if (Mouse.clickRandomSurroundingNonClickedAndUpdateSurroundingSquares()){
+					if (Mouse.clickRandomSurroundingNonClicked()){
 						roundsWithoutClicking = 0;
 					}
 				}
 				else if (roundsWithoutClicking == 4){
-					if (Mouse.clickRandomNonClickedAndUpdateSurroundingSquares()){
+					if (Mouse.clickRandomNonClicked()){
 						roundsWithoutClicking = 0;
 					}
 				}
-
 			}
 			roundsWithoutClicking++;	
 		}

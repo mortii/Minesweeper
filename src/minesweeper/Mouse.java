@@ -8,7 +8,7 @@ import java.util.Random;
 public class Mouse {
 	private static final int MILLISECONDS_CLICK_DELAY = 35;
 	private static HashMap<Integer, Pixel> centerOfSquares =
-			OnDisk.tryToGetHashMap("centerOfSquares.ser");
+			OnDisk.getHashMap("centerOfSquares.ser");
 	
 	public static void clickFirstSquare(){
 		int startSquare = 0;
@@ -34,12 +34,12 @@ public class Mouse {
 		Bot.robot.mouseMove(0, 0);
 	}
 	
-	public static boolean clickRandomSurroundingNonClickedAndUpdateSurroundingSquares(){
+	public static boolean clickRandomSurroundingNonClicked(){
 		try{
 			int randomSquare = getRandomSquare(Lists.squaresWithNumbers);
 			Square squareWithNumber = Maps.squareMap.get(randomSquare);
-
 			randomSquare = getRandomSquare(squareWithNumber.surroundingNonClickedSquares);
+			
 			leftClickSquare(randomSquare);
 			Square.updateTheSurroundingSquares(randomSquare);
 			System.out.println("guessed");
@@ -53,7 +53,7 @@ public class Mouse {
 		}
 	}
 	
-	public static boolean clickRandomNonClickedAndUpdateSurroundingSquares(){
+	public static boolean clickRandomNonClicked(){
 		try{
 			int square = getRandomSquare(Lists.nonClickedSquares);
 			leftClickSquare(square);
@@ -85,10 +85,8 @@ public class Mouse {
 		
 		while(square.hasNextNonClicked()){
 			int next = square.nextNonClicked();
-			
 			leftClickSquare(next);
 			Square.updateTheSurroundingSquares(next);
-			
 			clickedSquare = true;
 		}
 		return clickedSquare;
