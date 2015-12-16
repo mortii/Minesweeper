@@ -1,6 +1,7 @@
 package minesweeper;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 public class ComputerVision {
@@ -150,7 +151,8 @@ class PixelColors {
 	
 	public PixelColors(Pixel identityPixel, Pixel squareOffset) {
 		Pixel realPixel = getRealPixel(identityPixel, squareOffset);
-		Color pixelColors = new Color(Board.boardImage.getRGB(realPixel.x, realPixel.y));
+		BufferedImage boardImage = Board.getBoardImage();
+		Color pixelColors = new Color(boardImage.getRGB(realPixel.x, realPixel.y));
 		setPixelColors(pixelColors);
 	}
 	

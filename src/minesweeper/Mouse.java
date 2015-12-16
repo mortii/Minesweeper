@@ -6,14 +6,14 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Mouse {
-	private static final int MILLISECONDS_CLICK_DELAY = 5;
+	private static final int MILLISECONDS_CLICK_DELAY = 35;
 	private static HashMap<Integer, Pixel> centerOfSquares =
 			OnDisk.tryToGetHashMap("centerOfSquares.ser");
 	
 	public static void clickFirstSquare(){
 		int startSquare = 0;
 		int milliseconds = 200;
-		Main.robot.delay(milliseconds);
+		Bot.robot.delay(milliseconds);
 		leftClickSquare(startSquare);
 	}
 	
@@ -24,17 +24,17 @@ public class Mouse {
 
 	private static void moveMouse(int square){
 		Pixel pixel = centerOfSquares.get(square);
-		Main.robot.mouseMove(pixel.x, pixel.y);
+		Bot.robot.mouseMove(pixel.x, pixel.y);
 	}
 	
 	private static void leftClickMouse(){
-		Main.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-		Main.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-		Main.robot.delay(MILLISECONDS_CLICK_DELAY);
-		Main.robot.mouseMove(0, 0);
+		Bot.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+		Bot.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+		Bot.robot.delay(MILLISECONDS_CLICK_DELAY);
+		Bot.robot.mouseMove(0, 0);
 	}
 	
-	public static boolean clickRandomSurroundingNonClicked(){
+	public static boolean clickRandomSurroundingNonClickedAndUpdateSurroundingSquares(){
 		try{
 			int randomSquare = getRandomSquare(Lists.squaresWithNumbers);
 			Square squareWithNumber = Maps.squareMap.get(randomSquare);
@@ -48,11 +48,12 @@ public class Mouse {
 			
 		}
 		catch (Exception exeption){
+			System.out.println("list is empy");
 			return false;	
 		}
 	}
 	
-	public static boolean clickRandomNonClicked(){
+	public static boolean clickRandomNonClickedAndUpdateSurroundingSquares(){
 		try{
 			int square = getRandomSquare(Lists.nonClickedSquares);
 			leftClickSquare(square);
@@ -62,6 +63,7 @@ public class Mouse {
 			return true;
 		}
 		catch (Exception exeption){
+			System.out.println("list is empy");
 			return false;
 		}
 	}
@@ -78,7 +80,7 @@ public class Mouse {
 		return randomSquare;
 	}
 	
-	public static boolean clickSurroundingNonClicked(Square square){
+	public static boolean clickSurroundingNonClickedAndUpdateSurroundingSquares(Square square){
 		boolean clickedSquare = false;
 		
 		while(square.hasNextNonClicked()){
@@ -109,9 +111,9 @@ public class Mouse {
 	}
 	
 	private static void rightClickMouse(){
-		Main.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
-		Main.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
-		Main.robot.delay(MILLISECONDS_CLICK_DELAY);
+		Bot.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
+		Bot.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
+		Bot.robot.delay(MILLISECONDS_CLICK_DELAY);
 	}
 
 	public static boolean clickAllExceptEdgeAndNextToEdge(Advanced.OneAndOne advanced){

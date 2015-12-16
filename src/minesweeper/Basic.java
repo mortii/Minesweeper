@@ -18,14 +18,18 @@ public class Basic {
 			int nonClicked = squareWithNumber.surroundingNonClickedSquares.size();
 			
 			if (number == flags){
-				Mouse.clickSurroundingNonClicked(squareWithNumber);
+				Mouse.clickSurroundingNonClickedAndUpdateSurroundingSquares(squareWithNumber);
 				Lists.removeFromSquaresWithNumbers(square);
+				
 				clickedSquares = true;
+				Main.basic++;
 			}
 			else if (number == flags + nonClicked){
 				Mouse.flagSurroudingNonClicked(squareWithNumber);
 				Lists.removeFromSquaresWithNumbers(square);
+				
 				clickedSquares = true;
+				Main.basic++;
 			}
 		}
 		return clickedSquares;

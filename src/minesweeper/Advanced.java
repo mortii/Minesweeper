@@ -41,7 +41,7 @@ public class Advanced {
 			if (squareIsOne(oneAndOneData.adjecentSquareWithNumber)){
 				if (Mouse.clickAllExceptEdgeAndNextToEdge(oneAndOneData)){
 					System.out.println("advancedTechnique 1-1");
-					Main.advancedTechniques++;
+					Main.advanced++;
 					return true;
 				}
 			}
@@ -51,11 +51,9 @@ public class Advanced {
 	
 	private static boolean squareHasNumber(int square){
 		int[] notValidNumbers = {0, 8, 9};
-		int row = Board.getRow(square);
-		int column = Board.getColumn(square);
 		
 		for (int notValid : notValidNumbers){
-			if (Board.board[row][column] == notValid){
+			if (Board.getNumberOnSquare(square) == notValid){
 				return false;
 			}
 		}
@@ -95,7 +93,7 @@ public class Advanced {
 		System.out.println("advancedTechnique 1-2");
 		Mouse.flagSquare(square);
 		Square.updateTheSurroundingSquares(square);
-		Main.advancedTechniques++;
+		Main.advanced++;
 	}
 	
 	public class OneAndOne {

@@ -7,53 +7,23 @@ public class Square{
 	public int numberOnSquare;
 	public int row;
 	public int column;
-	private ArrayList<Coordinates> surroundingSquares;
+	public ArrayList<Integer> surroundingSquares;
 	public ArrayList<Integer> surroundingNonClickedSquares;
 	public int surroundingFlags;
 	
 	public Square(int square){
 		this.square = square;
-		this.row = Board.getRow(square);
-		this.column = Board.getColumn(square);
-		this.numberOnSquare = Board.board[row][column];
-		this.surroundingSquares = getSurroundingSquares(square);
+		this.numberOnSquare = Board.getNumberOnSquare(square);
+		this.surroundingSquares = Board.getSurroundingSquares(square);
 		this.surroundingNonClickedSquares = getSurroundingNonClicked();
 		this.surroundingFlags = getSurroundingFlags();
 	}
 	
-	private static ArrayList<Coordinates> getSurroundingSquares(int square){
-		ArrayList<Coordinates> surroundingSquaresList = new ArrayList<Coordinates>();
-		
-		int[][] board = Board.board;
-		int[] offset = {-1, 0, 1};
-		int row = Board.getRow(square);
-		int column = Board.getColumn(square);
-		
-		for (int rowOffset : offset){
-			for (int columnOffset : offset){
-				
-				int newRow = row + rowOffset;
-				int newColumn = column + columnOffset;
-				
-				if (newRow != row || newColumn != column){
-					if (newRow < board.length && newRow > -1){
-						if (newColumn < board[0].length && newColumn > -1){
-								Coordinates surroundingSquare = new Coordinates(newRow, newColumn);
-								surroundingSquaresList.add(surroundingSquare);
-						}
-					}
-				}
-			}
-		}
-		return surroundingSquaresList;
-	}
-
-
 	public int getSurroundingFlags(){
 		int surroundingFlags = 0;
 		
-		for (Coordinates surroundingSquare : this.surroundingSquares){
-			if (Board.board[surroundingSquare.row][surroundingSquare.column] == 9){
+		for (Integer surroundingSquare : this.surroundingSquares){
+			if (Board.getNumberOnSquare(surroundingSquare) == 9){
 				surroundingFlags++;
 			}
 		}
@@ -63,12 +33,11 @@ public class Square{
 	public ArrayList<Integer> getSurroundingNonClicked(){
 		ArrayList<Integer> surroundingNonClicked = new ArrayList<Integer>();
 		
-		for (Coordinates surroundingSquare : this.surroundingSquares){
-			if (Board.board[surroundingSquare.row][surroundingSquare.column] == 8){
-				surroundingNonClicked.add(surroundingSquare.square);
+		for (int surroundingSquare : this.surroundingSquares){
+			if (Board.getNumberOnSquare(surroundingSquare) == 8){
+				surroundingNonClicked.add(surroundingSquare);
 			}
 		}
-		
 		return surroundingNonClicked;
 	}
 	
@@ -78,20 +47,17 @@ public class Square{
 	}
 
 	public static void updateTheSurroundingSquares(int square){
-		ArrayList<Coordinates> surroundingSquares = getSurroundingSquares(square);
-		int row = Board.getRow(square);
-		int column = Board.getColumn(square);
+		ArrayList<Integer> surroundingSquares = Board.getSurroundingSquares(square);
 		
-		for (Coordinates surrSquare : surroundingSquares){
-			Square squareWithNumber = Maps.squareMap.get(surrSquare.square);
+		for (int surrSquare : surroundingSquares){
+			Square squareWithNumber = Maps.squareMap.get(surrSquare);
 			
 			if (squareWithNumber != null){
-				
-				if (Board.board[row][column] == 9){
+				if (Board.getNumberOnSquare(square) == 9){
 					squareWithNumber.surroundingFlags++;
 				}
 				squareWithNumber.removeNonClicked(square);
-				Maps.squareMap.put(surrSquare.square, squareWithNumber);
+				Maps.squareMap.put(surrSquare, squareWithNumber);
 			}
 		}
 	}
@@ -122,17 +88,5 @@ public class Square{
 		System.out.print(" flags:"+this.surroundingFlags);
 		System.out.print(" nonClicked:"+this.surroundingNonClickedSquares.size());
 		System.out.println();
-	}
-}
-
-class Coordinates{
-	public int row;
-	public int column;
-	public int square;
-	
-	public Coordinates(int row, int column){
-		this.row = row;
-		this.column = column;
-		this.square = Board.getSquare(row, column);
 	}
 }
