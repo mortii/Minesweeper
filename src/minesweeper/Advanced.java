@@ -102,10 +102,8 @@ public class Advanced {
 	
 	public class OneAndOne {
 		public Square squareData;
-		
 		public int square;
 		public int adjecentSquareWithNumber;
-		
 		public int nonClickedEdge;
 		public int nonClickedAdjecentToEdge;
 		
@@ -121,23 +119,18 @@ public class Advanced {
 				this.adjecentSquareWithNumber = this.square + 1;
 				return true;
 			}
-			
 			else if (nonClickedEdge - 1 == nonClickedAdjecentToEdge){
 				this.adjecentSquareWithNumber = this.square - 1;
 				return true;
 			}
-			
 			else if (nonClickedEdge + 30 == nonClickedAdjecentToEdge){
 				this.adjecentSquareWithNumber = this.square + 30;
 				return true;
 			}
-			
 			else if (nonClickedEdge - 30 == nonClickedAdjecentToEdge){
 				this.adjecentSquareWithNumber = this.square - 30;
 				return true;
 			}
-			
-			
 			return false;
 		}
 
@@ -161,10 +154,8 @@ public class Advanced {
 	private class OneAndTwo {
 		public Square squareData;
 		public int square;
-		
 		public int firstAdjecentNumbered;
 		public int lastAdjecentNumbered;
-		
 		public int firstNonClicked;
 		public int lastNonClicked;
 		
@@ -180,13 +171,11 @@ public class Advanced {
 			
 			int[] sortArray = {tempFirst, tempMiddle, tempLast};
 			Arrays.sort(sortArray);
-			
 			return sortArray;
 		}
 		
 		public boolean nonClickedAreNextToEachOther(){
 			int[] sortedSquares = orderTheNonClickedSquares();
-			
 			int firstNonClicked = sortedSquares[0];
 			int middleNonClicked = sortedSquares[1];
 			int lastNonClicked = sortedSquares[2];
@@ -195,7 +184,6 @@ public class Advanced {
 			this.lastNonClicked = lastNonClicked;
 			
 			if (firstNonClicked + 1 == middleNonClicked && middleNonClicked + 1 == lastNonClicked){
-				
 				if (square > middleNonClicked){
 					firstAdjecentNumbered = firstNonClicked + 30;
 					lastAdjecentNumbered = lastNonClicked + 30;
@@ -207,7 +195,6 @@ public class Advanced {
 				return true;
 			}
 			else if (firstNonClicked + 30 == middleNonClicked && middleNonClicked + 30 == lastNonClicked){
-				
 				if (square > middleNonClicked){
 					firstAdjecentNumbered = firstNonClicked + 1;
 					lastAdjecentNumbered = lastNonClicked + 1;
@@ -218,7 +205,6 @@ public class Advanced {
 				}
 				return true;
 			}
-			
 			return false;
 		}
 	}

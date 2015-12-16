@@ -158,10 +158,8 @@ class PixelColors {
 	
 	private Pixel getRealPixel(Pixel identityPixel, Pixel squareOffset){
 		Pixel realPixel = new Pixel(identityPixel.x, identityPixel.y);
-		
 		realPixel.x += squareOffset.x;
 		realPixel.y += squareOffset.y;
-		
 		return realPixel;
 	}
 	
