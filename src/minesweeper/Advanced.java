@@ -31,7 +31,7 @@ public class Advanced {
 	}
 	
 	public static boolean oneAndOneTechnique(Square squareWithNumber){
-		OneAndOne oneAndOne = new Advanced().new OneAndOne(squareWithNumber);
+		OneAndOne oneAndOne = new OneAndOne(squareWithNumber);
 		
 		if (oneAndOne.nonClickedAreNextToEachOther()){
 			if (squareIsOne(oneAndOne.adjecentSquareWithNumber)){
@@ -48,8 +48,8 @@ public class Advanced {
 	
 	public static boolean squareIsOne(int adjecentSquare){
 		if (squareHasNumber(adjecentSquare)){
-			Square squareData = Maps.squareMap.get(adjecentSquare);
-			int number = squareData.numberOnSquare - squareData.surroundingFlags;
+			Square squareWithNumber = Maps.squareMap.get(adjecentSquare);
+			int number = squareWithNumber.numberOnSquare - squareWithNumber.surroundingFlags;
 			if (number == 1){
 				return true;
 			}
@@ -78,7 +78,7 @@ public class Advanced {
 	}
 	
 	public static boolean oneAndTwoTechnique(Square squareWithNumber){
-		OneAndTwo oneAndTwoData = new Advanced().new OneAndTwo(squareWithNumber);
+		OneAndTwo oneAndTwoData = new OneAndTwo(squareWithNumber);
 		
 		if (oneAndTwoData.nonClickedAreNextToEachOther()){
 			if (squareIsOne(oneAndTwoData.firstAdjecentNumbered)){
@@ -100,7 +100,7 @@ public class Advanced {
 		Main.advanced++;
 	}
 	
-	public class OneAndOne {
+	public static class OneAndOne {
 		public Square squareData;
 		public int square;
 		public int adjecentSquareWithNumber;
@@ -151,7 +151,7 @@ public class Advanced {
 		}
 	}
 
-	private class OneAndTwo {
+	private static class OneAndTwo {
 		public Square squareData;
 		public int square;
 		public int firstAdjecentNumbered;
@@ -205,6 +205,7 @@ public class Advanced {
 				}
 				return true;
 			}
+			
 			return false;
 		}
 	}
