@@ -1,52 +1,105 @@
 package minesweeper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Advanced {
+	private static Square squareWithNumber;
+	private static int number;
+	private static int flags;
+	private static int nonClicked;
+	private static boolean clickedSquares;
 	
-//	http://www.minesweeper.info/wiki/Strategy
 	public static boolean doAdvancedSolving(){
-		boolean clickedSquares = false;
+		clickedSquares = false;
 		
 		for (int square : Lists.squaresWithNumbers){
-			Square squareWithNumber = Maps.squareMap.get(square);
-			int number = squareWithNumber.numberOnSquare - squareWithNumber.surroundingFlags;
-			
-			if (number == 1){
-				if (squareWithNumber.surroundingNonClickedSquares.size() == 2){
-					if (oneAndOneTechnique(squareWithNumber)){
-						clickedSquares = true;
-					}
-				}
-			}
-			else if (number == 2){
-				if (squareWithNumber.surroundingNonClickedSquares.size() == 3){
-					if (oneAndTwoTechnique(squareWithNumber)){
-						clickedSquares = true;
-					}
-				}
-			}
+			setClassVariables(square);
+			solve();
 		}
 		return clickedSquares;
 	}
 	
-	public static boolean oneAndOneTechnique(Square squareWithNumber){
+	private static void setClassVariables(int square){
+		squareWithNumber = Maps.squareMap.get(square);
+		number = squareWithNumber.numberOnSquare;
+		flags = squareWithNumber.surroundingFlags;
+		nonClicked = squareWithNumber.surroundingNonClickedSquares.size();
+	}
+
+//	http://www.minesweeper.info/wiki/Strategy
+	private static void solve(){
+		if (number - flags == 1){
+			if (nonClicked == 2){
+				if (oneAndOneTechnique()){
+					clickedSquares = true;
+				}
+			}
+		}
+		else if (number - flags == 2){
+			if (nonClicked == 3){
+				if (oneAndTwoTechnique()){
+					clickedSquares = true;
+				}
+			}
+		}
+	}
+	
+	private static boolean oneAndOneTechnique(){
 		OneAndOne oneAndOne = new OneAndOne(squareWithNumber);
 		
 		if (oneAndOne.nonClickedAreNextToEachOther()){
 			if (squareIsOne(oneAndOne.adjecentSquareWithNumber)){
 				if (squareHasMoreThanTwoNonClicked(oneAndOne.adjecentSquareWithNumber)){
-					Mouse.clickAllExceptEdgeAndNextToEdge(oneAndOne);
 					System.out.println("advancedTechnique 1-1");
-					Main.advanced++;
-					return true;
+					clickAllExceptEdgeAndNextToEdge(oneAndOne);
+					successUpdate(squareWithNumber.square);
 				}
 			}
 		}
 		return false;
 	}
 	
-	public static boolean squareIsOne(int adjecentSquare){
+	
+	private static void successUpdate(int square){
+		Square.updateTheSurroundingSquares(square);
+		Main.advanced++;
+		clickedSquares = true;
+	}
+	
+	private static void clickAllExceptEdgeAndNextToEdge(Advanced.OneAndOne advanced){
+		ArrayList<Integer> squaresToClick = new ArrayList<Integer>();
+		Square otherNumberedSquareData = Maps.squareMap.get(advanced.adjecentSquareWithNumber);
+		
+		addSquaresToClick(squaresToClick, otherNumberedSquareData);
+		removeEdgeAndNextToEdge(squaresToClick, advanced);
+	
+		if (squaresToClick.size() > 0){
+			clickSquares(squaresToClick);
+		}
+	}
+
+	private static void addSquaresToClick(ArrayList<Integer> squaresToClick, Square square){
+		for (int nonClicked : square.surroundingNonClickedSquares){
+			squaresToClick.add(nonClicked);
+		}
+	}
+
+	private static void removeEdgeAndNextToEdge(ArrayList<Integer> squaresToClick, Advanced.OneAndOne advanced){
+		int indexEdge = squaresToClick.indexOf(advanced.nonClickedEdge);
+		squaresToClick.remove(indexEdge);
+		int indexNonEdge = squaresToClick.indexOf(advanced.nonClickedAdjecentToEdge);
+		squaresToClick.remove(indexNonEdge);
+	}
+
+	private static void clickSquares(ArrayList<Integer> squaresToClick){
+		for (int square : squaresToClick){
+			Mouse.leftClickSquare(square);
+			Square.updateTheSurroundingSquares(square);
+		}
+	}
+	
+	private static boolean squareIsOne(int adjecentSquare){
 		if (squareHasNumber(adjecentSquare)){
 			Square squareWithNumber = Maps.squareMap.get(adjecentSquare);
 			int number = squareWithNumber.numberOnSquare - squareWithNumber.surroundingFlags;
@@ -77,30 +130,27 @@ public class Advanced {
 		return false;
 	}
 	
-	public static boolean oneAndTwoTechnique(Square squareWithNumber){
+	private static boolean oneAndTwoTechnique(){
 		OneAndTwo oneAndTwoData = new OneAndTwo(squareWithNumber);
 		
 		if (oneAndTwoData.nonClickedAreNextToEachOther()){
 			if (squareIsOne(oneAndTwoData.firstAdjecentNumbered)){
-				flagAndUpdate(oneAndTwoData.lastNonClicked);
+				System.out.println("advancedTechnique 1-2");
+				Mouse.flagSquare(oneAndTwoData.lastNonClicked);
+				successUpdate(oneAndTwoData.lastNonClicked);
 				return true;
 			}
 			else if (squareIsOne(oneAndTwoData.lastAdjecentNumbered)){
-				flagAndUpdate(oneAndTwoData.firstNonClicked);
+				System.out.println("advancedTechnique 1-2");
+				Mouse.flagSquare(oneAndTwoData.firstNonClicked);
+				successUpdate(oneAndTwoData.firstNonClicked);
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public static void flagAndUpdate(int square){
-		System.out.println("advancedTechnique 1-2");
-		Mouse.flagSquare(square);
-		Square.updateTheSurroundingSquares(square);
-		Main.advanced++;
-	}
-	
-	public static class OneAndOne {
+	private static class OneAndOne {
 		public Square squareData;
 		public int square;
 		public int adjecentSquareWithNumber;

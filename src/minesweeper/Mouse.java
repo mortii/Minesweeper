@@ -13,7 +13,7 @@ public class Mouse {
 		leftClickSquare(startSquare);
 	}
 	
-	private static void leftClickSquare(int square){
+	public static void leftClickSquare(int square){
 		Bot.moveMouse(square);
 		Bot.leftClickMouse();
 	}
@@ -40,47 +40,12 @@ public class Mouse {
 		Board.placeNumberOnBoard(square, 9);
 	}
 
-	public static boolean clickAllExceptEdgeAndNextToEdge(Advanced.OneAndOne advanced){
-		ArrayList<Integer> squaresToClick = new ArrayList<Integer>();
-		Square otherNumberedSquareData = Maps.squareMap.get(advanced.adjecentSquareWithNumber);
-		
-		addSquaresToClick(squaresToClick, otherNumberedSquareData);
-		removeEdgeAndNextToEdge(squaresToClick, advanced);
-	
-		boolean clickedSquares = false;
-		if (squaresToClick.size() > 0){
-			clickSquares(squaresToClick);
-			clickedSquares = true;
-		}
-		return clickedSquares;
-	}
-
-	private static void addSquaresToClick(ArrayList<Integer> squaresToClick, Square square){
-		for (int nonClicked : square.surroundingNonClickedSquares){
-			squaresToClick.add(nonClicked);
-		}
-	}
-
-	private static void removeEdgeAndNextToEdge(ArrayList<Integer> squaresToClick, Advanced.OneAndOne advanced){
-		int indexEdge = squaresToClick.indexOf(advanced.nonClickedEdge);
-		squaresToClick.remove(indexEdge);
-		int indexNonEdge = squaresToClick.indexOf(advanced.nonClickedAdjecentToEdge);
-		squaresToClick.remove(indexNonEdge);
-	}
-
-	private static void clickSquares(ArrayList<Integer> squaresToClick){
-		for (int square : squaresToClick){
-			leftClickSquare(square);
-			Square.updateTheSurroundingSquares(square);
-		}
-	}
-
 	public static boolean clickRandomSurroundingNonClicked(){
 		try{
 			int randomSquare = getRandomSquare(Lists.squaresWithNumbers);
 			Square squareWithNumber = Maps.squareMap.get(randomSquare);
 			randomSquare = getRandomSquare(squareWithNumber.surroundingNonClickedSquares);
-			clickAndUpdateSurrounding(randomSquare);
+			clickSquareAndUpdateSurrounding(randomSquare);
 			return true;
 		}
 		catch (Exception e){
@@ -88,7 +53,7 @@ public class Mouse {
 		}
 	}
 	
-	private static void clickAndUpdateSurrounding(int randomSquare){
+	private static void clickSquareAndUpdateSurrounding(int randomSquare){
 		leftClickSquare(randomSquare);
 		Square.updateTheSurroundingSquares(randomSquare);
 		System.out.println("guessed");
@@ -98,7 +63,7 @@ public class Mouse {
 	public static boolean clickRandomNonClicked(){
 		try{
 			int randomSquare = getRandomSquare(Lists.nonClickedSquares);
-			clickAndUpdateSurrounding(randomSquare);
+			clickSquareAndUpdateSurrounding(randomSquare);
 			return true;
 		}
 		catch (Exception e){

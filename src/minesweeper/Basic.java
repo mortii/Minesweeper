@@ -32,15 +32,15 @@ public class Basic {
 	private static void solve(int square){
 		if (number == flags){
 			Mouse.clickSurroundingNonClicked(squareWithNumber);
-			updateVariablesWhenSuccessfull(square);
+			successUpdate(square);
 		}
 		else if (number == flags + nonClicked){
 			Mouse.flagSurroudingNonClicked(squareWithNumber);
-			updateVariablesWhenSuccessfull(square);
+			successUpdate(square);
 		}
 	}
 
-	public static void updateVariablesWhenSuccessfull(int square){
+	public static void successUpdate(int square){
 		Main.basic++;
 		clickedSquares = true;
 		Lists.removeFromSquaresWithNumbers(square);
