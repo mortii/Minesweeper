@@ -20,7 +20,7 @@ public class Board {
 	}
 	
 	public static void updateBoardImage(){
-		boardImage = Bot.robot.createScreenCapture(boardRectangle);
+		boardImage = Bot.screenShot(boardRectangle);
 	}
 
 	public static BufferedImage getBoardImage(){

@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 public class Advanced {
 	
-	
 //	http://www.minesweeper.info/wiki/Strategy
 	public static boolean doAdvancedSolving(){
 		boolean clickedSquares = false;

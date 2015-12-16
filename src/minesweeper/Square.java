@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class Square{
 	public int square;
 	public int numberOnSquare;
-	public int row;
-	public int column;
 	public ArrayList<Integer> surroundingSquares;
 	public ArrayList<Integer> surroundingNonClickedSquares;
 	public int surroundingFlags;
@@ -46,22 +44,6 @@ public class Square{
 		this.surroundingNonClickedSquares = getSurroundingNonClicked();
 	}
 
-	public static void updateTheSurroundingSquares(int square){
-		ArrayList<Integer> surroundingSquares = Board.getSurroundingSquares(square);
-		
-		for (int surrSquare : surroundingSquares){
-			Square squareWithNumber = Maps.squareMap.get(surrSquare);
-			
-			if (squareWithNumber != null){
-				if (Board.getNumberOnSquare(square) == 9){
-					squareWithNumber.surroundingFlags++;
-				}
-				squareWithNumber.removeNonClicked(square);
-				Maps.squareMap.put(surrSquare, squareWithNumber);
-			}
-		}
-	}
-	
 	private void removeNonClicked(int squareToRemove){
 		try{
 			int index = surroundingNonClickedSquares.indexOf(squareToRemove);
@@ -88,5 +70,21 @@ public class Square{
 		System.out.print(" flags:"+this.surroundingFlags);
 		System.out.print(" nonClicked:"+this.surroundingNonClickedSquares.size());
 		System.out.println();
+	}
+
+	public static void updateTheSurroundingSquares(int square){
+		ArrayList<Integer> surroundingSquares = Board.getSurroundingSquares(square);
+		
+		for (int surrSquare : surroundingSquares){
+			Square squareWithNumber = Maps.squareMap.get(surrSquare);
+			
+			if (squareWithNumber != null){
+				if (Board.getNumberOnSquare(square) == 9){
+					squareWithNumber.surroundingFlags++;
+				}
+				squareWithNumber.removeNonClicked(square);
+				Maps.squareMap.put(surrSquare, squareWithNumber);
+			}
+		}
 	}
 }

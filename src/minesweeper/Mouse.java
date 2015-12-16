@@ -1,39 +1,22 @@
 package minesweeper;
 
-import java.awt.event.InputEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 public class Mouse {
-	private static final int MILLISECONDS_CLICK_DELAY = 35;
-	private static HashMap<Integer, Pixel> centerOfSquares =
-			OnDisk.getHashMap("centerOfSquares.ser");
 	
 	public static void clickFirstSquare(){
 		int startSquare = 0;
 		int milliseconds = 200;
-		Bot.robot.delay(milliseconds);
+		Bot.delay(milliseconds);
 		leftClickSquare(startSquare);
 	}
 	
 	private static void leftClickSquare(int square){
-		moveMouse(square);
-		leftClickMouse();
+		Bot.moveMouse(square);
+		Bot.leftClickMouse();
 	}
 
-	private static void moveMouse(int square){
-		Pixel pixel = centerOfSquares.get(square);
-		Bot.robot.mouseMove(pixel.x, pixel.y);
-	}
-	
-	private static void leftClickMouse(){
-		Bot.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-		Bot.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-		Bot.robot.delay(MILLISECONDS_CLICK_DELAY);
-		Bot.robot.mouseMove(0, 0);
-	}
-	
 	public static boolean clickRandomSurroundingNonClicked(){
 		try{
 			int randomSquare = getRandomSquare(Lists.squaresWithNumbers);
@@ -102,16 +85,10 @@ public class Mouse {
 	}
 	
 	public static void flagSquare(int square){
-		moveMouse(square);
-		rightClickMouse();
+		Bot.moveMouse(square);
+		Bot.rightClickMouse();
 		Board.placeNumberOnBoard(square, 9);
 		Lists.removeFromNonClicked(square);
-	}
-	
-	private static void rightClickMouse(){
-		Bot.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
-		Bot.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
-		Bot.robot.delay(MILLISECONDS_CLICK_DELAY);
 	}
 
 	public static boolean clickAllExceptEdgeAndNextToEdge(Advanced.OneAndOne advanced){
