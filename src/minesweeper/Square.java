@@ -44,15 +44,6 @@ public class Square{
 		this.surroundingNonClickedSquares = getSurroundingNonClicked();
 	}
 
-	private void removeNonClicked(int squareToRemove){
-		try{
-			int index = surroundingNonClickedSquares.indexOf(squareToRemove);
-			surroundingNonClickedSquares.remove(index);
-		}
-		catch(Exception E){
-		}
-	}
-
 	public boolean hasNextNonClicked() {
 		if (surroundingNonClickedSquares.isEmpty()){
 			return false;
@@ -61,18 +52,10 @@ public class Square{
 	}
 	
 	public Integer nextNonClicked() {
-		//the previous always gets removed in the updateTheSurroundingSquares()
+		//the previous always gets removed in updateTheSurroundingSquares()
 		return surroundingNonClickedSquares.get(0);
 	}
 	
-	public void printData(){
-		System.out.print("square:"+this.square);
-		System.out.print(" number:"+this.numberOnSquare);
-		System.out.print(" flags:"+this.surroundingFlags);
-		System.out.print(" nonClicked:"+this.surroundingNonClickedSquares.size());
-		System.out.println();
-	}
-
 	public static void updateTheSurroundingSquares(int centerSquare){
 		ArrayList<Integer> surroundingSquares = Board.getSurroundingSquares(centerSquare);
 		int ceneterSquareNumber = Board.getNumberOnSquare(centerSquare);
@@ -88,5 +71,22 @@ public class Square{
 				Maps.squareMap.put(surrSquare, surroundingSquareWithNumber);
 			}
 		}
+	}
+
+	private void removeNonClicked(int squareToRemove){
+		try{
+			int index = surroundingNonClickedSquares.indexOf(squareToRemove);
+			surroundingNonClickedSquares.remove(index);
+		}
+		catch(Exception E){
+		}
+	}
+
+	public void printData(){
+		System.out.print("square:"+this.square);
+		System.out.print(" number:"+this.numberOnSquare);
+		System.out.print(" flags:"+this.surroundingFlags);
+		System.out.print(" nonClicked:"+this.surroundingNonClickedSquares.size());
+		System.out.println();
 	}
 }
