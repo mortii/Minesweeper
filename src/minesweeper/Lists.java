@@ -22,21 +22,29 @@ public class Lists {
 	public static void updateNonClickedSquares(){
 		//copy ArrayList to avoid concurrency issues
 		ArrayList<Integer> nonClickedCopy = new ArrayList<Integer>(nonClickedSquares);
-		
 		for (int square : nonClickedCopy){
-			int number = ComputerVision.getNumber(square);
-			
-			if (number != 8){
-				Board.placeNumberOnBoard(square, number);
-				Lists.removeFromNonClicked(square);
+			update(square);
+		}
+	}
 	
-				if (number != 0 && number != 9){
-					Square squareWithNumber = new Square(square);
-					Maps.squareMap.put(square, squareWithNumber);
-					squaresWithNumbers.add(square);
-				}
+	private static void update(int nonClickedSquare){
+		int number = ComputerVision.getNumber(square);
+		
+		if (number != 8){
+			Board.placeNumberOnBoard(square, number);
+			removeFromNonClicked(square);
+			
+			if (number != 0 && number != 9){
+				Square squareWithNumber = new Square(square);
+				Maps.squareMap.put(square, squareWithNumber);
+				squaresWithNumbers.add(square);
 			}
 		}
+	}
+
+	public static void removeFromNonClicked(int square){
+		int index = nonClickedSquares.indexOf(square);
+		nonClickedSquares.remove(index);
 	}
 
 	public static void updateSquaresWithNumbers(){
@@ -50,11 +58,6 @@ public class Lists {
 	public static void removeFromSquaresWithNumbers(int square){
 		int index = squaresWithNumbers.indexOf(square);
 		squaresWithNumbers.remove(index);
-	}
-	
-	public static void removeFromNonClicked(int square){
-		int index = nonClickedSquares.indexOf(square);
-		nonClickedSquares.remove(index);
 	}
 	
 	public static void printArrayList(ArrayList<Integer> liste){
