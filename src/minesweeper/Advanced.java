@@ -55,7 +55,6 @@ public class Advanced {
 		}
 	}
 	
-	
 	private static boolean squareIsOne(int adjecentSquare){
 		if (squareHasNumber(adjecentSquare)){
 			Square squareWithNumber = Maps.squareMap.get(adjecentSquare);

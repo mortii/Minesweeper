@@ -61,6 +61,7 @@ public class Square{
 	}
 	
 	public Integer nextNonClicked() {
+		//the previous always gets removed in the updateTheSurroundingSquares()
 		return surroundingNonClickedSquares.get(0);
 	}
 	
@@ -81,7 +82,7 @@ public class Square{
 			
 			if (surroundingSquareWithNumber != null){
 				if (ceneterSquareNumber == 9){
-					surroundingSquareWithNumber.surroundingFlags++;
+ 					surroundingSquareWithNumber.surroundingFlags++;
 				}
 				surroundingSquareWithNumber.removeNonClicked(centerSquare);
 				Maps.squareMap.put(surrSquare, surroundingSquareWithNumber);
