@@ -23,11 +23,11 @@ public class Lists {
 		//copy ArrayList to avoid concurrency issues
 		ArrayList<Integer> nonClickedCopy = new ArrayList<Integer>(nonClickedSquares);
 		for (int square : nonClickedCopy){
-			update(square);
+			updateNonClicked(square);
 		}
 	}
 	
-	private static void update(int nonClickedSquare){
+	private static void updateNonClicked(int square){
 		int number = ComputerVision.getNumber(square);
 		
 		if (number != 8){
@@ -35,11 +35,15 @@ public class Lists {
 			removeFromNonClicked(square);
 			
 			if (number != 0 && number != 9){
-				Square squareWithNumber = new Square(square);
-				Maps.squareMap.put(square, squareWithNumber);
-				squaresWithNumbers.add(square);
+				addToSquaresWithNumbers(square);
 			}
 		}
+	}
+	
+	private static void addToSquaresWithNumbers(int square){
+		Square squareWithNumber = new Square(square);
+		Maps.squareMap.put(square, squareWithNumber);
+		squaresWithNumbers.add(square);
 	}
 
 	public static void removeFromNonClicked(int square){
