@@ -19,14 +19,6 @@ public class Lists {
 		}
 	}
 	
-	public static void updateSquaresWithNumbers(){
-		for (int square : squaresWithNumbers){
-			Square squareWithNumber = Maps.squareMap.get(square);
-			squareWithNumber.updateSurroundings();
-			Maps.squareMap.put(square, squareWithNumber);
-		}
-	}
-	
 	public static void updateNonClickedSquares(){
 		//copy ArrayList to avoid concurrency issues
 		ArrayList<Integer> nonClickedCopy = new ArrayList<Integer>(nonClickedSquares);
@@ -47,6 +39,14 @@ public class Lists {
 		}
 	}
 
+	public static void updateSquaresWithNumbers(){
+		for (int square : squaresWithNumbers){
+			Square squareWithNumber = Maps.squareMap.get(square);
+			squareWithNumber.updateSurroundings();
+			Maps.squareMap.put(square, squareWithNumber);
+		}
+	}
+	
 	public static void removeFromSquaresWithNumbers(int square){
 		int index = squaresWithNumbers.indexOf(square);
 		squaresWithNumbers.remove(index);
