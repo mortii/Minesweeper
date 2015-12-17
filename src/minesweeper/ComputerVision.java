@@ -53,11 +53,7 @@ public class ComputerVision {
 	}
 	
 	private static Pixel getSquareOffset(int square){
-		int squareX = squareCoordinates.get(square).x;
-		int squareY = squareCoordinates.get(square).y;
-		
-		Pixel squareOffset = new Pixel(squareX, squareY);
-		return squareOffset;
+		return squareCoordinates.get(square);
 	}
 
 	private static boolean squareIsNonClicked(Pixel squareOffset){

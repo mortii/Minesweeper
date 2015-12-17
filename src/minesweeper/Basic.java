@@ -16,7 +16,7 @@ public class Basic {
 		
 		for (int square : squaresWithNumbersCopy){
 			setClassVariables(square);
-			solve(square);
+			solve();
 		}
 		return clickedSquares;
 	}
@@ -29,20 +29,20 @@ public class Basic {
 	}
 
 	//http://www.minesweeper.info/wiki/Strategy
-	private static void solve(int square){
+	private static void solve(){
 		if (number == flags){
 			Mouse.clickSurroundingNonClicked(squareWithNumber);
-			successUpdate(square);
+			successUpdate();
 		}
 		else if (number == flags + nonClicked){
 			Mouse.flagSurroudingNonClicked(squareWithNumber);
-			successUpdate(square);
+			successUpdate();
 		}
 	}
 
-	public static void successUpdate(int square){
+	public static void successUpdate(){
 		Main.basic++;
 		clickedSquares = true;
-		Lists.removeFromSquaresWithNumbers(square);
+		Lists.removeFromSquaresWithNumbers(squareWithNumber.square);
 	}
 }

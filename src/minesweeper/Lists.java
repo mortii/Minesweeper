@@ -27,23 +27,6 @@ public class Lists {
 		}
 	}
 	
-	public static void removeFromSquaresWithNumbers(int square){
-		int index = squaresWithNumbers.indexOf(square);
-		squaresWithNumbers.remove(index);
-	}
-	
-	public static void removeFromNonClicked(int square){
-		int index = nonClickedSquares.indexOf(square);
-		nonClickedSquares.remove(index);
-	}
-	
-	public static void printArrayList(ArrayList<Integer> liste){
-		for (int element : liste){
-			System.out.print(element + " ");
-		}
-		System.out.println();
-	}
-	
 	public static void updateNonClickedSquares(){
 		//copy ArrayList to avoid concurrency issues
 		ArrayList<Integer> nonClickedCopy = new ArrayList<Integer>(nonClickedSquares);
@@ -62,5 +45,22 @@ public class Lists {
 				}
 			}
 		}
+	}
+
+	public static void removeFromSquaresWithNumbers(int square){
+		int index = squaresWithNumbers.indexOf(square);
+		squaresWithNumbers.remove(index);
+	}
+	
+	public static void removeFromNonClicked(int square){
+		int index = nonClickedSquares.indexOf(square);
+		nonClickedSquares.remove(index);
+	}
+	
+	public static void printArrayList(ArrayList<Integer> liste){
+		for (int element : liste){
+			System.out.print(element + " ");
+		}
+		System.out.println();
 	}
 }

@@ -20,7 +20,7 @@ public class Square{
 	private int getSurroundingFlags(){
 		int surroundingFlags = 0;
 		
-		for (Integer surroundingSquare : this.surroundingSquares){
+		for (int surroundingSquare : this.surroundingSquares){
 			if (Board.getNumberOnSquare(surroundingSquare) == 9){
 				surroundingFlags++;
 			}
@@ -54,10 +54,10 @@ public class Square{
 	}
 
 	public boolean hasNextNonClicked() {
-		if (!surroundingNonClickedSquares.isEmpty()){
-			return true;
+		if (surroundingNonClickedSquares.isEmpty()){
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	public Integer nextNonClicked() {
@@ -72,18 +72,19 @@ public class Square{
 		System.out.println();
 	}
 
-	public static void updateTheSurroundingSquares(int square){
-		ArrayList<Integer> surroundingSquares = Board.getSurroundingSquares(square);
+	public static void updateTheSurroundingSquares(int centerSquare){
+		ArrayList<Integer> surroundingSquares = Board.getSurroundingSquares(centerSquare);
+		int ceneterSquareNumber = Board.getNumberOnSquare(centerSquare);
 		
 		for (int surrSquare : surroundingSquares){
-			Square squareWithNumber = Maps.squareMap.get(surrSquare);
+			Square surroundingSquareWithNumber = Maps.squareMap.get(surrSquare);
 			
-			if (squareWithNumber != null){
-				if (Board.getNumberOnSquare(square) == 9){
-					squareWithNumber.surroundingFlags++;
+			if (surroundingSquareWithNumber != null){
+				if (ceneterSquareNumber == 9){
+					surroundingSquareWithNumber.surroundingFlags++;
 				}
-				squareWithNumber.removeNonClicked(square);
-				Maps.squareMap.put(surrSquare, squareWithNumber);
+				surroundingSquareWithNumber.removeNonClicked(centerSquare);
+				Maps.squareMap.put(surrSquare, surroundingSquareWithNumber);
 			}
 		}
 	}

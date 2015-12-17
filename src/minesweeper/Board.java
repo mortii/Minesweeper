@@ -43,7 +43,7 @@ public class Board {
 		return column;
 	}
 	
-	public static int getSquare(int row, int column){
+	private static int getSquare(int row, int column){
 		int square;
 		
 		if (row == 0){

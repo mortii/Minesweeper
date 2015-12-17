@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class Bot {
 	private static Robot robot;
-	private static final int MILLISECONDS_CLICK_DELAY = 35;
+	private static final int MILLISECONDS_CLICK_DELAY = 835;
 	private static HashMap<Integer, Pixel> centerOfSquares = OnDisk.getHashMap("centerOfSquares.ser");
 	
 	public static void initiateRobot(){

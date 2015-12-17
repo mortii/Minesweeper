@@ -18,19 +18,19 @@ public class Mouse {
 		Bot.leftClickMouse();
 	}
 
-	public static void clickSurroundingNonClicked(Square square){
-		while(square.hasNextNonClicked()){
-			int next = square.nextNonClicked();
-			leftClickSquare(next);
-			Square.updateTheSurroundingSquares(next);
+	public static void clickSurroundingNonClicked(Square centerSquare){
+		while(centerSquare.hasNextNonClicked()){
+			int nextNonClicked = centerSquare.nextNonClicked();
+			leftClickSquare(nextNonClicked);
+			Square.updateTheSurroundingSquares(nextNonClicked);
 		}
 	}
 
-	public static void flagSurroudingNonClicked(Square square){
-		while(square.hasNextNonClicked()){
-			int next = square.nextNonClicked();
-			flagSquare(next);
-			Square.updateTheSurroundingSquares(next);
+	public static void flagSurroudingNonClicked(Square centerSquare){
+		while(centerSquare.hasNextNonClicked()){
+			int nextNonClicked = centerSquare.nextNonClicked();
+			flagSquare(nextNonClicked);
+			Square.updateTheSurroundingSquares(nextNonClicked);
 		}
 	}
 
@@ -53,6 +53,14 @@ public class Mouse {
 		}
 	}
 	
+	private static int getRandomSquare(ArrayList<Integer> squaresList) throws Exception{
+		int randomNumber = 0;
+		if (squaresList.size() > 1){
+			randomNumber = random.nextInt(squaresList.size()-1);
+		}
+		return squaresList.get(randomNumber);
+	}
+
 	private static void clickSquareAndUpdateSurrounding(int randomSquare){
 		leftClickSquare(randomSquare);
 		Square.updateTheSurroundingSquares(randomSquare);
@@ -69,13 +77,5 @@ public class Mouse {
 		catch (Exception e){
 			return false;
 		}
-	}
-
-	private static int getRandomSquare(ArrayList<Integer> squaresList) throws Exception{
-		int randomNumber = 0;
-		if (squaresList.size() > 1){
-			randomNumber = random.nextInt(squaresList.size()-1);
-		}
-		return squaresList.get(randomNumber);
 	}
 }

@@ -31,21 +31,17 @@ public class Advanced {
 	private static void solve(){
 		if (number - flags == 1){
 			if (nonClicked == 2){
-				if (oneAndOneTechnique()){
-					clickedSquares = true;
-				}
+				oneAndOneTechnique();
 			}
 		}
 		else if (number - flags == 2){
 			if (nonClicked == 3){
-				if (oneAndTwoTechnique()){
-					clickedSquares = true;
-				}
+				oneAndTwoTechnique();
 			}
 		}
 	}
 	
-	private static boolean oneAndOneTechnique(){
+	private static void oneAndOneTechnique(){
 		OneAndOne oneAndOne = new OneAndOne(squareWithNumber);
 		
 		if (oneAndOne.nonClickedAreNextToEachOther()){
@@ -57,16 +53,40 @@ public class Advanced {
 				}
 			}
 		}
+	}
+	
+	
+	private static boolean squareIsOne(int adjecentSquare){
+		if (squareHasNumber(adjecentSquare)){
+			Square squareWithNumber = Maps.squareMap.get(adjecentSquare);
+			int number = squareWithNumber.numberOnSquare - squareWithNumber.surroundingFlags;
+			if (number == 1){
+				return true;
+			}
+		}
 		return false;
 	}
-	
-	
-	private static void successUpdate(int square){
-		Square.updateTheSurroundingSquares(square);
-		Main.advanced++;
-		clickedSquares = true;
+
+	private static boolean squareHasNumber(int square){
+		int[] notValidNumbers = {0, 8, 9};
+		int numberOnSquare = Board.getNumberOnSquare(square);
+		
+		for (int notValid : notValidNumbers){
+			if (numberOnSquare == notValid){
+				return false;
+			}
+		}
+		return true;
 	}
-	
+
+	private static boolean squareHasMoreThanTwoNonClicked(int square){
+		Square squareWithNumber = Maps.squareMap.get(square);
+		if (squareWithNumber.surroundingNonClickedSquares.size() > 2){
+			return true;
+		}
+		return false;
+	}
+
 	private static void clickAllExceptEdgeAndNextToEdge(Advanced.OneAndOne advanced){
 		ArrayList<Integer> squaresToClick = new ArrayList<Integer>();
 		Square otherNumberedSquareData = Maps.squareMap.get(advanced.adjecentSquareWithNumber);
@@ -99,38 +119,13 @@ public class Advanced {
 		}
 	}
 	
-	private static boolean squareIsOne(int adjecentSquare){
-		if (squareHasNumber(adjecentSquare)){
-			Square squareWithNumber = Maps.squareMap.get(adjecentSquare);
-			int number = squareWithNumber.numberOnSquare - squareWithNumber.surroundingFlags;
-			if (number == 1){
-				return true;
-			}
-		}
-		return false;
+	private static void successUpdate(int square){
+		Square.updateTheSurroundingSquares(square);
+		Main.advanced++;
+		clickedSquares = true;
 	}
 
-	private static boolean squareHasNumber(int square){
-		int[] notValidNumbers = {0, 8, 9};
-		int numberOnSquare = Board.getNumberOnSquare(square);
-		
-		for (int notValid : notValidNumbers){
-			if (numberOnSquare == notValid){
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private static boolean squareHasMoreThanTwoNonClicked(int square){
-		Square squareWithNumber = Maps.squareMap.get(square);
-		if (squareWithNumber.surroundingNonClickedSquares.size() > 2){
-			return true;
-		}
-		return false;
-	}
-	
-	private static boolean oneAndTwoTechnique(){
+	private static void oneAndTwoTechnique(){
 		OneAndTwo oneAndTwoData = new OneAndTwo(squareWithNumber);
 		
 		if (oneAndTwoData.nonClickedAreNextToEachOther()){
@@ -138,16 +133,13 @@ public class Advanced {
 				System.out.println("advancedTechnique 1-2");
 				Mouse.flagSquare(oneAndTwoData.lastNonClicked);
 				successUpdate(oneAndTwoData.lastNonClicked);
-				return true;
 			}
 			else if (squareIsOne(oneAndTwoData.lastAdjecentNumbered)){
 				System.out.println("advancedTechnique 1-2");
 				Mouse.flagSquare(oneAndTwoData.firstNonClicked);
 				successUpdate(oneAndTwoData.firstNonClicked);
-				return true;
 			}
 		}
-		return false;
 	}
 	
 	private static class OneAndOne {
