@@ -12,7 +12,7 @@ public class Bot {
 	private static final int MILLISECONDS_CLICK_DELAY = 5;
 	private static HashMap<Integer, Pixel> centerOfSquares = OnDisk.getHashMap("centerOfSquares.ser");
 	
-	public static void initiateRobot(){
+	public static void initiate(){
 		try {
 			robot = new Robot();
 		} catch (AWTException e) {

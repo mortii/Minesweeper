@@ -18,9 +18,9 @@ public class Main {
 	public static void start(){
 		Window.setMinesweeperSizeAndPosition();
 		Window.setMinesweeperToForeground();
-		Bot.initiateRobot();
+		Bot.initiate();
 		Mouse.clickFirstSquare();
-		Board.updateEntireBoard();
+		Board.fillBoard();
 		Lists.fillArrayLists();
 		Maps.fillSquareMap();
 	}

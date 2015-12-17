@@ -10,7 +10,7 @@ public class Board {
 	private static BufferedImage boardImage;
 	private static Rectangle boardRectangle = new Rectangle(83, 186, 975, 520);
 
-	public static void updateEntireBoard(){
+	public static void fillBoard(){
 		updateBoardImage();
 		
 		for (int square = 0; square < board.length * board[0].length; square++){
