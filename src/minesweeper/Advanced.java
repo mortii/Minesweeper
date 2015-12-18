@@ -8,16 +8,16 @@ public class Advanced {
 	private static int number;
 	private static int flags;
 	private static int nonClicked;
-	private static boolean clickedSquares;
+	private static boolean hasClickedSquares;
 	
 	public static boolean doAdvancedSolving(){
-		clickedSquares = false;
+		hasClickedSquares = false;
 		
 		for (int square : Lists.squaresWithNumbers){
 			setClassVariables(square);
 			solve();
 		}
-		return clickedSquares;
+		return hasClickedSquares;
 	}
 	
 	private static void setClassVariables(int square){
@@ -46,7 +46,7 @@ public class Advanced {
 		
 		if (oneAndOne.nonClickedAreNextToEachOther()){
 			if (squareIsOne(oneAndOne.adjecentSquareWithNumber)){
-				if (squareHasMoreThanTwoNonClicked(oneAndOne.adjecentSquareWithNumber)){
+				if (oneAndOne.adjecentNumberedHasMoreThanTwoNonClicked()){
 					System.out.println("advancedTechnique 1-1");
 					clickAllExceptEdgeAndNextToEdge(oneAndOne);
 					successUpdate(squareWithNumber.square);
@@ -57,9 +57,10 @@ public class Advanced {
 	
 	private static boolean squareIsOne(int adjecentSquare){
 		if (squareHasNumber(adjecentSquare)){
-			Square squareWithNumber = Maps.squaresWithNumbersMap.get(adjecentSquare);
-			int number = squareWithNumber.numberOnSquare - squareWithNumber.surroundingFlags;
-			if (number == 1){
+			Square adjecentNumbered = Maps.squaresWithNumbersMap.get(adjecentSquare);
+			int adjecentNumber = adjecentNumbered.numberOnSquare - adjecentNumbered.surroundingFlags;
+			
+			if (adjecentNumber == 1){
 				return true;
 			}
 		}
@@ -121,7 +122,7 @@ public class Advanced {
 	private static void successUpdate(int square){
 		Square.updateTheSurroundingSquares(square);
 		Main.advanced++;
-		clickedSquares = true;
+		hasClickedSquares = true;
 	}
 
 	private static void oneAndTwoTechnique(){
@@ -189,6 +190,14 @@ public class Advanced {
 				this.nonClickedEdge = tempAdjecentToEdge;
 				this.nonClickedAdjecentToEdge = tempEdge;
 			}
+		}
+		
+		public boolean adjecentNumberedHasMoreThanTwoNonClicked(){
+			Square adjecentNumbered = Maps.squaresWithNumbersMap.get(adjecentSquareWithNumber);
+			if (adjecentNumbered.surroundingNonClickedSquares.size() > 2){
+				return true;
+			}
+			return false;
 		}
 	}
 
