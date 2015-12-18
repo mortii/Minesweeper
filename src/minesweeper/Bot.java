@@ -7,9 +7,15 @@ import java.awt.event.InputEvent;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+/*
+ * MILLISECONDS_CLICK_DELAY determines the speed of the program,
+ * but due to a race condition in the Robot class anything under 35
+ * gets increasingly unreliable.
+ * The race condition can cause the mouse to move before the click is registered.
+ */
 public class Bot {
 	private static Robot robot;
-	private static final int MILLISECONDS_CLICK_DELAY = 30;
+	private static final int MILLISECONDS_CLICK_DELAY = 35;
 	private static HashMap<Integer, Pixel> centerOfSquares = OnDisk.getHashMap("centerOfSquares.ser");
 	
 	public static void initiate(){
