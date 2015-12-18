@@ -201,7 +201,7 @@ public class Advanced {
 			this.square = squareData.square;
 		}
 		
-		private int[] orderTheNonClickedSquares(){
+		private int[] sortNonClickedSquares(){
 			int tempFirst = this.squareData.surroundingNonClickedSquares.get(0);
 			int tempMiddle = this.squareData.surroundingNonClickedSquares.get(1);
 			int tempLast = this.squareData.surroundingNonClickedSquares.get(2);
@@ -212,7 +212,7 @@ public class Advanced {
 		}
 		
 		public boolean nonClickedAreNextToEachOther(){
-			int[] sortedSquares = orderTheNonClickedSquares();
+			int[] sortedSquares = sortNonClickedSquares();
 			int firstNonClicked = sortedSquares[0];
 			int middleNonClicked = sortedSquares[1];
 			int lastNonClicked = sortedSquares[2];
