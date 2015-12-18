@@ -4,6 +4,12 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+/*
+ * The colors are unfortunately not distributed uniformly across the Board
+ * making this task a lot harder than expected and took a lot of trial and error.
+ * Different graphics cards may cause different results, so you may have to change
+ * some values.
+ */
 public class ComputerVision {
 	private static Pixel onePixel = new Pixel(16, 16);
 	private static Pixel twoPixel = new Pixel(23, 26);
