@@ -7,7 +7,7 @@ import java.util.HashMap;
 /*
  * The colors are unfortunately not distributed uniformly across the Board
  * making this task a lot harder than expected and took a lot of trial and error.
- * Different graphics cards may cause different results, so you may have to change
+ * Different graphics cards may cause different results, so you may have to tweak
  * some values.
  */
 public class ComputerVision {

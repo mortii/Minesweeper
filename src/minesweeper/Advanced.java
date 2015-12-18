@@ -27,7 +27,7 @@ public class Advanced {
 		nonClicked = squareWithNumber.surroundingNonClickedSquares.size();
 	}
 
-//	http://www.minesweeper.info/wiki/Strategy
+	//http://www.minesweeper.info/wiki/Strategy
 	private static void solve(){
 		if (number - flags == 1){
 			if (nonClicked == 2){
@@ -77,14 +77,6 @@ public class Advanced {
 			}
 		}
 		return true;
-	}
-
-	private static boolean squareHasMoreThanTwoNonClicked(int square){
-		Square squareWithNumber = Maps.squaresWithNumbersMap.get(square);
-		if (squareWithNumber.surroundingNonClickedSquares.size() > 2){
-			return true;
-		}
-		return false;
 	}
 
 	private static void clickAllExceptEdgeAndNextToEdge(Advanced.OneAndOne advanced){
