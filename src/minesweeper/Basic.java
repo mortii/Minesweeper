@@ -7,18 +7,18 @@ public class Basic {
 	private static int number;
 	private static int flags;
 	private static int nonClicked;
-	private static boolean clickedSquares;
+	private static boolean hasClickedSquares;
 	
 	public static boolean doBasicSolving(){
 		//copy ArrayList to avoid concurrency issues
 		ArrayList<Integer> squaresWithNumbersCopy = new ArrayList<Integer>(Lists.squaresWithNumbers);
-		clickedSquares = false;
+		hasClickedSquares = false;
 		
 		for (int square : squaresWithNumbersCopy){
 			setClassVariables(square);
 			solve();
 		}
-		return clickedSquares;
+		return hasClickedSquares;
 	}
 	
 	private static void setClassVariables(int square){
@@ -40,9 +40,9 @@ public class Basic {
 		}
 	}
 
-	public static void successUpdate(){
+	private static void successUpdate(){
 		Main.basic++;
-		clickedSquares = true;
+		hasClickedSquares = true;
 		Lists.removeFromSquaresWithNumbers(squareWithNumber.square);
 	}
 }
