@@ -45,17 +45,16 @@ public class Advanced {
 		OneAndOne oneAndOne = new OneAndOne(squareWithNumber);
 		
 		if (oneAndOne.nonClickedAreNextToEachOther()){
-			if (squareIsOne(oneAndOne.adjecentSquareWithNumber)){
-				if (oneAndOne.adjecentNumberedHasMoreThanTwoNonClicked()){
-					System.out.println("advancedTechnique 1-1");
-					clickAllExceptEdgeAndNextToEdge(oneAndOne);
+			if (squareHasNumberOne(oneAndOne.adjecentSquareWithNumber)){
+				if (hasMoreThanTwoNonClicked(oneAndOne.adjecentSquareWithNumber)){
+					clickAllExceptEdgeAndAdjecentToEdge(oneAndOne);
 					successUpdate(squareWithNumber.square);
 				}
 			}
 		}
 	}
 	
-	private static boolean squareIsOne(int adjecentSquare){
+	private static boolean squareHasNumberOne(int adjecentSquare){
 		if (squareHasNumber(adjecentSquare)){
 			Square adjecentNumbered = Maps.squaresWithNumbersMap.get(adjecentSquare);
 			int adjecentNumber = adjecentNumbered.numberOnSquare - adjecentNumbered.surroundingFlags;
@@ -79,16 +78,21 @@ public class Advanced {
 		return true;
 	}
 
-	private static void clickAllExceptEdgeAndNextToEdge(Advanced.OneAndOne advanced){
-		ArrayList<Integer> squaresToClick = new ArrayList<Integer>();
-		Square otherNumberedSquareData = Maps.squaresWithNumbersMap.get(advanced.adjecentSquareWithNumber);
-		
-		addSquaresToClick(squaresToClick, otherNumberedSquareData);
-		removeEdgeAndNextToEdge(squaresToClick, advanced);
-	
-		if (squaresToClick.size() > 0){
-			clickSquares(squaresToClick);
+	private static boolean hasMoreThanTwoNonClicked(int square){
+		Square squareWithNumber = Maps.squaresWithNumbersMap.get(square);
+		if (squareWithNumber.surroundingNonClickedSquares.size() > 2){
+			return true;
 		}
+		return false;
+	}
+
+	private static void clickAllExceptEdgeAndAdjecentToEdge(OneAndOne oneAndOne){
+		ArrayList<Integer> squaresToClick = new ArrayList<Integer>();
+		Square adjecentNumbered = Maps.squaresWithNumbersMap.get(oneAndOne.adjecentSquareWithNumber);
+		
+		addSquaresToClick(squaresToClick, adjecentNumbered);
+		removeEdgeAndAdjecentToEdge(squaresToClick, oneAndOne);
+		clickSquares(squaresToClick);
 	}
 
 	private static void addSquaresToClick(ArrayList<Integer> squaresToClick, Square square){
@@ -97,10 +101,10 @@ public class Advanced {
 		}
 	}
 
-	private static void removeEdgeAndNextToEdge(ArrayList<Integer> squaresToClick, Advanced.OneAndOne advanced){
-		int indexEdge = squaresToClick.indexOf(advanced.nonClickedEdge);
+	private static void removeEdgeAndAdjecentToEdge(ArrayList<Integer> squaresToClick, OneAndOne oneAndOne){
+		int indexEdge = squaresToClick.indexOf(oneAndOne.nonClickedEdge);
 		squaresToClick.remove(indexEdge);
-		int indexNonEdge = squaresToClick.indexOf(advanced.nonClickedAdjecentToEdge);
+		int indexNonEdge = squaresToClick.indexOf(oneAndOne.nonClickedAdjecentToEdge);
 		squaresToClick.remove(indexNonEdge);
 	}
 
@@ -112,24 +116,23 @@ public class Advanced {
 	}
 	
 	private static void successUpdate(int square){
+		System.out.println("advanced technique");
 		Square.updateTheSurroundingSquares(square);
 		Main.advanced++;
 		hasClickedSquares = true;
 	}
 
 	private static void oneAndTwoTechnique(){
-		OneAndTwo oneAndTwoData = new OneAndTwo(squareWithNumber);
+		OneAndTwo oneAndTwo = new OneAndTwo(squareWithNumber);
 		
-		if (oneAndTwoData.nonClickedAreNextToEachOther()){
-			if (squareIsOne(oneAndTwoData.firstAdjecentNumbered)){
-				System.out.println("advancedTechnique 1-2");
-				Mouse.flagSquare(oneAndTwoData.lastNonClicked);
-				successUpdate(oneAndTwoData.lastNonClicked);
+		if (oneAndTwo.nonClickedAreNextToEachOther()){
+			if (squareHasNumberOne(oneAndTwo.firstAdjecentNumbered)){
+				Mouse.flagSquare(oneAndTwo.lastNonClicked);
+				successUpdate(oneAndTwo.lastNonClicked);
 			}
-			else if (squareIsOne(oneAndTwoData.lastAdjecentNumbered)){
-				System.out.println("advancedTechnique 1-2");
-				Mouse.flagSquare(oneAndTwoData.firstNonClicked);
-				successUpdate(oneAndTwoData.firstNonClicked);
+			else if (squareHasNumberOne(oneAndTwo.lastAdjecentNumbered)){
+				Mouse.flagSquare(oneAndTwo.firstNonClicked);
+				successUpdate(oneAndTwo.firstNonClicked);
 			}
 		}
 	}
@@ -182,14 +185,6 @@ public class Advanced {
 				this.nonClickedEdge = tempAdjecentToEdge;
 				this.nonClickedAdjecentToEdge = tempEdge;
 			}
-		}
-		
-		public boolean adjecentNumberedHasMoreThanTwoNonClicked(){
-			Square adjecentNumbered = Maps.squaresWithNumbersMap.get(adjecentSquareWithNumber);
-			if (adjecentNumbered.surroundingNonClickedSquares.size() > 2){
-				return true;
-			}
-			return false;
 		}
 	}
 
