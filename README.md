@@ -8,7 +8,7 @@ http://forum.xda-developers.com/showthread.php?t=2096449
 ### How to use:
 **This only works with a 1920x1080 screen resolution on Windows.**
 
-**ComputerVision might be a little off depending on your graphics card, if that is the case you have to tweak some of the values**
+ComputerVision might be a little off depending on your graphics card, if that is the case you have to tweak some of the values.
 
 The minesweeper board must have the same tile grid as the "Advanced" difficulty, i.e. 16x30.
 You also need to uncheck the "Display animations" and "Allow question marks" boxes to get the optimal results.
