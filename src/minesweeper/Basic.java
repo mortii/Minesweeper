@@ -22,7 +22,7 @@ public class Basic {
 	}
 	
 	private static void setClassVariables(int square){
-		squareWithNumber = Maps.squareMap.get(square);
+		squareWithNumber = Maps.squaresWithNumbersMap.get(square);
 		number = squareWithNumber.numberOnSquare;
 		flags = squareWithNumber.surroundingFlags;
 		nonClicked = squareWithNumber.surroundingNonClickedSquares.size();

@@ -21,7 +21,7 @@ public class Advanced {
 	}
 	
 	private static void setClassVariables(int square){
-		squareWithNumber = Maps.squareMap.get(square);
+		squareWithNumber = Maps.squaresWithNumbersMap.get(square);
 		number = squareWithNumber.numberOnSquare;
 		flags = squareWithNumber.surroundingFlags;
 		nonClicked = squareWithNumber.surroundingNonClickedSquares.size();
@@ -57,7 +57,7 @@ public class Advanced {
 	
 	private static boolean squareIsOne(int adjecentSquare){
 		if (squareHasNumber(adjecentSquare)){
-			Square squareWithNumber = Maps.squareMap.get(adjecentSquare);
+			Square squareWithNumber = Maps.squaresWithNumbersMap.get(adjecentSquare);
 			int number = squareWithNumber.numberOnSquare - squareWithNumber.surroundingFlags;
 			if (number == 1){
 				return true;
@@ -79,7 +79,7 @@ public class Advanced {
 	}
 
 	private static boolean squareHasMoreThanTwoNonClicked(int square){
-		Square squareWithNumber = Maps.squareMap.get(square);
+		Square squareWithNumber = Maps.squaresWithNumbersMap.get(square);
 		if (squareWithNumber.surroundingNonClickedSquares.size() > 2){
 			return true;
 		}
@@ -88,7 +88,7 @@ public class Advanced {
 
 	private static void clickAllExceptEdgeAndNextToEdge(Advanced.OneAndOne advanced){
 		ArrayList<Integer> squaresToClick = new ArrayList<Integer>();
-		Square otherNumberedSquareData = Maps.squareMap.get(advanced.adjecentSquareWithNumber);
+		Square otherNumberedSquareData = Maps.squaresWithNumbersMap.get(advanced.adjecentSquareWithNumber);
 		
 		addSquaresToClick(squaresToClick, otherNumberedSquareData);
 		removeEdgeAndNextToEdge(squaresToClick, advanced);

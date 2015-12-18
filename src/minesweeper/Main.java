@@ -22,7 +22,7 @@ public class Main {
 		Mouse.clickFirstSquare();
 		Board.fillBoard();
 		Lists.fillArrayLists();
-		Maps.fillSquareMap();
+		Maps.fillSquaresWithNumbersMap();
 	}
 
 	public static void solve(){

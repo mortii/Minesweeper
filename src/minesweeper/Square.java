@@ -61,14 +61,14 @@ public class Square{
 		int ceneterSquareNumber = Board.getNumberOnSquare(centerSquare);
 		
 		for (int surrSquare : surroundingSquares){
-			Square surroundingSquareWithNumber = Maps.squareMap.get(surrSquare);
+			Square surroundingSquareWithNumber = Maps.squaresWithNumbersMap.get(surrSquare);
 			
 			if (surroundingSquareWithNumber != null){
 				if (ceneterSquareNumber == 9){
  					surroundingSquareWithNumber.surroundingFlags++;
 				}
 				surroundingSquareWithNumber.removeNonClicked(centerSquare);
-				Maps.squareMap.put(surrSquare, surroundingSquareWithNumber);
+				Maps.squaresWithNumbersMap.put(surrSquare, surroundingSquareWithNumber);
 			}
 		}
 	}

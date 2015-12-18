@@ -46,7 +46,7 @@ public class Lists {
 	
 	private static void addToSquaresWithNumbers(int square){
 		Square squareWithNumber = new Square(square);
-		Maps.squareMap.put(square, squareWithNumber);
+		Maps.squaresWithNumbersMap.put(square, squareWithNumber);
 		squaresWithNumbers.add(square);
 	}
 
@@ -57,9 +57,9 @@ public class Lists {
 
 	public static void updateSquaresWithNumbers(){
 		for (int square : squaresWithNumbers){
-			Square squareWithNumber = Maps.squareMap.get(square);
+			Square squareWithNumber = Maps.squaresWithNumbersMap.get(square);
 			squareWithNumber.updateSurroundings();
-			Maps.squareMap.put(square, squareWithNumber);
+			Maps.squaresWithNumbersMap.put(square, squareWithNumber);
 		}
 	}
 	

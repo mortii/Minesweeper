@@ -43,7 +43,7 @@ public class Mouse {
 	public static boolean clickRandomSurroundingNonClicked(){
 		try{
 			int randomSquare = getRandomSquare(Lists.squaresWithNumbers);
-			Square squareWithNumber = Maps.squareMap.get(randomSquare);
+			Square squareWithNumber = Maps.squaresWithNumbersMap.get(randomSquare);
 			randomSquare = getRandomSquare(squareWithNumber.surroundingNonClickedSquares);
 			clickSquareAndUpdateSurrounding(randomSquare);
 			return true;
