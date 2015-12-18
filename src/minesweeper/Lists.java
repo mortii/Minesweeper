@@ -8,14 +8,18 @@ public class Lists {
 
 	public static void fillArrayLists(){
 		for (int square = 0; square < 30*16; square++){
-			int number = Board.getNumberOnSquare(square);
-			
-			if (number == 8){
-				nonClickedSquares.add(square);
-			}
-			else if (number != 0 && number != 9){
-				squaresWithNumbers.add(square);
-			}
+			addSquareToOneList(square);
+		}
+	}
+	
+	private static void addSquareToOneList(int square){
+		int number = Board.getNumberOnSquare(square);
+		
+		if (number == 8){
+			nonClickedSquares.add(square);
+		}
+		else if (number != 0 && number != 9){
+			squaresWithNumbers.add(square);
 		}
 	}
 	
