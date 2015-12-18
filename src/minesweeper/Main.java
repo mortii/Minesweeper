@@ -15,7 +15,7 @@ public class Main {
 		Board.printBoard();
 	}
 	
-	public static void start(){
+	private static void start(){
 		Window.setMinesweeperSizeAndPosition();
 		Window.setMinesweeperToForeground();
 		Bot.initiate();
@@ -25,7 +25,7 @@ public class Main {
 		Maps.fillSquaresWithNumbersMap();
 	}
 
-	public static void solve(){
+	private static void solve(){
 		int roundsWithoutClicking = 0;
 
 		while (Window.gameNotOver()){
