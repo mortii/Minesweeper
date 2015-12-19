@@ -1,7 +1,6 @@
 
 
-![Minesweeper solver]
-(https://giant.gfycat.com/DimwittedFancyGoldeneye.gif)
+![Minesweeper solver](http://giant.gfycat.com/DimwittedFancyGoldeneye.gif)
 
 
 
