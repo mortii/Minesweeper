@@ -1,7 +1,7 @@
 
 
 ![Minesweeper solver]
-(https://gfycat.com/DimwittedFancyGoldeneye.gif)
+(https://giant.gfycat.com/DimwittedFancyGoldeneye.gif)
 
 
 ### Download the Windows 7 minesweeper here:
