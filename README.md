@@ -1,11 +1,4 @@
-
-
-![cute puppy](http://zippy.gfycat.com/LastViciousDuiker.gif)
 ![Minesweeper solver](http://giant.gfycat.com/EveryCheerfulAmericanavocet.gif)
-![Minesweeper solver](http://giant.gfycat.com/BossyWeightyHusky.gif)
-![Minesweeper solver](http://giant.gfycat.com/DimwittedFancyGoldeneye.gif)
-
-
 
 ### Download the Windows 7 minesweeper here:
 http://forum.xda-developers.com/showthread.php?t=2096449
