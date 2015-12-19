@@ -1,6 +1,9 @@
 
 
-![Minesweeper solver](http://zippy.gfycat.com/LastViciousDuiker.gif)
+![cute puppy](http://zippy.gfycat.com/LastViciousDuiker.gif)
+![Minesweeper solver](http://giant.gfycat.com/EveryCheerfulAmericanavocet.gif)
+![Minesweeper solver](http://giant.gfycat.com/BossyWeightyHusky.gif)
+![Minesweeper solver](http://giant.gfycat.com/DimwittedFancyGoldeneye.gif)
 
 
 
