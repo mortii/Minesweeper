@@ -1,6 +1,8 @@
 
 
-![Minesweeper solver](http://giant.gfycat.com/EveryCheerfulAmericanavocet.gif)
+![Minesweeper solver]
+(https://gfycat.com/DimwittedFancyGoldeneye)
+
 
 ### Download the Windows 7 minesweeper here:
 http://forum.xda-developers.com/showthread.php?t=2096449
