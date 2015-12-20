@@ -1,4 +1,5 @@
-![Minesweeper solver](http:/giant.gfycat.com/ExhaustedQuaintElephantbeetle.gif)
+![solver](https:/giant.gfycat.com/ExhaustedQuaintElephantbeetle.gif)
+![Minesweeper solver](http://giant.gfycat.com/EveryCheerfulAmericanavocet.gif)
 
 ### Download the Windows 7 minesweeper here:
 http://forum.xda-developers.com/showthread.php?t=2096449
